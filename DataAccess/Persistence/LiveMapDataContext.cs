@@ -10,7 +10,7 @@ public class LiveMapDataContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;");
+        optionsBuilder.UseSqlServer("Server=.;Database=LiveMap;User Id=root;Password=root;");
         base.OnConfiguring(optionsBuilder);
     }
 }
