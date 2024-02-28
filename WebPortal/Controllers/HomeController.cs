@@ -1,18 +1,13 @@
 using System.Diagnostics;
+using DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-public class HomeController : Controller
+public class HomeController(DbContext context) : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
     public IActionResult Index()
     {
         return View();
@@ -27,5 +22,25 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> CanConnect()
+    {
+        try
+        {
+            if (await context.Database.CanConnectAsync())
+            {
+                return Ok("Connection to the database was successful.");
+            }
+            else
+            {
+                return Problem("Unable to connect to the database.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return Problem($"An error occurred while trying to connect to the database: {ex.Message}");
+        }
     }
 }
