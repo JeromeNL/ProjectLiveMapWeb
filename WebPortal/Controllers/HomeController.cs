@@ -6,7 +6,7 @@ using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-public class HomeController(DbContext context) : Controller
+public class HomeController(LiveMapDbContext context) : Controller
 {
     public IActionResult Index()
     {
