@@ -20,20 +20,20 @@ public class FacilityController : Controller
         return View(facilities);
     }
     
+    [HttpGet]
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Create(Facility facility)
+    public async Task<IActionResult> Create([FromBody] Facility facility)
     {
-        if (!ModelState.IsValid) return View(facility);
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         
         _context.Facilities.Add(facility);
-        _context.SaveChanges();
-        return RedirectToAction(nameof(Index));
+        await _context.SaveChangesAsync();
+        return Ok(facility);
     }
     
     [HttpGet]
@@ -44,5 +44,12 @@ public class FacilityController : Controller
         if (facility == null) return NotFound();
         
         return View(facility);
+    }
+
+    [HttpGet]
+    public IActionResult GetFacilitiesJson()
+    {
+        var facilities = _context.Facilities.ToList();
+        return Json(facilities);
     }
 }

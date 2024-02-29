@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using DataAccess;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Models;
@@ -15,7 +16,8 @@ public class HomeController(LiveMapDbContext context) : Controller
 
     public IActionResult Map()
     {
-        return View();
+        var facilities = context.Facilities.ToList();
+        return View(facilities);
     }
 
     public IActionResult Privacy()

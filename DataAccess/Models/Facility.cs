@@ -18,4 +18,13 @@ public class Facility
     
     [Required]
     public string Type { get; set; }
+
+    [Required]
+    public double Latitude { get; set; }
+    
+    [Required]
+    public double Longitude { get; set; }
+
+    [Required]
+    public string IconUrl { get; set; }
 }
