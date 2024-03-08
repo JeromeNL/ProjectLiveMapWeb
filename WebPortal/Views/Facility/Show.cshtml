@@ -1,0 +1,13 @@
+﻿@using DataAccess.Models
+@model DataAccess.Models.Facility
+
+@{
+    ViewBag.Title = "Faciliteit bekijken";
+    Layout = "_Layout";
+}
+
+<h2>Faciliteit bekijken</h2>
+<p>ID: @Model.Id</p>
+<p>Naam: @Model.Name</p>
+<p>Beschrijving: @Model.Description</p>
+<p>Type: @Model.Type</p>

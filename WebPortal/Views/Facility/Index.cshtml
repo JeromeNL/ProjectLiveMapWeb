@@ -1,0 +1,16 @@
+﻿@model List<DataAccess.Models.Facility>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Facilities</h2>
+
+@foreach (var facility in Model)
+{
+    <div>
+        <h3>@facility.Name</h3>
+        <p>@facility.Description</p>
+    </div>
+}
