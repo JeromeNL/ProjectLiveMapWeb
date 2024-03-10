@@ -17,4 +17,7 @@ public class FacilityReport
     
     [Required]
     public string Description { get; set; }
+    
+    [Required]
+    public DateTime CreatedAt { get; set; }
 }

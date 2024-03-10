@@ -17,5 +17,8 @@ public class LiveMapDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.InitializeSeedData();
+
+        modelBuilder.Entity<FacilityReport>()
+            .Property(u => u.CreatedAt).HasDefaultValueSql("getdate()");
     }
 }
