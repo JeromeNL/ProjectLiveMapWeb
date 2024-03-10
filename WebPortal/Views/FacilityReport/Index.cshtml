@@ -7,13 +7,13 @@
 
 <h1 class="text-2xl font-semibold">Meldingen inzien</h1>
 
-<div class="overflow-x-auto mt-16">
+<div class="overflow-x-auto mt-2">
     <table id="datatable" class="table gap-y-5">
         <thead>
         <tr>
-            <th></th>
+            <th>#</th>
             <th>Naam faciliteit</th>
-            <th>Omschrijving foutmelding</th>
+            <th>Omschrijving melding</th>
             <th>Datum ingediend</th>
             <th>Goedkeuren/afkeuren</th>
         </tr>
@@ -27,10 +27,35 @@
                 <td>@report.Description</td>
                 <td>@report.CreatedAt</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-success">Goedkeuren</a>
-                    <a href="#" class="btn btn-sm btn-error">Afkeuren</a>
+                    <button class="btn btn-sm btn-success" 
+                            onclick="document.getElementById('goedkeuren_@report.Id').showModal()">Goedkeuren</button>
+                    <button class="btn btn-sm btn-error" 
+                            onclick="document.getElementById('afkeuren_@report.Id').showModal()">Afkeuren</button>
                 </td>
             </tr>
+
+            @* Goedkeuren modal *@
+            <dialog id="goedkeuren_@report.Id" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 class="font-bold text-lg">Melding goedkeuren</h3>
+                    <p class="py-4">Weet je zeker dat je deze melding wilt <span class="text-green-700 font-bold">goedkeuren</span>?</p>
+                    <p class="text-red-600 font-bold">Hiermee wordt de faciliteit automatisch aangepast</p>
+                </div>
+            </dialog>
+
+            @* Afkeuren modal *@
+            <dialog id="afkeuren_@report.Id" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 class="font-bold text-lg">Melding afkeuren</h3>
+                    <p class="py-4">Weet je zeker dat je deze melding wilt <span class="text-red-600 font-bold">afkeuren</span>?</p>
+                </div>
+            </dialog>
         }
         </tbody>
     </table>
@@ -42,7 +67,8 @@
       new DataTable('#datatable', {
            searchable: true,
             sortable: true,
-            perPage: 10
+            perPage: 10,
+            order: [4, 'asc'],
       });
       </script>
 }

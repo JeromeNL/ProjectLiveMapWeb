@@ -13,9 +13,9 @@ public class FacilityReportController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var reports = _context.FacilityReports.Include(report => report.Facility).OrderBy(report => report.CreatedAt).ToList();
+        var reports = await _context.FacilityReports.Include(report => report.Facility).OrderBy(report => report.CreatedAt).ToListAsync();
         return View(reports);
     }
 }
