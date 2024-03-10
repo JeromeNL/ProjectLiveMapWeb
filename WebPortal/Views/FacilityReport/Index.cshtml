@@ -39,11 +39,10 @@
 @section Scripts
 {
     <script>
-      $("#datatable").DataTable({
-      searchPanes: {
-              layout: 'columns-2'
-          },
-      dom: 'Plfrtip'
+      new DataTable('#datatable', {
+           searchable: true,
+            sortable: true,
+            perPage: 10
       });
       </script>
 }
