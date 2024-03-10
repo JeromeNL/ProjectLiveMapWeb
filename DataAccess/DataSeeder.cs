@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using DataAccess.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
@@ -50,6 +51,7 @@ public static class DataSeeder
                 Id = -1,
                 FacilityId = -1,
                 Description = "Het sportveld is in goede staat.",
+                Status = FacilityReportStatus.Pending,
                 CreatedAt = DateTime.Now
             },
             new()
@@ -57,6 +59,7 @@ public static class DataSeeder
                 Id = -2,
                 FacilityId = -2,
                 Description = "Het zwemmeer is in goede staat.",
+                Status = FacilityReportStatus.Pending,
                 CreatedAt = DateTime.Now
             }
         };

@@ -18,4 +18,9 @@ public class FacilityReportController : Controller
         var reports = await _context.FacilityReports.Include(report => report.Facility).OrderBy(report => report.CreatedAt).ToListAsync();
         return View(reports);
     }
+
+    public async Task<IActionResult> DenyReport()
+    {
+        return RedirectToAction(nameof(Index));
+    }
 }

@@ -1,4 +1,5 @@
 using DataAccess.Models;
+using DataAccess.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
@@ -19,6 +20,9 @@ public class LiveMapDbContext : DbContext
         modelBuilder.InitializeSeedData();
 
         modelBuilder.Entity<FacilityReport>()
-            .Property(u => u.CreatedAt).HasDefaultValueSql("getdate()");
+            .Property(report => report.CreatedAt).HasDefaultValueSql("getdate()");
+
+        modelBuilder.Entity<FacilityReport>()
+            .Property(report => report.Status).HasDefaultValue(FacilityReportStatus.Pending);
     }
 }
