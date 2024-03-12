@@ -16,6 +16,9 @@ public class FacilityReport
     [Required]
     public Facility Facility { get; set; }
     
+   
+    public ProposedFacilityChange? ProposedFacilityChange { get; set; }
+    
     [Required]
     public string Description { get; set; }
     

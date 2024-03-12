@@ -17,20 +17,21 @@ public static class FacilityEndpoints
                 return Results.NotFound($"Facility with ID {data.FacilityId} not found.");
             }
             ;
-            var facility = new Facility();
+            var ProposedFacilityChange = new ProposedFacilityChange();
             
-            facility.Name = data.Name;
-            facility.Description = data.Description;
-            facility.Type = data.Type;
-            facility.IconUrl = data.IconUrl;
-            facility.Latitude = data.Latitude;
-            facility.Longitude = data.Longitude;
+            ProposedFacilityChange.Name = data.Name;
+            ProposedFacilityChange.Description = data.Description;
+            ProposedFacilityChange.Type = data.Type;
+            ProposedFacilityChange.IconUrl = data.IconUrl;
+            ProposedFacilityChange.Latitude = data.Latitude;
+            ProposedFacilityChange.Longitude = data.Longitude;
             
             facilityReport.FacilityId = data.FacilityId;
             facilityReport.Description = data.Description;
             facilityReport.CreatedAt = DateTime.Now;
             facilityReport.Status = FacilityReportStatus.Pending;
-            facilityReport.Facility = facility;
+            facilityReport.ProposedFacilityChange = ProposedFacilityChange;
+            facilityReport.Facility = existingFacility;
 
             context.FacilityReports.Add(facilityReport);
             await context.SaveChangesAsync();

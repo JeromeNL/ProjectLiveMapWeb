@@ -52,7 +52,8 @@ public static class DataSeeder
                 FacilityId = -1,
                 Description = "Het sportveld is in goede staat.",
                 Status = FacilityReportStatus.Pending,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                
             },
             new()
             {
