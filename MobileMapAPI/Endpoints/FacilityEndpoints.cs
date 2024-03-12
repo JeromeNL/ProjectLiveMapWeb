@@ -9,9 +9,7 @@ public static class FacilityEndpoints
     {
         app.MapPost("/facility/requestchange", (FacilityReportApiModel data) =>
         {
-            // Verwerk hier de ontvangen data
-            return Results.Ok($"Faciliteit {data.Name} met ID {data.FacilityId} ontvangen.");
+            return Results.Ok($"Facility {data.Name} with ID {data.FacilityId} received!.");
         });
-        // Je kunt hier meer facility-gerelateerde endpoints toevoegen
     }
 }
