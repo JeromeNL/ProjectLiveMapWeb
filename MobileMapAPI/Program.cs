@@ -1,8 +1,13 @@
+using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using MobileMapAPI.ApiModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB")));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapFacilityEndpoints();
+FacilityEndpoints.MapFacilityEndpoints(app);
+
 
 app.Run();
