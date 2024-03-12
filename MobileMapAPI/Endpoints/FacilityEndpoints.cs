@@ -1,8 +1,7 @@
 using DataAccess;
 using DataAccess.Models;
+using DataAccess.Models.Enums;
 using MobileMapAPI.ApiModels;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 
 public static class FacilityEndpoints
 {
@@ -10,23 +9,33 @@ public static class FacilityEndpoints
     {
         app.MapPost("/facility/requestchange", async (LiveMapDbContext context, FacilityReportApiModel data) =>
         {
+            var existingFacility = await context.Facilities.FindAsync(data.FacilityId);
+            var facilityReport = new FacilityReport();
             
-            var facility = new Facility()
+            if (existingFacility == null)
             {
-                
-                Name = data.Name,
-                Description = data.Description,
-                Type = data.Type,
-                IconUrl = data.IconUrl,
-                Latitude = data.Latitude,
-                Longitude = data.Longitude
-               
-            };
+                return Results.NotFound($"Facility with ID {data.FacilityId} not found.");
+            }
+            ;
+            var facility = new Facility();
             
-            context.Facilities.Add(facility);
+            facility.Name = data.Name;
+            facility.Description = data.Description;
+            facility.Type = data.Type;
+            facility.IconUrl = data.IconUrl;
+            facility.Latitude = data.Latitude;
+            facility.Longitude = data.Longitude;
+            
+            facilityReport.FacilityId = data.FacilityId;
+            facilityReport.Description = data.Description;
+            facilityReport.CreatedAt = DateTime.Now;
+            facilityReport.Status = FacilityReportStatus.Pending;
+            facilityReport.Facility = facility;
+
+            context.FacilityReports.Add(facilityReport);
             await context.SaveChangesAsync();
 
-            return Results.Ok($"Facility {data.Name} with ID {facility.Id} received and saved in the database.");
+            return Results.Ok($"Facility {facilityReport.Facility.Name} with ID {facilityReport.Id} updated in the database.");
         });
     }
 }
