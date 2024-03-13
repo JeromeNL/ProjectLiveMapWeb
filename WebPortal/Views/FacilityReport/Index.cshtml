@@ -1,21 +1,22 @@
 @model List<DataAccess.Models.FacilityReport>
+@using Index = WebPortal.Resources.Views.FacilityReport.Index
 
 @{
-    ViewBag.Title = "Meldingen inzien";
+    ViewBag.Title = Index.Title;
     Layout = "_Layout";
 }
 
-<h1 class="text-2xl font-semibold">Meldingen inzien</h1>
+<h1 class="text-2xl font-semibold">@Index.Title</h1>
 
 <div class="overflow-x-auto mt-2">
     <table id="datatable" class="table gap-y-5">
         <thead>
         <tr>
             <th>#</th>
-            <th>Naam faciliteit</th>
-            <th>Omschrijving melding</th>
-            <th>Datum ingediend</th>
-            <th>Goedkeuren/afkeuren</th>
+            <th>@Index.FacilityName</th>
+            <th>@Index.Description</th>
+            <th>@Index.Date</th>
+            <th>@Index.AcceptDeny</th>
         </tr>
         </thead>
         <tbody>
@@ -28,9 +29,9 @@
                 <td>@report.CreatedAt</td>
                 <td>
                     <button class="btn btn-sm btn-success" 
-                            onclick="document.getElementById('goedkeuren_@report.Id').showModal()">Goedkeuren</button>
+                            onclick="document.getElementById('goedkeuren_@report.Id').showModal()">@Index.Approve</button>
                     <button class="btn btn-sm btn-error" 
-                            onclick="document.getElementById('afkeuren_@report.Id').showModal()">Afkeuren</button>
+                            onclick="document.getElementById('afkeuren_@report.Id').showModal()">@Index.Reject</button>
                 </td>
             </tr>
 
@@ -40,9 +41,9 @@
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3 class="font-bold text-lg">Melding goedkeuren</h3>
-                    <p class="py-4">Weet je zeker dat je deze melding wilt <span class="text-green-700 font-bold">goedkeuren</span>?</p>
-                    <p class="text-red-600 font-bold">Hiermee wordt de faciliteit automatisch aangepast</p>
+                    <h3 class="font-bold text-lg">@Index.ApproveReport</h3>
+                    <p class="py-4">@Index.ModalConfirmation <span class="text-green-700 font-bold">@Index.Approve</span>?</p>
+                    <p class="text-red-600 font-bold">@Index.AutomaticUpdate</p>
                 </div>
             </dialog>
 
@@ -52,8 +53,8 @@
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3 class="font-bold text-lg">Melding afkeuren</h3>
-                    <p class="py-4">Weet je zeker dat je deze melding wilt <span class="text-red-600 font-bold">afkeuren</span>?</p>
+                    <h3 class="font-bold text-lg">@Index.RejectReport</h3>
+                    <p class="py-4">@Index.ModalConfirmation <span class="text-red-600 font-bold">@Index.Reject</span>?</p>
                 </div>
             </dialog>
         }

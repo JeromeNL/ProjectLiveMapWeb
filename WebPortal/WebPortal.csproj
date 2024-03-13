@@ -25,6 +25,17 @@
       <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resources\Views\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Views\FacilityReport\Index.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Index.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
     <Target Name="Tailwind" BeforeTargets="Build">
         <Exec Command="npm run css:build"/>
     </Target>
