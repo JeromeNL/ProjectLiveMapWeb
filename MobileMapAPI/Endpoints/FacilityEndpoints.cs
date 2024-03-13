@@ -16,7 +16,7 @@ public static class FacilityEndpoints
             {
                 return Results.NotFound($"Facility with ID {data.FacilityId} not found.");
             }
-            ;
+            
             var ProposedFacilityChange = new ProposedFacilityChange();
             
             ProposedFacilityChange.Name = data.Name;
