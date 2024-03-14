@@ -44,7 +44,7 @@ public static class FacilityEndpoints
             context.FacilityReports.Add(facilityReport);
             await context.SaveChangesAsync();
 
-            return Results.Ok($"A report for {facilityReport.Facility.Name} with ID {facilityReport.Id} as been saved in the database.");
+            return Results.Ok($"A report for {facilityReport.Facility.Name} with ID {facilityReport.Id} has been saved in the database.");
         });
     }
 }
