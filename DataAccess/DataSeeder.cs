@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using DataAccess.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
@@ -8,6 +9,7 @@ public static class DataSeeder
     public static void InitializeSeedData(this ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Facility>().HasData(GenerateFacilities());
+        modelBuilder.Entity<FacilityReport>().HasData(GenerateFacilityReports());
     }
     
     private static List<Facility> GenerateFacilities()
@@ -38,5 +40,30 @@ public static class DataSeeder
             },
         };
         return facilities;
+    }
+
+    private static List<FacilityReport> GenerateFacilityReports()
+    {
+        var facilityReports = new List<FacilityReport>()
+        {
+            new()
+            {
+                Id = -1,
+                FacilityId = -1,
+                Description = "Het sportveld is in goede staat.",
+                Status = FacilityReportStatus.Pending,
+                CreatedAt = DateTime.Now
+            },
+            new()
+            {
+                Id = -2,
+                FacilityId = -2,
+                Description = "Het zwemmeer is in goede staat.",
+                Status = FacilityReportStatus.Pending,
+                CreatedAt = DateTime.Now
+            }
+        };
+
+        return facilityReports;
     }
 }

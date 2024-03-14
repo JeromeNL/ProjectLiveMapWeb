@@ -1,4 +1,6 @@
+using System.Globalization;
 using DataAccess;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB")));
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(
+    options =>
+    {
+        var supportedCultures = new[] { new CultureInfo("nl") };
+        options.DefaultRequestCulture = new RequestCulture("nl");
+        options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
+    });
 
 var app = builder.Build();
 

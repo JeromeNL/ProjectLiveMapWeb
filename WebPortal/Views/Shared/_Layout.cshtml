@@ -1,25 +1,42 @@
-﻿<!DOCTYPE html>
+﻿@using Localizer = WebPortal.Resources.Shared._Layout
+
+<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - WebPortal</title>
-    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css"/>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
 </head>
-<body>
+<body class="bg-gray-100">
 <header>
+    <nav class="bg-white p-6">
+            <div class="container mx-auto flex items-center justify-between">
+                <a href="#" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
+                <div class="flex items-center">
+                    <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
+                    <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
+                </div>
+            </div>
+        </nav>
 </header>
 <div>
-    <main role="main">
+    <main role="main" class="container mx-auto p-6">
         @RenderBody()
     </main>
 </div>
 
-<footer>
-</footer>
+<footer class="bg-white p-6">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-800">@Localizer.Copyright</p>
+        </div>
+    </footer>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
