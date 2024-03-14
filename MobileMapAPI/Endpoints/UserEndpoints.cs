@@ -17,13 +17,11 @@ public class UserEndpoints
         
         app.MapGet("/users/{name}", (string name, LiveMapDbContext context) =>
         {
-            var users = context.Users.ToList();
-            foreach (User user in users)
+            User user = context.Users.FirstOrDefault(i => i.Name == name);
+
+            if (user != null)
             {
-                if (user.Name == name)
-                {
-                    return Results.Ok(user);
-                }    
+                return Results.Ok(user);
             }
 
             return Results.NotFound("User not found");
