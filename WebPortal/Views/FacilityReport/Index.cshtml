@@ -28,15 +28,19 @@
                 <td>@report.Description</td>
                 <td>@report.CreatedAt</td>
                 <td>
-                    <button class="btn btn-sm btn-success" 
-                            onclick="document.getElementById('goedkeuren_@report.Id').showModal()">@Index.Approve</button>
-                    <button class="btn btn-sm btn-error" 
-                            onclick="document.getElementById('afkeuren_@report.Id').showModal()">@Index.Reject</button>
+                    <button class="btn btn-sm btn-success"
+                            onclick="document.getElementById('@Html.Raw(Index.Approve)_@report.Id').showModal()">
+                        @Index.Approve
+                    </button>
+                    <button class="btn btn-sm btn-error"
+                            onclick="document.getElementById('@Html.Raw(Index.Reject)_@report.Id').showModal()">
+                        @Index.Reject
+                    </button>
                 </td>
             </tr>
 
             @* Goedkeuren modal *@
-            <dialog id="goedkeuren_@report.Id" class="modal">
+            <dialog id="@Html.Raw(Index.Approve)_@report.Id" class="modal">
                 <div class="modal-box">
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -48,7 +52,7 @@
             </dialog>
 
             @* Afkeuren modal *@
-            <dialog id="afkeuren_@report.Id" class="modal">
+            <dialog id="@Html.Raw(Index.Reject)_@report.Id" class="modal">
                 <div class="modal-box">
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
