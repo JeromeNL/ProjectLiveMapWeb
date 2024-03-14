@@ -17,9 +17,9 @@ public class UserEndpoints
         
         app.MapGet("/users/{name}", (string name, LiveMapDbContext context) =>
         {
-            User user = context.Users.FirstOrDefault(i => i.Name == name);
+            var user = context.Users.FirstOrDefault(i => i.Name == name);
 
-            if (user != null)
+            if (user is not null)
             {
                 return Results.Ok(user);
             }
