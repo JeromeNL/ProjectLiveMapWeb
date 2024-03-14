@@ -1,6 +1,6 @@
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
-using MobileMapAPI.ApiModels;
+using MobileMapAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,7 +1,10 @@
+using MobileMapAPI.ApiModels;
+
+namespace MobileMapAPI.Endpoints;
+
 using DataAccess;
 using DataAccess.Models;
 using DataAccess.Models.Enums;
-using MobileMapAPI.ApiModels;
 
 public static class FacilityEndpoints
 {
@@ -10,28 +13,33 @@ public static class FacilityEndpoints
         app.MapPost("/facility/requestchange", async (LiveMapDbContext context, FacilityReportApiModel data) =>
         {
             var existingFacility = await context.Facilities.FindAsync(data.FacilityId);
-            var facilityReport = new FacilityReport();
+            
             
             if (existingFacility == null)
             {
                 return Results.NotFound($"Facility with ID {data.FacilityId} not found.");
             }
             
-            var ProposedFacilityChange = new ProposedFacilityChange();
-            
-            ProposedFacilityChange.Name = data.Name;
-            ProposedFacilityChange.Description = data.Description;
-            ProposedFacilityChange.Type = data.Type;
-            ProposedFacilityChange.IconUrl = data.IconUrl;
-            ProposedFacilityChange.Latitude = data.Latitude;
-            ProposedFacilityChange.Longitude = data.Longitude;
-            
-            facilityReport.FacilityId = data.FacilityId;
-            facilityReport.Description = data.Description;
-            facilityReport.CreatedAt = DateTime.Now;
-            facilityReport.Status = FacilityReportStatus.Pending;
-            facilityReport.ProposedFacilityChange = ProposedFacilityChange;
-            facilityReport.Facility = existingFacility;
+            var proposedFacilityChange = new ProposedFacilityChange
+            {
+                Name = data.Name,
+                Description = data.Description,
+                Type = data.Type,
+                IconUrl = data.IconUrl,
+                Latitude = data.Latitude,
+                Longitude = data.Longitude
+            };
+
+            var facilityReport = new FacilityReport
+            {
+                FacilityId = data.FacilityId,
+                Description = data.Description,
+                CreatedAt = DateTime.Now,
+                Status = FacilityReportStatus.Pending,
+                ProposedFacilityChange = proposedFacilityChange,
+                Facility = existingFacility
+            };
+
 
             context.FacilityReports.Add(facilityReport);
             await context.SaveChangesAsync();
