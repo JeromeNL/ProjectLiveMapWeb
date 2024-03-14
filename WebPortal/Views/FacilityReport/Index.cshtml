@@ -54,11 +54,14 @@
             @* Afkeuren modal *@
             <dialog id="@Html.Raw(Index.Reject)_@report.Id" class="modal">
                 <div class="modal-box">
-                    <form method="dialog">
+                    <form id="cancel" method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 class="font-bold text-lg">@Index.RejectReport</h3>
                     <p class="py-4">@Index.ModalConfirmation <span class="text-red-600 font-bold">@Index.Reject</span>?</p>
+                    <button form="denyform" class="btn btn-primary inline-flex">@Index.Reject</button>
+                    <button form="cancel" class="btn inline-flex">@Index.Cancel</button>
+                    <form id="denyform" asp-action="DenyReport" asp-route-id="@report.Id"></form>
                 </div>
             </dialog>
         }

@@ -96,6 +96,15 @@ namespace WebPortal.Resources.Views.FacilityReport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Annuleren.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datum ingediend.
         /// </summary>
         internal static string Date {

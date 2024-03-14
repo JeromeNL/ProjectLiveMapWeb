@@ -51,4 +51,7 @@
     <data name="RejectReport" xml:space="preserve">
         <value>Melding afkeuren</value>
     </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Annuleren</value>
+    </data>
 </root>
