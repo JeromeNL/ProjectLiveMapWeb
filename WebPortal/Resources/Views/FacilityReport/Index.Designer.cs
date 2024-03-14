@@ -141,6 +141,24 @@ namespace WebPortal.Resources.Views.FacilityReport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuwe gegevens.
+        /// </summary>
+        internal static string NewData {
+            get {
+                return ResourceManager.GetString("NewData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oude gegevens.
+        /// </summary>
+        internal static string OldData {
+            get {
+                return ResourceManager.GetString("OldData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Afkeuren.
         /// </summary>
         internal static string Reject {

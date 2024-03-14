@@ -12,8 +12,9 @@
     <table id="datatable" class="table gap-y-5">
         <thead>
         <tr>
-            <th>#</th>
             <th>@Index.FacilityName</th>
+            <th>@Index.OldData</th>
+            <th>@Index.NewData</th>
             <th>@Index.Description</th>
             <th>@Index.Date</th>
             <th>@Index.AcceptDeny</th>
@@ -23,8 +24,9 @@
         @foreach (var report in Model)
         {
             <tr>
-                <td>@report.Id</td>
                 <td>@report.Facility.Name</td>
+                <td>@($"Naam: {report.Facility.Name}, Omschrijving: {report.Facility.Description}, Type: {report.Facility.Type}, Latitude: {report.Facility.Latitude}, Longitude: {report.Facility.Longitude}, Icoontje: {report.Facility.IconUrl}")</td>
+                <td>@($"Naam: {report.ProposedFacilityChange.Name}, Omschrijving: {report.ProposedFacilityChange.Description}, Type: {report.ProposedFacilityChange.Type}, Latitude: {report.ProposedFacilityChange.Latitude}, Longitude: {report.ProposedFacilityChange.Longitude}, Icoontje: {report.ProposedFacilityChange.IconUrl}")</td>
                 <td>@report.Description</td>
                 <td>@report.CreatedAt</td>
                 <td>
@@ -78,7 +80,7 @@
       new DataTable('#datatable', {
            searchable: true,
             sortable: true,
-            perPage: 10,
+            perPage: 5,
             order: [4, 'asc'],
             language: {
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',

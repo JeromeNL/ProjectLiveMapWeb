@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using DataAccess.Models;
 using DataAccess.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +18,11 @@ public class FacilityReportController : Controller
     public async Task<IActionResult> Index()
     {
         var pendingReports = await _context.FacilityReports
-            .Where(report => report.Status == FacilityReportStatus.Pending).Include(report => report.Facility)
+            .Where(report => report.Status == FacilityReportStatus.Pending)
+            .Include(report => report.Facility)
+            .Include(report => report.ProposedFacilityChange)
             .OrderBy(report => report.CreatedAt).ToListAsync();
+            
         return View(pendingReports);
     }
 
@@ -40,7 +44,7 @@ public class FacilityReportController : Controller
             .Include(r => r.Facility)
             .FirstOrDefaultAsync(r => r.Id == id);
         if (report == null) return NotFound();
-        
+
         var proposedFacilityChange = report.ProposedFacilityChange;
         var facility = report.Facility;
         if (proposedFacilityChange != null)
@@ -53,7 +57,7 @@ public class FacilityReportController : Controller
             facility.Longitude = proposedFacilityChange.Longitude;
             facility.IconUrl = proposedFacilityChange.IconUrl;
         }
-        
+
         report.Status = FacilityReportStatus.Accepted;
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
