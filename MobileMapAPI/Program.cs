@@ -23,6 +23,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 FacilityEndpoints.MapFacilityEndpoints(app);
-
+UserEndpoints.MapUserEndpoints(app);
 
 app.Run();
