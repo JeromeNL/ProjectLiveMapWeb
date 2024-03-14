@@ -14,6 +14,8 @@ public class LiveMapDbContext : DbContext
     public DbSet<FacilityReport> FacilityReports { get; set; }
     
     public DbSet<ProposedFacilityChange> ProposedFacilityChanges { get; set; }
+    
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
