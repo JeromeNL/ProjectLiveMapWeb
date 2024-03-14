@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Localizer = WebPortal.Resources.Shared._Layout
+
+<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="utf-8"/>
@@ -16,10 +18,10 @@
 <header>
     <nav class="bg-white p-6">
             <div class="container mx-auto flex items-center justify-between">
-                <a href="#" class="text-xl font-semibold text-gray-900">Livemap webportaal</a>
+                <a href="#" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
                 <div class="flex items-center">
-                    <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Home</a>
-                    <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Meldingen goedkeuren</a>
+                    <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
+                    <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
                 </div>
             </div>
         </nav>
@@ -32,7 +34,7 @@
 
 <footer class="bg-white p-6">
         <div class="container mx-auto text-center">
-            <p class="text-gray-800">© Project livemap 2024. All rights reserved.</p>
+            <p class="text-gray-800">@Localizer.Copyright</p>
         </div>
     </footer>
 <script src="~/js/site.js" asp-append-version="true"></script>
