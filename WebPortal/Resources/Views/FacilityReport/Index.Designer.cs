@@ -96,6 +96,15 @@ namespace WebPortal.Resources.Views.FacilityReport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Annuleren.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datum ingediend.
         /// </summary>
         internal static string Date {
@@ -128,6 +137,24 @@ namespace WebPortal.Resources.Views.FacilityReport {
         internal static string ModalConfirmation {
             get {
                 return ResourceManager.GetString("ModalConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe gegevens.
+        /// </summary>
+        internal static string NewData {
+            get {
+                return ResourceManager.GetString("NewData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oude gegevens.
+        /// </summary>
+        internal static string OldData {
+            get {
+                return ResourceManager.GetString("OldData", resourceCulture);
             }
         }
         
