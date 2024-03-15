@@ -1,4 +1,4 @@
-﻿using MobileMapAPI.ApiModels.enums;
+﻿using DataAccess.Models.Enums;
 
 namespace MobileMapAPI.ApiModels;
 
@@ -10,5 +10,4 @@ public class FacilityApiModel
     public double Latitude { get; set; }
     public double Longitude { get; set; }
     public string IconUrl { get; set; }
-    public Status Status { get; set; }
 }
