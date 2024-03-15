@@ -10,8 +10,27 @@ public static class DataSeeder
     {
         modelBuilder.Entity<Facility>().HasData(GenerateFacilities());
         modelBuilder.Entity<FacilityReport>().HasData(GenerateFacilityReports());
+        modelBuilder.Entity<User>().HasData(GenerateUsers());
     }
-    
+
+    private static List<User> GenerateUsers()
+    {
+        var users = new List<User>()
+        {
+            new()
+            {
+                Id = -1,
+                Name = "Almior"
+            },
+            new()
+            {
+                Id = -2,
+                Name = "Joram"
+            }
+        };
+        return users;
+    }
+
     private static List<Facility> GenerateFacilities()
     {
         var facilities = new List<Facility>()

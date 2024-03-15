@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240314130244_Adding_Users_and_SeedData")]
+    partial class Adding_Users_and_SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,7 +123,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 15, 9, 58, 9, 225, DateTimeKind.Local).AddTicks(77),
+                            CreatedAt = new DateTime(2024, 3, 14, 14, 2, 44, 15, DateTimeKind.Local).AddTicks(739),
                             Description = "Het sportveld is in goede staat.",
                             FacilityId = -1,
                             Status = 0
@@ -128,47 +131,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 15, 9, 58, 9, 225, DateTimeKind.Local).AddTicks(135),
+                            CreatedAt = new DateTime(2024, 3, 14, 14, 2, 44, 15, DateTimeKind.Local).AddTicks(804),
                             Description = "Het zwemmeer is in goede staat.",
                             FacilityId = -2,
                             Status = 0
                         });
-                });
-
-            modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProposedFacilities");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacilityChange", b =>
