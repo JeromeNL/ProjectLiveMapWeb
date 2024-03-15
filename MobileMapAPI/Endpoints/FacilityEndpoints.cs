@@ -14,7 +14,6 @@ public static class FacilityEndpoints
         {
             var existingFacility = await context.Facilities.FindAsync(data.FacilityId);
             
-            
             if (existingFacility == null)
             {
                 return Results.NotFound($"Facility with ID {data.FacilityId} not found.");
@@ -45,6 +44,22 @@ public static class FacilityEndpoints
             await context.SaveChangesAsync();
 
             return Results.Ok($"A report for {facilityReport.Facility.Name} with ID {facilityReport.Id} has been saved in the database.");
+        });
+
+        app.MapPost("/facility/", async (LiveMapDbContext context, FacilityApiModel data) =>
+        {
+            var facility = new ProposedFacility()
+            {
+                Description = data.Description,
+                IconUrl = data.IconUrl,
+                Latitude = data.Latitude,
+                Longitude = data.Longitude,
+                Name = data.Name,
+                Type = data.Type
+            };
+
+            context.ProposedFacilities.Add(facility);
+            context.SaveChanges();
         });
     }
 }
