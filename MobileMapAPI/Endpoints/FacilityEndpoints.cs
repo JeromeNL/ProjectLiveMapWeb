@@ -48,7 +48,7 @@ public static class FacilityEndpoints
 
         app.MapPost("/facility/", async (LiveMapDbContext context, FacilityApiModel data) =>
         {
-            var facility = new Facility()
+            var facility = new ProposedFacility()
             {
                 Description = data.Description,
                 IconUrl = data.IconUrl,
@@ -58,7 +58,7 @@ public static class FacilityEndpoints
                 Type = data.Type
             };
 
-            context.Facilities.Add(facility);
+            context.ProposedFacilities.Add(facility);
             context.SaveChanges();
         });
     }
