@@ -44,8 +44,8 @@ public static class DataSeeder
                 Description =
                     "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
                 Type = "Sport",
-                Latitude = 51.68840344159143,
-                Longitude = 5.2859250150824995,
+                Latitude = 51.34343422501585,
+                Longitude = 5.246223807334901,
                 IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png"
             },
             new()
@@ -55,8 +55,8 @@ public static class DataSeeder
                 Description =
                     "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
                 Type = "Recreatie",
-                Latitude = 51.68867330206803,
-                Longitude = 5.284670979381513,
+                Latitude = 51.3417225445989,
+                Longitude = 5.245537161827088,
                 IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png"
             },
         };
@@ -101,8 +101,8 @@ public static class DataSeeder
                 Description =
                     "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
                 Type = "Sport",
-                Latitude = 51.68840344159143,
-                Longitude = 5.2859250150824995,
+                Latitude = 51.34343422501585,
+                Longitude = 5.246223807334901,
                 IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png"
             },
             new()
@@ -112,8 +112,8 @@ public static class DataSeeder
                 Description =
                     "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
                 Type = "Recreatie",
-                Latitude = 51.68867330206803,
-                Longitude = 5.284670979381513,
+                Latitude = 51.3417225445989,
+                Longitude = 5.245537161827088,
                 IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png"
             },
         };
