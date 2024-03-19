@@ -14,12 +14,6 @@ public class HomeController(LiveMapDbContext context) : Controller
         return View();
     }
 
-    public IActionResult Map()
-    {
-        var facilities = context.Facilities.ToList();
-        return View(facilities);
-    }
-
     public IActionResult Privacy()
     {
         return View();
