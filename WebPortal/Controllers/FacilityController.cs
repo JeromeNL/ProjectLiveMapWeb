@@ -38,9 +38,9 @@ public class FacilityController : Controller
     
     [HttpGet]
     [Route("facility/{id:int}")]
-    public IActionResult Show(int id)
+    public async Task<IActionResult> Show(int id)
     {
-        var facility = _context.Facilities.Find(id);
+        var facility = await _context.Facilities.FindAsync(id);
         if (facility == null) return NotFound();
         
         return View(facility);

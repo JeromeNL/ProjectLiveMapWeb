@@ -33,7 +33,7 @@
                     title: '@facility.Name',
                     icon: icon
                 });
-                let popupContent = '<b>@facility.Name</b><br />@facility.Description';
+                let popupContent = '<b>@facility.Name</b><br />@facility.Description<br><a href="/facility/@facility.Id">Details</a>';
                 marker.addTo(map).bindPopup(popupContent);
               }
             </text>
