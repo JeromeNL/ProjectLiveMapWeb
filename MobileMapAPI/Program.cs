@@ -1,8 +1,8 @@
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
-using MobileMapAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
 
 // Add services to the container.
 builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-FacilityEndpoints.MapFacilityEndpoints(app);
-UserEndpoints.MapUserEndpoints(app);
+app.MapControllers();
+
 
 app.Run();
