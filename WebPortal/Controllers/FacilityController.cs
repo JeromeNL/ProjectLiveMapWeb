@@ -36,8 +36,6 @@ public class FacilityController : Controller
         return Ok(facility);
     }
     
-    [HttpGet]
-    [Route("facility/{id:int}")]
     public async Task<IActionResult> Show(int id)
     {
         var facility = await _context.Facilities.FindAsync(id);
