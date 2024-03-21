@@ -18,6 +18,8 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         
+        let markers = [];
+        
         @foreach (var facility in Model)
         {
             <text> 
@@ -35,12 +37,46 @@
                 });
                 let popupContent = '<b>@facility.Name</b><br />@facility.Description<br><a href="/facility/show/@facility.Id">Details</a>';
                 marker.addTo(map).bindPopup(popupContent);
+                markers.push(marker);
               }
             </text>
         }
         
         // Add event listener for map clicking
         map.on('click', onMapClick);
+        
+        // Resize icons when zooming
+        map.on('zoomend', function() {
+            let zoomLevel = map.getZoom();
+            let iconSize = calculateIconSize(zoomLevel);
+            console.log(iconSize)
+        
+            // Update icon size for all markers
+            markers.forEach(marker => {
+                let icon = marker.options.icon;
+                icon.options.iconSize = iconSize;
+                icon.options.iconAnchor = [iconSize[0] / 2, iconSize[1] / 2];
+                icon.options.popupAnchor = [0, -iconSize[1] / 2];
+                marker.setIcon(icon);
+            });
+        });
+        
+        function calculateIconSize(zoomLevel) {
+            let maxZoom = 19;
+            let minZoom = 10;
+            let maxSize = 35;
+            let minSize = 10;
+        
+            if (zoomLevel >= maxZoom) {
+                return [maxSize, maxSize];
+            } else if (zoomLevel <= minZoom) {
+                return [minSize, minSize];
+            } else {
+                let size = minSize + ((maxSize - minSize) * Math.pow((zoomLevel - minZoom) / (maxZoom - minZoom), 4));
+                return [size, size];
+            }
+        }
+
         
         function onMapClick(e) {
             let name = prompt("Enter title for the facility");
