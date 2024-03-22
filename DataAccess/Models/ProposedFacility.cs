@@ -11,8 +11,8 @@ public class ProposedFacility : BaseFacility
     [JsonIgnore]
     public int Id { get; set; }
     
-    [Required]
-    public int FacilityId { get; set; }
+    // If empty then it is a new facility
+    public int? FacilityId { get; set; }
     
     [ForeignKey(nameof(FacilityId))]
     public Facility Facility { get; set; }
