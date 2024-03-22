@@ -16,8 +16,8 @@ public class UserController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("{name}")]
-    public IActionResult GetUserByName(string name)
+    [HttpPost("{name}")]
+    public IActionResult PostUserByName(string name)
     {
         var user = _context.Users.FirstOrDefault(u => u.Name == name);
 
