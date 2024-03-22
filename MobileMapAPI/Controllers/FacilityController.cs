@@ -1,15 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using MobileMapAPI.ApiModels;
 using DataAccess;
-using DataAccess.Models;
-using DataAccess.Models.Enums;
-using System;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("facilities")]
 public class FacilityController : ControllerBase
 {
     private readonly LiveMapDbContext _context;
@@ -17,5 +13,12 @@ public class FacilityController : ControllerBase
     public FacilityController(LiveMapDbContext context)
     {
         _context = context;
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAllFacilities()
+    {
+        var facilities = await _context.Facilities.ToListAsync();
+        return Ok(facilities);
     }
 }

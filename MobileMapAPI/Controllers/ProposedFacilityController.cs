@@ -1,15 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using MobileMapAPI.ApiModels;
 using DataAccess;
 using DataAccess.Models;
 using DataAccess.Models.Enums;
-using System;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("proposed-facilities")]
 public class ProposedFacilityController : ControllerBase
 {
     private readonly LiveMapDbContext _context;
@@ -20,13 +17,13 @@ public class ProposedFacilityController : ControllerBase
     }
 
     [HttpPost("request")]
-    public async Task<IActionResult> RequestFacilityChange(FacilityReportApiModel data)
+    public async Task<IActionResult> RequestFacilityChange(ProposedFacility data)
     {
-        var existingFacility = await _context.Facilities.FindAsync(data.FacilityId);
+        var existingFacility = await _context.Facilities.FindAsync(data.Id);
         
         if (existingFacility == null)
         {
-            return NotFound($"Facility with ID {data.FacilityId} not found.");
+            return NotFound($"Facility with ID {data.Id} not found.");
         }
         
         var proposedFacilityChange = new ProposedFacilityChange
@@ -41,7 +38,7 @@ public class ProposedFacilityController : ControllerBase
 
         var facilityReport = new FacilityReport
         {
-            FacilityId = data.FacilityId,
+            FacilityId = data.Id,
             Description = data.Description, 
             CreatedAt = DateTime.Now,
             Status = FacilityReportStatus.Pending,
@@ -56,7 +53,7 @@ public class ProposedFacilityController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateProposedFacility(FacilityApiModel data)
+    public async Task<IActionResult> CreateProposedFacility(ProposedFacility data)
     {
         var facility = new ProposedFacility()
         {
