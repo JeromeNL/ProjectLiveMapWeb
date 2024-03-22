@@ -31,20 +31,20 @@
     }
     
     <label>Naam</label>
-    <input required type="text" asp-for="Name"/>
+    <input class="input input-bordered" required type="text" asp-for="Name"/>
     <span asp-validation-for="Name" class="text-red-600"></span>
 
     <label>Beschrijving</label>
-    <input required type="text" asp-for="Description"/>
+    <input class="input input-bordered" required type="text" asp-for="Description"/>
     <span asp-validation-for="Description" class="text-red-600"></span>
 
     <label>Type</label>
-    <input required type="text" asp-for="Type"/>
+    <input class="input input-bordered" required type="text" asp-for="Type"/>
     <span asp-validation-for="Type" class="text-red-600"></span>
 
     <label>Icoon URL</label>
-    <input required type="text" asp-for="IconUrl"/>
+    <input class="input input-bordered" required type="text" asp-for="IconUrl"/>
     <span asp-validation-for="IconUrl" class="text-red-600"></span>
     
-    <input type="submit" value="aanmaken"/>
+    <input type="submit" value="aanmaken" class="btn btn-neutral mt-2"/>
 </form>

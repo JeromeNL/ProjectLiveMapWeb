@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using BusinessLogic;
+using DataAccess;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,11 @@ public class FacilityController : Controller
     [HttpGet]
     public IActionResult Create(double latitude, double longitude)
     {
+        if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
+        {
+            ViewBag.Error = "het geklikte punt ligt niet binnen het park";
+            return RedirectToAction("Index");
+        }
         ViewBag.latitude = latitude;
         ViewBag.longitude = longitude;
         return View();
