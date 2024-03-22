@@ -58,7 +58,6 @@ public class FacilityController : Controller
     
         if (facility == null)
         {
-            // Het is goed om een duidelijke response te geven als de faciliteit niet gevonden wordt
             return Json($"Geen faciliteit gevonden met ID {id}.");
         }
         
