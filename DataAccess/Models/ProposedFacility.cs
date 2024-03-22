@@ -16,5 +16,5 @@ public class ProposedFacility : FacilityBase
     
     [ForeignKey(nameof(FacilityId))]
     [JsonIgnore]
-    public Facility Facility { get; set; }
+    public Facility? Facility { get; set; }
 }
