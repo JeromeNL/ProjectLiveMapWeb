@@ -26,30 +26,29 @@ public class ProposedFacilityController : ControllerBase
             return NotFound($"Facility with ID {data.Id} not found.");
         }
         
-        var proposedFacilityChange = new ProposedFacilityChange
+        var proposedFacilityChange = new ProposedFacility
         {
             Name = data.Name,
+            Facility = existingFacility,
             Description = data.Description,
             Type = data.Type,
-            IconUrl = data.IconUrl,
+            IconName = data.IconName,
             Latitude = data.Latitude,
             Longitude = data.Longitude
         };
 
         var facilityReport = new FacilityReport
         {
-            FacilityId = data.Id,
             Description = data.Description, 
             CreatedAt = DateTime.Now,
             Status = FacilityReportStatus.Pending,
-            ProposedFacilityChange = proposedFacilityChange,
-            Facility = existingFacility
+            ProposedFacility = proposedFacilityChange,
         };
 
         _context.FacilityReports.Add(facilityReport);
         await _context.SaveChangesAsync();
 
-        return Ok($"A report for {facilityReport.Facility.Name} with ID {facilityReport.Id} has been saved in the database.");
+        return Ok($"A report for {facilityReport.ProposedFacility.Facility.Name} with ID {facilityReport.Id} has been saved in the database.");
     }
 
     [HttpPost("create")]
@@ -58,7 +57,7 @@ public class ProposedFacilityController : ControllerBase
         var facility = new ProposedFacility()
         {
             Description = data.Description,
-            IconUrl = data.IconUrl,
+            IconName = data.IconName,
             Latitude = data.Latitude,
             Longitude = data.Longitude,
             Name = data.Name,

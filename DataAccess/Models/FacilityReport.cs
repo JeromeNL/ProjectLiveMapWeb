@@ -11,15 +11,10 @@ public class FacilityReport
     public int Id { get; set; }
     
     [Required]
-    public int FacilityId { get; set; }
+    public int ProposedFacilityId { get; set; }
     
-    [Required]
-    public Facility Facility { get; set; }
-    
-    [Required]
-    public int ProposedFacilityChangeId { get; set; }
-    
-    public ProposedFacilityChange? ProposedFacilityChange { get; set; }
+    [ForeignKey(nameof(ProposedFacilityId))]
+    public ProposedFacility ProposedFacility { get; set; }
     
     [Required]
     public string Description { get; set; }

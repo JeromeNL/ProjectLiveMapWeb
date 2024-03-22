@@ -1,30 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using DataAccess.Models.Base;
 
 namespace DataAccess.Models;
 
-public class ProposedFacility
+public class ProposedFacility : BaseFacility
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [JsonIgnore]
     public int Id { get; set; }
     
     [Required]
-    [MaxLength(100)]
-    public string Name { get; set; }
+    public int FacilityId { get; set; }
     
-    [Required]
-    public string Description { get; set; }
-    
-    [Required]
-    public string Type { get; set; }
-
-    [Required]
-    public double Latitude { get; set; }
-    
-    [Required]
-    public double Longitude { get; set; }
-
-    [Required]
-    public string IconUrl { get; set; }
+    [ForeignKey(nameof(FacilityId))]
+    public Facility Facility { get; set; }
 }
