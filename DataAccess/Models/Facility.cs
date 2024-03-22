@@ -10,23 +10,23 @@ public class Facility
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     
-    [Required]
-    [MaxLength(100)]
+    [Required(ErrorMessage = "Vul een naam in")]
+    [MaxLength(100, ErrorMessage = "De ingevulde naar mag maximaal 100 karakters lang zijn")]
     public string Name { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "Vul een beschrijving in")]
     public string Description { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "Vul een type in")]
     public string Type { get; set; }
 
     [Required]
-    [PolygonValidation(ErrorMessage = "the point clicked is outside allowed area")]
+    [PolygonValidation(ErrorMessage = "Het aangegeven punt ligt buiten het park")]
     public double Latitude { get; set; }
     
     [Required]
     public double Longitude { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Vul een Icoon URL in")]
     public string IconUrl { get; set; }
 }
