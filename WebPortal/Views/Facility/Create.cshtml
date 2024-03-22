@@ -9,9 +9,9 @@
 <h2>Create facility</h2>
 <form asp-action="create" class="flex flex-col">
     <label>Latitude</label>
-    @if (ViewBag.lat != null)
+    @if (ViewBag.latitude != null)
     {
-        <input required type="text" asp-for="Latitude" readonly value="@ViewBag.lat"/>
+        <input required type="text" asp-for="Latitude" readonly value="@ViewBag.latitude"/>
         <span asp-validation-for="Latitude" class="text-red-600"></span>
     }
     else
@@ -21,9 +21,9 @@
     }
  
     <label>Longitude</label>
-    @if (ViewBag.lng != null)
+    @if (ViewBag.longitude != null)
     {
-        <input required type="text" asp-for="Longitude" readonly value="@ViewBag.lng"/>
+        <input required type="text" asp-for="Longitude" readonly value="@ViewBag.longitude"/>
         <span asp-validation-for="Longitude" class="text-red-600"></span>
     }
     else

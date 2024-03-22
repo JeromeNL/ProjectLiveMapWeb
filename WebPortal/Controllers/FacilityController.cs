@@ -21,10 +21,10 @@ public class FacilityController : Controller
     }
     
     [HttpGet]
-    public IActionResult Create(double lat, double lng)
+    public IActionResult Create(double latitude, double longitude)
     {
-        ViewBag.lat = lat;
-        ViewBag.lng = lng;
+        ViewBag.latitude = latitude;
+        ViewBag.longitude = longitude;
         return View();
     }
 
