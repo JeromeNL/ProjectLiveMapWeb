@@ -6,30 +6,27 @@
     Layout = "_Layout";
 }
 
-<h2>Create facility</h2>
+<h2>Creëer faciliteit</h2>
 <form asp-action="create" class="flex flex-col">
-    <label>Latitude</label>
     @if (ViewBag.latitude != null)
     {
-        <input required type="text" asp-for="Latitude" readonly value="@ViewBag.latitude"/>
+        <input hidden required type="text" asp-for="Latitude" readonly value="@ViewBag.latitude"/>
         <span asp-validation-for="Latitude" class="text-red-600"></span>
     }
     else
     {
-        <input required type="text" asp-for="Latitude" readonly/>
+        <input hidden required type="text" asp-for="Latitude" readonly/>
         <span asp-validation-for="Latitude" class="text-red-600"></span>
     }
  
-    <label>Longitude</label>
     @if (ViewBag.longitude != null)
     {
-        <input required type="text" asp-for="Longitude" readonly value="@ViewBag.longitude"/>
+        <input hidden required type="text" asp-for="Longitude" readonly value="@ViewBag.longitude"/>
         <span asp-validation-for="Longitude" class="text-red-600"></span>
     }
     else
     {
-        
-        <input required type="text" asp-for="Longitude" readonly/>
+        <input hidden required type="text" asp-for="Longitude" readonly/>
         <span asp-validation-for="Longitude" class="text-red-600"></span>
     }
     
