@@ -14,11 +14,6 @@ public class PolygonValidation : ValidationAttribute
             (51.33793144075602, 5.249741910731706)
         };
 
-    // public PolygonValidation(List<(double Latitude, double Longitude)> polygonVertices)
-    // {
-        // _polygonVertices = polygonVertices;
-    // }
-
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         if (value != null)
