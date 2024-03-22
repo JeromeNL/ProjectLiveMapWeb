@@ -5,7 +5,7 @@ using DataAccess.Models.Base;
 
 namespace DataAccess.Models;
 
-public class ProposedFacility : BaseFacility
+public class ProposedFacility : FacilityBase
 {
     [Key]
     [JsonIgnore]

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.Models.Base;
 
-public abstract class BaseFacility
+public abstract class FacilityBase
 {
     [Required]
     [MaxLength(100)]

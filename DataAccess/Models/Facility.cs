@@ -4,7 +4,7 @@ using DataAccess.Models.Base;
 
 namespace DataAccess.Models;
 
-public class Facility : BaseFacility
+public class Facility : FacilityBase
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
