@@ -50,4 +50,22 @@ public class FacilityController : Controller
         var facilities = _context.Facilities.ToList();
         return Json(facilities);
     }
+
+    [HttpPost]
+    public ActionResult Delete(int id)
+    {
+        var facility = _context.Facilities.FirstOrDefault(f => f.Id == id);
+    
+        if (facility == null)
+        {
+            // Het is goed om een duidelijke response te geven als de faciliteit niet gevonden wordt
+            return Json($"Geen faciliteit gevonden met ID {id}.");
+        }
+        
+        _context.Facilities.Remove(facility);
+        _context.SaveChanges();
+        
+        return Json($"Facility met ID {id} verwijderd.");
+    }
+
 }
