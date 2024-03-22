@@ -26,8 +26,9 @@ public class FacilityController : Controller
     {
         if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
         {
-            ViewBag.Error = "het geklikte punt ligt niet binnen het park";
-            return RedirectToAction("Index");
+            ViewBag.message = "het geklikte punt ligt niet binnen het park";
+            var facilities = _context.Facilities.ToList();
+            return View("Index", facilities);
         }
         ViewBag.latitude = latitude;
         ViewBag.longitude = longitude;

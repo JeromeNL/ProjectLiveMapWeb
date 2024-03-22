@@ -3,10 +3,9 @@
     ViewBag.Title = "Faciliteiten";
     Layout = "_Layout";
 }
-<p>@ViewBag.Error</p>
-@if (ViewBag.Error != null)
+@if (ViewBag.message != null)
 {
-    <span class="text-red-600">@ViewBag.Error</span>
+    <span class="text-red-600">@ViewBag.message</span>
 }
 <div id="map" class="h-[80vh] w-[70vw]"></div>
 
