@@ -21,7 +21,6 @@ public class PolygonValidation : ValidationAttribute
             var latitude = (double)value;
             var longitude = (double)validationContext.ObjectType.GetProperty("Longitude").GetValue(validationContext.ObjectInstance, null);
 
-            // Check if the point is inside the polygon
             if (!IsPointInsidePolygon(latitude, longitude, _polygonVertices))
             {
                 return new ValidationResult(ErrorMessage);
@@ -33,10 +32,6 @@ public class PolygonValidation : ValidationAttribute
 
     private bool IsPointInsidePolygon(double latitude, double longitude, List<(double Latitude, double Longitude)> points)
     {
-        // Implementation of point-in-polygon algorithm (e.g., Ray Casting or Winding Number)
-        // Your implementation goes here
-        // You may need to use a library or implement the algorithm yourself
-        
         int numIntersections = 0;
         double tolerance = 1e-6;
         for (int i = 0; i < points.Count; i++)
@@ -46,7 +41,6 @@ public class PolygonValidation : ValidationAttribute
             double x2 = points[(i + 1) % points.Count].Item1;
             double y2 = points[(i + 1) % points.Count].Item2;
 
-            // Check if the point is very close to the current vertex
             if (Math.Abs(latitude - x1) < tolerance && Math.Abs(longitude - y1) < tolerance)
                 return true;
 
