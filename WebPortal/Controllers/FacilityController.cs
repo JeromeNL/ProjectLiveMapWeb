@@ -21,19 +21,24 @@ public class FacilityController : Controller
     }
     
     [HttpGet]
-    public IActionResult Create()
+    public IActionResult Create(double lat, double lng)
     {
+        ViewBag.lat = lat;
+        ViewBag.lng = lng;
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Facility facility)
+    public async Task<IActionResult> Create(Facility facility)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+        if (!ModelState.IsValid)
+        {
+            return View(facility);
+        }
         
         _context.Facilities.Add(facility);
         await _context.SaveChangesAsync();
-        return Ok(facility);
+        return RedirectToAction("Index");
     }
     
     public async Task<IActionResult> Show(int id)

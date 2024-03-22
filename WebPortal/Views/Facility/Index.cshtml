@@ -79,38 +79,7 @@
 
         
         function onMapClick(e) {
-            let name = prompt("Enter title for the facility");
-            let description = prompt("Enter description for the facility");
-            let type = prompt("Enter type for the facility");
-            let iconUrl = prompt("Enter icon URL for the facility");
-            
-            let facility = {
-                Name: name,
-                Description: description,
-                Type: type, 
-                Latitude: e.latlng.lat,
-                Longitude: e.latlng.lng,
-                IconUrl: iconUrl
-            };
-            
-            console.log(JSON.stringify(facility));
-            
-            // Send a POST request to the server with the new marker
-            fetch('/facility/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(facility)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    window.location.reload();
-                })
-                .catch(error => console.error('Error:', error));
+            window.location.href = '/Facility/create?lat=' + encodeURIComponent(e.latlng.lat) + '&lng=' + encodeURIComponent(e.latlng.lng);
         }
-        
-        
     </script>
 }

@@ -1,4 +1,5 @@
-﻿@model DataAccess.Models.Facility
+﻿@using System.Net.Mime
+@model DataAccess.Models.Facility
 
 @{
     ViewBag.Title = "Create facility";
@@ -6,15 +7,47 @@
 }
 
 <h2>Create facility</h2>
-<form asp-action="create">
+<form asp-action="create" class="flex flex-col">
+    <label>Latitude</label>
+    @if (ViewBag.lat != null)
+    {
+        <input required type="text" asp-for="Latitude" readonly value="@ViewBag.lat"/>
+        <span asp-validation-for="Latitude" class="text-red-600"></span>
+    }
+    else
+    {
+        <input required type="text" asp-for="Latitude" readonly/>
+        <span asp-validation-for="Latitude" class="text-red-600"></span>
+    }
+ 
+    <label>Longitude</label>
+    @if (ViewBag.lng != null)
+    {
+        <input required type="text" asp-for="Longitude" readonly value="@ViewBag.lng"/>
+        <span asp-validation-for="Longitude" class="text-red-600"></span>
+    }
+    else
+    {
+        
+        <input required type="text" asp-for="Longitude" readonly/>
+        <span asp-validation-for="Longitude" class="text-red-600"></span>
+    }
+    
     <label>Name</label>
-    <input type="text" asp-for="Name"/>
-    
+    <input required type="text" asp-for="Name"/>
+    <span asp-validation-for="Name" class="text-red-600"></span>
+
     <label>Description</label>
-    <input type="text" asp-for="Description"/>
-    
+    <input required type="text" asp-for="Description"/>
+    <span asp-validation-for="Description" class="text-red-600"></span>
+
     <label>Type</label>
-    <input type="text" asp-for="Type"/>
+    <input required type="text" asp-for="Type"/>
+    <span asp-validation-for="Type" class="text-red-600"></span>
+
+    <label>IconURL</label>
+    <input required type="text" asp-for="IconUrl"/>
+    <span asp-validation-for="IconUrl" class="text-red-600"></span>
     
     <input type="submit" value="aanmaken"/>
 </form>

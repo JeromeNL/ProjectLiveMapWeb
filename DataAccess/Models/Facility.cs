@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataAccess.Validation;
 
 namespace DataAccess.Models;
 
@@ -20,6 +21,7 @@ public class Facility
     public string Type { get; set; }
 
     [Required]
+    [PolygonValidation(ErrorMessage = "the point clicked is outside allowed area")]
     public double Latitude { get; set; }
     
     [Required]
