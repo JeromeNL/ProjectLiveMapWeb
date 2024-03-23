@@ -10,8 +10,6 @@ public class LiveMapDbContext : DbContext
     {
     }
     
-    
-    
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<FacilityReport> FacilityReports { get; set; }
     

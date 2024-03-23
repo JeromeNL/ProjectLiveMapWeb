@@ -22,8 +22,6 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedUICultures = supportedCultures;
     });
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
