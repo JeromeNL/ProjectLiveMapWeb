@@ -32,6 +32,6 @@ public class LiveMapDbContext : DbContext
             .Property(report => report.Status).HasDefaultValue(FacilityReportStatus.Pending);
         
         modelBuilder.Entity<Facility>()
-            .HasQueryFilter(x => x.IsDeleted == false);
+            .HasQueryFilter(x => x.DeletedAt == null);
     }
 }

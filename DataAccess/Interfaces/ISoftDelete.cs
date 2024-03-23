@@ -7,7 +7,6 @@ public interface ISoftDelete
     
     public void Undo()
     {
-        IsDeleted = false;
         DeletedAt = null;
     }
 }
