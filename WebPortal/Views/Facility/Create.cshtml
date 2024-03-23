@@ -2,11 +2,11 @@
 @model DataAccess.Models.Facility
 
 @{
-    ViewBag.Title = "Create facility";
+    ViewBag.Title = "Faciliteit aanmaken";
     Layout = "_Layout";
 }
 
-<h2>Creëer faciliteit</h2>
+<h2 class="text-2xl font-semibold mb-6">Creëer faciliteit</h2>
 <form asp-action="create" class="flex flex-col">
     @if (ViewBag.latitude != null)
     {
@@ -35,7 +35,7 @@
     <span asp-validation-for="Name" class="text-red-600"></span>
 
     <label>Beschrijving</label>
-    <input class="input input-bordered" required type="text" asp-for="Description"/>
+    <textarea class="textarea textarea-bordered" required type="text" rows="3" asp-for="Description"></textarea>
     <span asp-validation-for="Description" class="text-red-600"></span>
 
     <label>Type</label>
@@ -46,5 +46,5 @@
     <input class="input input-bordered" required type="text" asp-for="IconUrl"/>
     <span asp-validation-for="IconUrl" class="text-red-600"></span>
     
-    <input type="submit" value="aanmaken" class="btn btn-neutral mt-2"/>
+    <input type="submit" value="Aanmaken" class="btn btn-neutral mt-2"/>
 </form>
