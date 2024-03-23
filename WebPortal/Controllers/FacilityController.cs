@@ -63,8 +63,7 @@ public class FacilityController : Controller
         
         _context.Facilities.Remove(facility);
         _context.SaveChanges();
-
+        
         return RedirectToAction("Index");
     }
-
 }

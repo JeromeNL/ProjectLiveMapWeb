@@ -13,7 +13,7 @@
 </a>
 <div class="flex items-center space-x-4">
     <h2 class="text-2xl font-semibold">Faciliteit details</h2>
-    @using (Html.BeginForm("Delete", "Facility", FormMethod.Post, new { @class = "flex" }))
+    @using (Html.BeginForm("Delete", "Facility", FormMethod.Post, new { @class = "flex", onsubmit = "return confirmDeletion();" }))
     {
         <input type="hidden" name="id" value="@Model.Id" />
         <input type="submit" value="Verwijder" class="underline"/>
@@ -53,6 +53,10 @@
             icon: icon
         });
         marker.addTo(map).bindPopup(popupContent);
+        
+        function confirmDeletion() {
+            return confirm('Weet u zeker dat u deze faciliteit wilt verwijderen?');
+        }
     </script>
     
     
