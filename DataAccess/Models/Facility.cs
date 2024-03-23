@@ -29,6 +29,5 @@ public class Facility: ISoftDelete
     [Required]
     public string IconUrl { get; set; }
     
-    public bool IsDeleted { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
 }

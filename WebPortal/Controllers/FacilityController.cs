@@ -52,9 +52,9 @@ public class FacilityController : Controller
     }
 
     [HttpPost]
-    public ActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var facility = _context.Facilities.FirstOrDefault(f => f.Id == id);
+        var facility = await _context.Facilities.FindAsync(id);
     
         if (facility == null)
         {
@@ -62,7 +62,7 @@ public class FacilityController : Controller
         }
         
         _context.Facilities.Remove(facility);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         
         return RedirectToAction("Index");
     }

@@ -13,11 +13,11 @@
 </a>
 <div class="flex items-center space-x-4">
     <h2 class="text-2xl font-semibold">Faciliteit details</h2>
-    @using (Html.BeginForm("Delete", "Facility", FormMethod.Post, new { @class = "flex", onsubmit = "return confirmDeletion();" }))
-    {
-        <input type="hidden" name="id" value="@Model.Id" />
-        <input type="submit" value="Verwijder" class="underline"/>
-    }
+    <form id="deleteform" method="post" asp-action="Delete" asp-route-id="@Model.Id" onsubmit="return confirmDeletion()">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="underline">Verwijder</button>
+    </form>
+    
 </div>
 <p>ID: @Model.Id</p>
 <p>Naam: @Model.Name</p>

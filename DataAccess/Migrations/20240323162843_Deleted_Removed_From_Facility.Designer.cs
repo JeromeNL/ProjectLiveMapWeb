@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240323162843_Deleted_Removed_From_Facility")]
+    partial class Deleted_Removed_From_Facility
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +44,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
@@ -66,6 +72,7 @@ namespace DataAccess.Migrations
                             Id = -1,
                             Description = "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
                             IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png",
+                            IsDeleted = false,
                             Latitude = 51.343434225015848,
                             Longitude = 5.2462238073349008,
                             Name = "Sportveld",
@@ -76,6 +83,7 @@ namespace DataAccess.Migrations
                             Id = -2,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
                             IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png",
+                            IsDeleted = false,
                             Latitude = 51.341722544598902,
                             Longitude = 5.2455371618270883,
                             Name = "Zwemmeer",
@@ -123,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 23, 17, 37, 34, 905, DateTimeKind.Local).AddTicks(8070),
+                            CreatedAt = new DateTime(2024, 3, 23, 17, 28, 43, 411, DateTimeKind.Local).AddTicks(2110),
                             Description = "Het sportveld is in goede staat.",
                             FacilityId = -1,
                             ProposedFacilityChangeId = -1,
@@ -132,7 +140,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 23, 17, 37, 34, 905, DateTimeKind.Local).AddTicks(8110),
+                            CreatedAt = new DateTime(2024, 3, 23, 17, 28, 43, 411, DateTimeKind.Local).AddTicks(2150),
                             Description = "Het zwemmeer is in goede staat.",
                             FacilityId = -2,
                             ProposedFacilityChangeId = -2,
