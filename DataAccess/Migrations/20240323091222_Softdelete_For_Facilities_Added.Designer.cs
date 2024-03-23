@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240323091222_Softdelete_For_Facilities_Added")]
+    partial class Softdelete_For_Facilities_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 23, 10, 19, 0, 835, DateTimeKind.Local).AddTicks(1390),
+                            CreatedAt = new DateTime(2024, 3, 23, 10, 12, 21, 634, DateTimeKind.Local).AddTicks(3090),
                             Description = "Het sportveld is in goede staat.",
                             FacilityId = -1,
                             ProposedFacilityChangeId = -1,
@@ -137,7 +140,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 23, 10, 19, 0, 835, DateTimeKind.Local).AddTicks(1440),
+                            CreatedAt = new DateTime(2024, 3, 23, 10, 12, 21, 634, DateTimeKind.Local).AddTicks(3120),
                             Description = "Het zwemmeer is in goede staat.",
                             FacilityId = -2,
                             ProposedFacilityChangeId = -2,

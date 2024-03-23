@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB"))
+        .AddInterceptors(new SoftDeleteInterceptor()));
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(
@@ -20,6 +21,8 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedCultures = supportedCultures;
         options.SupportedUICultures = supportedCultures;
     });
+
+
 
 var app = builder.Build();
 
