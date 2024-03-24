@@ -19,8 +19,8 @@ public class FacilityReportController : Controller
     {
         var pendingReports = await _context.FacilityReports
             .Where(report => report.Status == FacilityReportStatus.Pending)
-            .Include(report => report.Facility)
-            .Include(report => report.ProposedFacilityChange)
+            .Include(report => report.ProposedFacility.Facility)
+            .Include(report => report.ProposedFacility)
             .OrderBy(report => report.CreatedAt).ToListAsync();
             
         return View(pendingReports);
@@ -40,13 +40,13 @@ public class FacilityReportController : Controller
     public async Task<IActionResult> ApproveReport(int id)
     {
         var report = await _context.FacilityReports
-            .Include(r => r.ProposedFacilityChange)
-            .Include(r => r.Facility)
+            .Include(r => r.ProposedFacility)
+            .Include(r => r.ProposedFacility.Facility)
             .FirstOrDefaultAsync(r => r.Id == id);
         if (report == null) return NotFound();
 
-        var proposedFacilityChange = report.ProposedFacilityChange;
-        var facility = report.Facility;
+        var proposedFacilityChange = report.ProposedFacility;
+        var facility = report.ProposedFacility.Facility;
         if (proposedFacilityChange != null)
         {
             // Apply changes from ProposedFacilityChange to Facility
@@ -55,7 +55,7 @@ public class FacilityReportController : Controller
             facility.Type = proposedFacilityChange.Type;
             facility.Latitude = proposedFacilityChange.Latitude;
             facility.Longitude = proposedFacilityChange.Longitude;
-            facility.IconUrl = proposedFacilityChange.IconUrl;
+            facility.IconName = proposedFacilityChange.IconName;
         }
 
         report.Status = FacilityReportStatus.Accepted;
