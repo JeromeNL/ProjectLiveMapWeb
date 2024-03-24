@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319212234_Changed_seeddata_so_it_is_more_realistic")]
+    partial class Changed_seeddata_so_it_is_more_realistic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,8 +123,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 19, 13, 40, 17, 199, DateTimeKind.Local).AddTicks(3970),
-
+                            CreatedAt = new DateTime(2024, 3, 19, 22, 22, 33, 725, DateTimeKind.Local).AddTicks(1283),
                             Description = "Het sportveld is in goede staat.",
                             FacilityId = -1,
                             ProposedFacilityChangeId = -1,
@@ -130,8 +132,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 19, 13, 40, 17, 199, DateTimeKind.Local).AddTicks(4010),
-
+                            CreatedAt = new DateTime(2024, 3, 19, 22, 22, 33, 725, DateTimeKind.Local).AddTicks(1327),
                             Description = "Het zwemmeer is in goede staat.",
                             FacilityId = -2,
                             ProposedFacilityChangeId = -2,
