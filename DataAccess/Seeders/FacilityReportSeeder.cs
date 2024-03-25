@@ -22,6 +22,7 @@ public class FacilityReportSeeder(List<ProposedFacility> proposedFacilities): IS
             };
             facilityReports.Add(facilityReport);   
         }
+        
         return facilityReports;
     }
 }

@@ -47,18 +47,38 @@ public class FacilityReportController : Controller
 
         var proposedFacilityChange = report.ProposedFacility;
         var facility = report.ProposedFacility.Facility;
-        if (proposedFacilityChange != null)
+
+
+        // new facility to add instead of existing facility.
+        if (report.ProposedFacility.FacilityId == null)
         {
-            // Apply changes from ProposedFacilityChange to Facility
-            facility.Name = proposedFacilityChange.Name;
-            facility.Description = proposedFacilityChange.Description;
-            facility.Type = proposedFacilityChange.Type;
-            facility.Latitude = proposedFacilityChange.Latitude;
-            facility.Longitude = proposedFacilityChange.Longitude;
-            facility.IconName = proposedFacilityChange.IconName;
+            var newFacility = new Facility
+            {
+                Name = report.ProposedFacility.Name,
+                Description = report.ProposedFacility.Description,
+                Longitude = report.ProposedFacility.Longitude,
+                Latitude = report.ProposedFacility.Latitude,
+                Type = report.ProposedFacility.Type,
+                IconName = report.ProposedFacility.IconName,
+            };
+
+            await _context.Facilities.AddAsync(newFacility);
 
         }
-
+        else
+        {
+            if (proposedFacilityChange != null)
+            {
+                // Apply changes from ProposedFacilityChange to Facility
+                facility.Name = proposedFacilityChange.Name;
+                facility.Description = proposedFacilityChange.Description;
+                facility.Type = proposedFacilityChange.Type;
+                facility.Latitude = proposedFacilityChange.Latitude;
+                facility.Longitude = proposedFacilityChange.Longitude;
+                facility.IconName = proposedFacilityChange.IconName;
+                
+            }
+        }
         report.Status = FacilityReportStatus.Accepted;
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

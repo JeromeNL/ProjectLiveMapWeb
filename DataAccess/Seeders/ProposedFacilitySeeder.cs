@@ -24,6 +24,19 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
             };
             proposedFacilities.Add(proposedFacility);
         }
+        // new proposed facility
+        var newProposedFacility = new ProposedFacility
+        {
+            Id = 4,
+            Name = "Zwemzee",
+            Type = "Recreatie",
+            Description = "De nieuwe zwemzee",
+            Latitude = 51.651976894252684,
+            Longitude = 5.053454583354487,
+            IconName = "trash"
+        };
+        proposedFacilities.Add(newProposedFacility);
+        
         return proposedFacilities;
     }
 }
