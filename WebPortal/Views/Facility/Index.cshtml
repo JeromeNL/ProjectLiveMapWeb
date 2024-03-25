@@ -10,7 +10,7 @@
 {
     <script>
         let map = L.map('map', {
-            center: [51.342467730971386, 5.24916551341228],
+            center: [51.6516436177687, 5.050035876765014],
             zoom: 18
         });
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -24,11 +24,12 @@
         {
             <text> 
             {
-                let icon = L.icon({
-                    iconUrl: '@facility.IconUrl',
+                let icon = L.divIcon({
+                    html: `<i class="ti ti-@facility.IconName text-9xl"></i>`,
+                    className: 'facility-icon text-9xl',
                     iconSize: [35, 35],
                     iconAnchor: [15, 15],
-                    popupAnchor: [0, -15]
+                    popupAnchor: [-7, -10]
                 });
                 let markerLocation = L.latLng(@facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 let marker = L.marker(markerLocation, {
@@ -50,7 +51,7 @@
             let zoomLevel = map.getZoom();
             let iconSize = calculateIconSize(zoomLevel);
             console.log(iconSize)
-        
+
             // Update icon size for all markers
             markers.forEach(marker => {
                 let icon = marker.options.icon;
