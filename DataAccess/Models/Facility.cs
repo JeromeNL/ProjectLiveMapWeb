@@ -28,5 +28,5 @@ public class Facility
     public double Longitude { get; set; }
 
     [Required(ErrorMessage = "Vul een Icoon URL in")]
-    public string IconUrl { get; set; }
+    public string IconName { get; set; }
 }

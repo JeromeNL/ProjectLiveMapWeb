@@ -34,7 +34,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IconUrl")
+                    b.Property<string>("IconName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -62,7 +62,7 @@ namespace DataAccess.Migrations
                         {
                             Id = -1,
                             Description = "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
-                            IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png",
+                            IconName = "sandbox",
                             Latitude = 51.343434225015848,
                             Longitude = 5.2462238073349008,
                             Name = "Sportveld",
@@ -72,7 +72,7 @@ namespace DataAccess.Migrations
                         {
                             Id = -2,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png",
+                            IconName = "sandbox",
                             Latitude = 51.341722544598902,
                             Longitude = 5.2455371618270883,
                             Name = "Zwemmeer",
@@ -120,7 +120,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 19, 22, 22, 33, 725, DateTimeKind.Local).AddTicks(1283),
+                            CreatedAt = new DateTime(2024, 3, 25, 16, 40, 0, 678, DateTimeKind.Local).AddTicks(4332),
                             Description = "Het sportveld is in goede staat.",
                             FacilityId = -1,
                             ProposedFacilityChangeId = -1,
@@ -129,7 +129,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 19, 22, 22, 33, 725, DateTimeKind.Local).AddTicks(1327),
+                            CreatedAt = new DateTime(2024, 3, 25, 16, 40, 0, 678, DateTimeKind.Local).AddTicks(4391),
                             Description = "Het zwemmeer is in goede staat.",
                             FacilityId = -2,
                             ProposedFacilityChangeId = -2,

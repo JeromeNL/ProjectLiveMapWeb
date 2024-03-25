@@ -42,9 +42,14 @@
     <input class="input input-bordered" required type="text" asp-for="Type"/>
     <span asp-validation-for="Type" class="text-red-600"></span>
 
-    <label>Icoon URL</label>
-    <input class="input input-bordered" required type="text" asp-for="IconUrl"/>
-    <span asp-validation-for="IconUrl" class="text-red-600"></span>
+    <label>Icoon naam</label>
+    <select required class="input input-bordered" asp-for="IconName">
+        <option value="chef-hat">chef hat</option>
+        <option value="sandbox">sandbox</option>
+        <option value="smoking">smoking</option>
+        <option value="trash">trash</option>
+    </select>
+    <span asp-validation-for="IconName" class="text-red-600"></span>
     
     <input type="submit" value="Aanmaken" class="btn btn-neutral mt-2"/>
 </form>
