@@ -25,8 +25,8 @@
             <text> 
             {
                 let icon = L.divIcon({
-                    html: `<i class="ti ti-@facility.IconName text-9xl"></i>`,
-                    className: 'facility-icon text-9xl',
+                    html: `<i class="ti ti-@facility.IconName text-lg"></i>`,
+                    className: 'facility-icon',
                     iconSize: [35, 35],
                     iconAnchor: [15, 15],
                     popupAnchor: [-7, -10]
@@ -50,7 +50,6 @@
         map.on('zoomend', function() {
             let zoomLevel = map.getZoom();
             let iconSize = calculateIconSize(zoomLevel);
-            console.log(iconSize)
 
             // Update icon size for all markers
             markers.forEach(marker => {
