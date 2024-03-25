@@ -56,6 +56,7 @@ public class FacilityReportController : Controller
             facility.Latitude = proposedFacilityChange.Latitude;
             facility.Longitude = proposedFacilityChange.Longitude;
             facility.IconName = proposedFacilityChange.IconName;
+
         }
 
         report.Status = FacilityReportStatus.Accepted;

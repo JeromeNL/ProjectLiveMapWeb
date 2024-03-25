@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240315085809_Adding_proposed_facilities")]
+    partial class Adding_proposed_facilities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IconName")
+                    b.Property<string>("IconUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -62,9 +65,9 @@ namespace DataAccess.Migrations
                         {
                             Id = -1,
                             Description = "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
-                            IconName = "sandbox",
-                            Latitude = 51.343434225015848,
-                            Longitude = 5.2462238073349008,
+                            IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png",
+                            Latitude = 51.688403441591433,
+                            Longitude = 5.2859250150824995,
                             Name = "Sportveld",
                             Type = "Sport"
                         },
@@ -72,9 +75,9 @@ namespace DataAccess.Migrations
                         {
                             Id = -2,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            IconName = "sandbox",
-                            Latitude = 51.341722544598902,
-                            Longitude = 5.2455371618270883,
+                            IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png",
+                            Latitude = 51.688673302068032,
+                            Longitude = 5.284670979381513,
                             Name = "Zwemmeer",
                             Type = "Recreatie"
                         });
@@ -100,7 +103,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProposedFacilityChangeId")
+                    b.Property<int?>("ProposedFacilityChangeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -120,19 +123,17 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 19, 13, 40, 17, 199, DateTimeKind.Local).AddTicks(3970),
+                            CreatedAt = new DateTime(2024, 3, 15, 9, 58, 9, 225, DateTimeKind.Local).AddTicks(77),
                             Description = "Het sportveld is in goede staat.",
                             FacilityId = -1,
-                            ProposedFacilityChangeId = -1,
                             Status = 0
                         },
                         new
                         {
                             Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 19, 13, 40, 17, 199, DateTimeKind.Local).AddTicks(4010),
+                            CreatedAt = new DateTime(2024, 3, 15, 9, 58, 9, 225, DateTimeKind.Local).AddTicks(135),
                             Description = "Het zwemmeer is in goede staat.",
                             FacilityId = -2,
-                            ProposedFacilityChangeId = -2,
                             Status = 0
                         });
                 });
@@ -207,28 +208,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProposedFacilityChanges");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -1,
-                            Description = "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
-                            IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png",
-                            Latitude = 51.343434225015848,
-                            Longitude = 5.2462238073349008,
-                            Name = "Sportveld Hoevelake",
-                            Type = "Sport"
-                        },
-                        new
-                        {
-                            Id = -2,
-                            Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png",
-                            Latitude = 51.341722544598902,
-                            Longitude = 5.2455371618270883,
-                            Name = "Zwemmeer",
-                            Type = "Recreatie"
-                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
@@ -271,9 +250,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("DataAccess.Models.ProposedFacilityChange", "ProposedFacilityChange")
                         .WithMany()
-                        .HasForeignKey("ProposedFacilityChangeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProposedFacilityChangeId");
 
                     b.Navigation("Facility");
 
