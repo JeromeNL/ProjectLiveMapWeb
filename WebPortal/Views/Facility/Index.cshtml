@@ -3,7 +3,10 @@
     ViewBag.Title = "Faciliteiten";
     Layout = "_Layout";
 }
-
+@if (ViewBag.message != null)
+{
+    <span class="text-red-600">@ViewBag.message</span>
+}
 <div id="map" class="h-[80vh] w-[70vw]"></div>
 
 @section Scripts
@@ -25,7 +28,7 @@
             <text> 
             {
                 let icon = L.icon({
-                    iconUrl: '@facility.IconUrl',
+                    iconUrl: '@facility.IconName',
                     iconSize: [35, 35],
                     iconAnchor: [15, 15],
                     popupAnchor: [0, -15]
@@ -79,38 +82,7 @@
 
         
         function onMapClick(e) {
-            let name = prompt("Enter title for the facility");
-            let description = prompt("Enter description for the facility");
-            let type = prompt("Enter type for the facility");
-            let iconUrl = prompt("Enter icon URL for the facility");
-            
-            let facility = {
-                Name: name,
-                Description: description,
-                Type: type, 
-                Latitude: e.latlng.lat,
-                Longitude: e.latlng.lng,
-                IconUrl: iconUrl
-            };
-            
-            console.log(JSON.stringify(facility));
-            
-            // Send a POST request to the server with the new marker
-            fetch('/facility/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(facility)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    window.location.reload();
-                })
-                .catch(error => console.error('Error:', error));
+            window.location.href = '/Facility/create?latitude=' + encodeURIComponent(e.latlng.lat) + '&longitude=' + encodeURIComponent(e.latlng.lng);
         }
-        
-        
     </script>
 }

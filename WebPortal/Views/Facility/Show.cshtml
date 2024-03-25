@@ -17,7 +17,7 @@
 <p>Beschrijving: @Model.Description</p>
 <p>Type: @Model.Type</p>
 <p>Icoontje:</p>
-<img class="size-1/12" src="@Model.IconUrl" alt="Icoontje voor de faciliteit @Model.Name"/>
+<img class="size-1/12" src="@Model.IconName" alt="Icoontje voor de faciliteit @Model.Name"/>
 <p>Huidige locatie:</p>
 <div id="map" class="h-[20vh] w-[20vw]"></div>
 
@@ -35,7 +35,7 @@
         }).addTo(map);
         
         let icon = L.icon({
-            iconUrl: '@Model.IconUrl',
+            iconUrl: '@Model.IconName',
             iconSize: [35, 35],
             iconAnchor: [15, 15],
             popupAnchor: [0, -15]

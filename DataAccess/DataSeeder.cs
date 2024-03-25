@@ -46,7 +46,7 @@ public static class DataSeeder
                 Type = "Sport",
                 Latitude = 51.34343422501585,
                 Longitude = 5.246223807334901,
-                IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png"
+                IconName = "sandbox"
             },
             new()
             {
@@ -57,7 +57,7 @@ public static class DataSeeder
                 Type = "Recreatie",
                 Latitude = 51.3417225445989,
                 Longitude = 5.245537161827088,
-                IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png"
+                IconName = "sandbox"
             },
         };
         return facilities;
