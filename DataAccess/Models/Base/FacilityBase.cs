@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using DataAccess.Interfaces;
 
 namespace DataAccess.Models.Base;
 
-public abstract class FacilityBase
+public abstract class FacilityBase : ISoftDelete
 {
     [Required]
     [MaxLength(100)]
@@ -22,4 +23,6 @@ public abstract class FacilityBase
 
     [Required]
     public string IconName { get; set; }
+    
+    public DateTimeOffset? DeletedAt { get; set; }
 }

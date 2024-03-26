@@ -1,4 +1,5 @@
 using DataAccess.Models;
+using DataAccess.Models.Base;
 using DataAccess.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
