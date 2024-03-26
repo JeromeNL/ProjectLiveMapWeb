@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240315085809_Adding_proposed_facilities")]
-    partial class Adding_proposed_facilities
+    [Migration("20240325223621_New_Initial_Models")]
+    partial class New_Initial_Models
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IconUrl")
+                    b.Property<string>("IconName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -63,22 +63,32 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
-                            Description = "Op het sportveld kun je allerlei activiteiten doen. Denk aan voetballen, basketballen en tennissen.",
-                            IconUrl = "https://cdn-icons-png.flaticon.com/512/4344/4344985.png",
-                            Latitude = 51.688403441591433,
-                            Longitude = 5.2859250150824995,
-                            Name = "Sportveld",
-                            Type = "Sport"
+                            Id = 1,
+                            Description = "Restaurant de Kom is een gezellig restaurant",
+                            IconName = "trash",
+                            Latitude = 51.647970807304127,
+                            Longitude = 5.0468584734210191,
+                            Name = "Restaurant de Kom",
+                            Type = "Restaurant"
                         },
                         new
                         {
-                            Id = -2,
+                            Id = 2,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            IconUrl = "https://cdn-icons-png.freepik.com/512/50/50004.png",
-                            Latitude = 51.688673302068032,
-                            Longitude = 5.284670979381513,
+                            IconName = "chef-hat",
+                            Latitude = 51.647223135629211,
+                            Longitude = 5.05165372379847,
                             Name = "Zwemmeer",
+                            Type = "Recreatie"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
+                            IconName = "horse-toy",
+                            Latitude = 51.651976894252684,
+                            Longitude = 5.0534545833544868,
+                            Name = "Speeltuin",
                             Type = "Recreatie"
                         });
                 });
@@ -100,10 +110,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FacilityId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProposedFacilityChangeId")
+                    b.Property<int>("ProposedFacilityId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -113,27 +120,41 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityId");
-
-                    b.HasIndex("ProposedFacilityChangeId");
+                    b.HasIndex("ProposedFacilityId");
 
                     b.ToTable("FacilityReports");
 
                     b.HasData(
                         new
                         {
-                            Id = -1,
-                            CreatedAt = new DateTime(2024, 3, 15, 9, 58, 9, 225, DateTimeKind.Local).AddTicks(77),
-                            Description = "Het sportveld is in goede staat.",
-                            FacilityId = -1,
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4580),
+                            Description = "Seed",
+                            ProposedFacilityId = 1,
                             Status = 0
                         },
                         new
                         {
-                            Id = -2,
-                            CreatedAt = new DateTime(2024, 3, 15, 9, 58, 9, 225, DateTimeKind.Local).AddTicks(135),
-                            Description = "Het zwemmeer is in goede staat.",
-                            FacilityId = -2,
+                            Id = 2,
+                            CreatedAt = new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4610),
+                            Description = "Seed",
+                            ProposedFacilityId = 2,
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4610),
+                            Description = "Seed",
+                            ProposedFacilityId = 3,
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4610),
+                            Description = "Seed",
+                            ProposedFacilityId = 4,
                             Status = 0
                         });
                 });
@@ -150,43 +171,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IconUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProposedFacilities");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.ProposedFacilityChange", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("FacilityId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconUrl")
+                    b.Property<string>("IconName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -207,7 +195,54 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProposedFacilityChanges");
+                    b.HasIndex("FacilityId");
+
+                    b.ToTable("ProposedFacilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Restaurant de Kom is een gezellig restaurant",
+                            FacilityId = 1,
+                            IconName = "trash",
+                            Latitude = 51.647970807304127,
+                            Longitude = 5.0468584734210191,
+                            Name = "Restaurant de Kom",
+                            Type = "Restaurant"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
+                            FacilityId = 2,
+                            IconName = "chef-hat",
+                            Latitude = 51.647223135629211,
+                            Longitude = 5.05165372379847,
+                            Name = "Zwemmeer",
+                            Type = "Recreatie"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
+                            FacilityId = 3,
+                            IconName = "horse-toy",
+                            Latitude = 51.651976894252684,
+                            Longitude = 5.0534545833544868,
+                            Name = "Speeltuin",
+                            Type = "Recreatie"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "De nieuwe zwemzee",
+                            IconName = "trash",
+                            Latitude = 51.651976894252684,
+                            Longitude = 5.0534545833544868,
+                            Name = "Zwemzee",
+                            Type = "Recreatie"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
@@ -242,19 +277,22 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.FacilityReport", b =>
                 {
-                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                    b.HasOne("DataAccess.Models.ProposedFacility", "ProposedFacility")
                         .WithMany()
-                        .HasForeignKey("FacilityId")
+                        .HasForeignKey("ProposedFacilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.ProposedFacilityChange", "ProposedFacilityChange")
+                    b.Navigation("ProposedFacility");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
                         .WithMany()
-                        .HasForeignKey("ProposedFacilityChangeId");
+                        .HasForeignKey("FacilityId");
 
                     b.Navigation("Facility");
-
-                    b.Navigation("ProposedFacilityChange");
                 });
 #pragma warning restore 612, 618
         }

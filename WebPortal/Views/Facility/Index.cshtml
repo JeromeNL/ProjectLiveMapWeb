@@ -13,11 +13,13 @@
 {
     <script>
         let map = L.map('map', {
-            center: [51.342467730971386, 5.24916551341228],
-            zoom: 18
+            center: [51.65028080463477, 5.0484079052199275],
+            zoom: 16,
+            attributionControl: false,
+            minZoom: 16,
+            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
         });
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         
@@ -27,11 +29,12 @@
         {
             <text> 
             {
-                let icon = L.icon({
-                    iconUrl: '@facility.IconName',
+                let icon = L.divIcon({
+                    html: `<i class="ti ti-@facility.IconName text-2xl text-black"></i>`,
+                    className: 'facility-icon',
                     iconSize: [35, 35],
                     iconAnchor: [15, 15],
-                    popupAnchor: [0, -15]
+                    popupAnchor: [-7, -10]
                 });
                 let markerLocation = L.latLng(@facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 let marker = L.marker(markerLocation, {
@@ -52,8 +55,7 @@
         map.on('zoomend', function() {
             let zoomLevel = map.getZoom();
             let iconSize = calculateIconSize(zoomLevel);
-            console.log(iconSize)
-        
+
             // Update icon size for all markers
             markers.forEach(marker => {
                 let icon = marker.options.icon;
