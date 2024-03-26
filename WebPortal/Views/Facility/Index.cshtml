@@ -3,18 +3,23 @@
     ViewBag.Title = "Faciliteiten";
     Layout = "_Layout";
 }
-
+@if (ViewBag.message != null)
+{
+    <span class="text-red-600">@ViewBag.message</span>
+}
 <div id="map" class="h-[80vh] w-[70vw]"></div>
 
 @section Scripts
 {
     <script>
         let map = L.map('map', {
-            center: [51.342467730971386, 5.24916551341228],
-            zoom: 18
+            center: [51.65028080463477, 5.0484079052199275],
+            zoom: 16,
+            attributionControl: false,
+            minZoom: 16,
+            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
         });
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         
@@ -24,11 +29,12 @@
         {
             <text> 
             {
-                let icon = L.icon({
-                    iconUrl: '@facility.IconUrl',
+                let icon = L.divIcon({
+                    html: `<i class="ti ti-@facility.IconName text-2xl text-black"></i>`,
+                    className: 'facility-icon',
                     iconSize: [35, 35],
                     iconAnchor: [15, 15],
-                    popupAnchor: [0, -15]
+                    popupAnchor: [-7, -10]
                 });
                 let markerLocation = L.latLng(@facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 let marker = L.marker(markerLocation, {
@@ -51,8 +57,7 @@
         map.on('zoomend', function() {
             let zoomLevel = map.getZoom();
             let iconSize = calculateIconSize(zoomLevel);
-            console.log(iconSize)
-        
+
             // Update icon size for all markers
             markers.forEach(marker => {
                 let icon = marker.options.icon;
@@ -99,38 +104,7 @@
 
         
         function onMapClick(e) {
-            let name = prompt("Enter title for the facility");
-            let description = prompt("Enter description for the facility");
-            let type = prompt("Enter type for the facility");
-            let iconUrl = prompt("Enter icon URL for the facility");
-            
-            let facility = {
-                Name: name,
-                Description: description,
-                Type: type, 
-                Latitude: e.latlng.lat,
-                Longitude: e.latlng.lng,
-                IconUrl: iconUrl
-            };
-            
-            console.log(JSON.stringify(facility));
-            
-            // Send a POST request to the server with the new marker
-            fetch('/facility/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(facility)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    window.location.reload();
-                })
-                .catch(error => console.error('Error:', error));
+            window.location.href = '/Facility/create?latitude=' + encodeURIComponent(e.latlng.lat) + '&longitude=' + encodeURIComponent(e.latlng.lng);
         }
-        
-        
     </script>
 }

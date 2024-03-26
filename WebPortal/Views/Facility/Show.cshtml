@@ -24,7 +24,7 @@
 <p>Beschrijving: @Model.Description</p>
 <p>Type: @Model.Type</p>
 <p>Icoontje:</p>
-<img class="size-1/12" src="@Model.IconUrl" alt="Icoontje voor de faciliteit @Model.Name"/>
+<i class="ti ti-@Model.IconName text-4xl"></i>
 <p>Huidige locatie:</p>
 <div id="map" class="h-[20vh] w-[20vw]"></div>
 
@@ -40,9 +40,10 @@
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-        
-        let icon = L.icon({
-            iconUrl: '@Model.IconUrl',
+
+        let icon = L.divIcon({
+            html: `<i class="ti ti-@Model.IconName text-lg"></i>`,
+            className: 'facility-icon',
             iconSize: [35, 35],
             iconAnchor: [15, 15],
             popupAnchor: [0, -15]
