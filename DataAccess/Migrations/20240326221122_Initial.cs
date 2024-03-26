@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class New_Initial_Models : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,8 @@ namespace DataAccess.Migrations
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
-                    IconName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    IconName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,7 +57,8 @@ namespace DataAccess.Migrations
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
-                    IconName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    IconName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,18 +94,24 @@ namespace DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Facilities",
-                columns: new[] { "Id", "Description", "IconName", "Latitude", "Longitude", "Name", "Type" },
+                columns: new[] { "Id", "DeletedAt", "Description", "IconName", "Latitude", "Longitude", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Restaurant de Kom is een gezellig restaurant", "trash", 51.647970807304127, 5.0468584734210191, "Restaurant de Kom", "Restaurant" },
-                    { 2, "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.", "chef-hat", 51.647223135629211, 5.05165372379847, "Zwemmeer", "Recreatie" },
-                    { 3, "De speeltuin is een leuke plek voor kinderen om te spelen.", "horse-toy", 51.651976894252684, 5.0534545833544868, "Speeltuin", "Recreatie" }
+                    { 1, null, "Restaurant de Kom is een gezellig restaurant", "trash", 51.647970807304127, 5.0468584734210191, "Restaurant de Kom", "Restaurant" },
+                    { 2, null, "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.", "chef-hat", 51.647223135629211, 5.05165372379847, "Zwemmeer", "Recreatie" },
+                    { 3, null, "De speeltuin is een leuke plek voor kinderen om te spelen.", "horse-toy", 51.651976894252684, 5.0534545833544868, "Speeltuin", "Recreatie" }
                 });
 
             migrationBuilder.InsertData(
                 table: "ProposedFacilities",
-                columns: new[] { "Id", "Description", "FacilityId", "IconName", "Latitude", "Longitude", "Name", "Type" },
-                values: new object[] { 4, "De nieuwe zwemzee", null, "trash", 51.651976894252684, 5.0534545833544868, "Zwemzee", "Recreatie" });
+                columns: new[] { "Id", "DeletedAt", "Description", "FacilityId", "IconName", "Latitude", "Longitude", "Name", "Type" },
+                values: new object[,]
+                {
+                    { 1, null, "Restaurant de Kom is een gezellig restaurant", null, "trash", 51.647970807304127, 5.0468584734210191, "Restaurant de Kom", "Restaurant" },
+                    { 2, null, "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.", null, "chef-hat", 51.647223135629211, 5.05165372379847, "Zwemmeer", "Recreatie" },
+                    { 3, null, "De speeltuin is een leuke plek voor kinderen om te spelen.", null, "horse-toy", 51.651976894252684, 5.0534545833544868, "Speeltuin", "Recreatie" },
+                    { 4, null, "De nieuwe zwemzee", null, "trash", 51.651976894252684, 5.0534545833544868, "Zwemzee", "Recreatie" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -117,26 +125,12 @@ namespace DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "FacilityReports",
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
-                values: new object[] { 4, new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4610), "Seed", 4 });
-
-            migrationBuilder.InsertData(
-                table: "ProposedFacilities",
-                columns: new[] { "Id", "Description", "FacilityId", "IconName", "Latitude", "Longitude", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Restaurant de Kom is een gezellig restaurant", 1, "trash", 51.647970807304127, 5.0468584734210191, "Restaurant de Kom", "Restaurant" },
-                    { 2, "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.", 2, "chef-hat", 51.647223135629211, 5.05165372379847, "Zwemmeer", "Recreatie" },
-                    { 3, "De speeltuin is een leuke plek voor kinderen om te spelen.", 3, "horse-toy", 51.651976894252684, 5.0534545833544868, "Speeltuin", "Recreatie" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "FacilityReports",
-                columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4580), "Seed", 1 },
-                    { 2, new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4610), "Seed", 2 },
-                    { 3, new DateTime(2024, 3, 25, 23, 36, 21, 69, DateTimeKind.Local).AddTicks(4610), "Seed", 3 }
+                    { 1, new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1879), "Seed", 1 },
+                    { 2, new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1936), "Seed", 2 },
+                    { 3, new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1938), "Seed", 3 },
+                    { 4, new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1940), "Seed", 4 }
                 });
 
             migrationBuilder.CreateIndex(

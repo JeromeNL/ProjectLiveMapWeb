@@ -11,7 +11,14 @@
     </svg>
     <span>Terug</span>
 </a>
-<h2 class="text-2xl font-semibold">Faciliteit details</h2>
+<div class="flex items-center space-x-4">
+    <h2 class="text-2xl font-semibold">Faciliteit details</h2>
+    <form id="deleteform" method="post" asp-action="Delete" asp-route-id="@Model.Id" onsubmit="return confirmDeletion()">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="underline">Verwijder</button>
+    </form>
+    
+</div>
 <p>ID: @Model.Id</p>
 <p>Naam: @Model.Name</p>
 <p>Beschrijving: @Model.Description</p>
@@ -47,5 +54,13 @@
             icon: icon
         });
         marker.addTo(map).bindPopup(popupContent);
+        
+        function confirmDeletion() {
+            return confirm('Weet u zeker dat u deze faciliteit wilt verwijderen?');
+        }
     </script>
+    
+    
 }
+
+

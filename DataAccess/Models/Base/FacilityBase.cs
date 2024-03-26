@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using DataAccess.Interfaces;
 
 namespace DataAccess.Models.Base;
 

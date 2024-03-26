@@ -62,4 +62,20 @@ public class FacilityController : Controller
         var facilities = _context.Facilities.ToList();
         return Json(facilities);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var facility = await _context.Facilities.FindAsync(id);
+    
+        if (facility == null)
+        {
+            return Json($"Geen faciliteit gevonden met ID {id}.");
+        }
+        
+        _context.Facilities.Remove(facility);
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Index");
+    }
 }
