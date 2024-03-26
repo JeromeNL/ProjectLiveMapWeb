@@ -14,7 +14,6 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
             var proposedFacility = new ProposedFacility
             {
                 Id = id++,
-                FacilityId = facility.Id,
                 Name = facility.Name,
                 Type = facility.Type,
                 Description = facility.Description,
