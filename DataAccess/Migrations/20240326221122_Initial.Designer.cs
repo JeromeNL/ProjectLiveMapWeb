@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240326201151_Fix_Model_Migration")]
-    partial class Fix_Model_Migration
+    [Migration("20240326221122_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 26, 21, 11, 50, 509, DateTimeKind.Local).AddTicks(5630),
+                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1879),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -139,7 +139,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 26, 21, 11, 50, 509, DateTimeKind.Local).AddTicks(5670),
+                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1936),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -147,7 +147,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 26, 21, 11, 50, 509, DateTimeKind.Local).AddTicks(5670),
+                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1938),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -155,7 +155,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 26, 21, 11, 50, 509, DateTimeKind.Local).AddTicks(5680),
+                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1940),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -210,7 +210,6 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
-                            FacilityId = 1,
                             IconName = "trash",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
@@ -221,7 +220,6 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            FacilityId = 2,
                             IconName = "chef-hat",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
@@ -232,7 +230,6 @@ namespace DataAccess.Migrations
                         {
                             Id = 3,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
-                            FacilityId = 3,
                             IconName = "horse-toy",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
