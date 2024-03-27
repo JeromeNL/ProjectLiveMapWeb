@@ -25,7 +25,7 @@
             <tr>
                
                 @{
-                    if (report.ProposedFacility.FacilityId != null)
+                    if (report.ProposedFacility.Facility != null)
                     {
                         <td>@report.ProposedFacility.Facility.Name</td>
                         <td>@($"Naam: {report.ProposedFacility.Facility.Name}, Omschrijving: {report.ProposedFacility.Facility.Description}, Type: {report.ProposedFacility.Facility.Type}, Latitude: {report.ProposedFacility.Facility.Latitude}, Longitude: {report.ProposedFacility.Facility.Longitude}, Icoontje: {report.ProposedFacility.Facility.IconName}")</td>

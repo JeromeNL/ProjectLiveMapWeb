@@ -19,7 +19,8 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
                 Description = facility.Description,
                 Latitude = facility.Latitude,
                 Longitude = facility.Longitude,
-                IconName = facility.IconName
+                IconName = facility.IconName,
+                FacilityId = facility.Id
             };
             proposedFacilities.Add(proposedFacility);
         }

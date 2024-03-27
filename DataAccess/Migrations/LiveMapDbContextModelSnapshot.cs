@@ -128,7 +128,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1879),
+                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +136,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1936),
+                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +144,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1938),
+                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +152,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 26, 23, 11, 21, 861, DateTimeKind.Local).AddTicks(1940),
+                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -166,9 +166,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -207,6 +204,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
+                            FacilityId = 1,
                             IconName = "trash",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
@@ -217,6 +215,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
+                            FacilityId = 2,
                             IconName = "chef-hat",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
@@ -227,6 +226,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 3,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
+                            FacilityId = 3,
                             IconName = "horse-toy",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
@@ -265,13 +265,18 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             Name = "Almior"
                         },
                         new
                         {
-                            Id = -2,
+                            Id = 2,
                             Name = "Joram"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Thieme"
                         });
                 });
 
