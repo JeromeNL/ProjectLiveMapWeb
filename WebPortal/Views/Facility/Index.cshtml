@@ -19,9 +19,8 @@
             minZoom: 16,
             maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
         });
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")')
+        .addTo(map);
         
         let markers = [];
         
