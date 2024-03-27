@@ -16,15 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install npm dependencies
-        run: npm install
-        working-directory: WebPortal
-
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -62,5 +53,5 @@ jobs:
         with:
           app-name: 'livemap-phoenix'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4C084A0CCFE24DD6AED4D8539EF95481 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B54A6F2FD0B44F0294A8AA0920250975 }}
           package: .
