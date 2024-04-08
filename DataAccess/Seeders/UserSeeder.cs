@@ -23,7 +23,22 @@ public class UserSeeder: ISeeder<User>
             {
                 Id = 3,
                 Name = "Thieme"
-            }
+            },
+            new()
+            {
+                Id = 4,
+                Name = "Mauro"
+            },
+            new()
+            {
+                Id = 5,
+                Name = "Imke"
+            },
+            new()
+            {
+                Id = 6,
+                Name = "Lamine"
+            },
         };
     }
 }
