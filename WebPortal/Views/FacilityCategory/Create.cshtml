@@ -1,0 +1,22 @@
+﻿@model DataAccess.Models.FacilityCategory
+
+@{
+    ViewBag.Title = "Categorie aanmaken";
+    Layout = "_Layout";
+}
+
+<h1 class="text-2xl font-semibold mb-6">Categorie aanmaken</h1>
+<form method="post" class="flex flex-col">
+    <label>Naam</label>
+    <input type="text" class="input input-bordered" asp-for="Name" required>
+
+
+    <label>Omschrijving</label>
+    <input type="text" class="input input-bordered" asp-for="Description" required>
+
+
+    <label>Icoontje</label>
+    <input type="text" class="input input-bordered" asp-for="IconName" required>
+
+    <button type="submit" class="btn btn-primary mt-2">Aanmaken</button>
+</form>
