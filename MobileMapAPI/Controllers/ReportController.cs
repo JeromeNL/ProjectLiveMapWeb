@@ -19,7 +19,7 @@ public class ReportController(LiveMapDbContext context) : ControllerBase
         return Ok(facilityReports);
     }
 
-    [HttpGet("{reportId:int}/cancel")]
+    [HttpPatch("{reportId:int}/cancel")]
     public async Task<IActionResult> CancelReport(int reportId)
     {
         var facilityReport = await context.FacilityReports.FindAsync(reportId);
