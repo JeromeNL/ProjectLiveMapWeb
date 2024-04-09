@@ -22,6 +22,27 @@ namespace DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DataAccess.Models.DefaultOpeningHours", b =>
+                {
+                    b.Property<int>("WeekDay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly>("CloseTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("OpenTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("WeekDay", "FacilityId");
+
+                    b.HasIndex("FacilityId");
+
+                    b.ToTable("DefaultOpeningHours");
+                });
+
             modelBuilder.Entity("DataAccess.Models.Facility", b =>
                 {
                     b.Property<int>("Id")
@@ -128,7 +149,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453),
+                            CreatedAt = new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2080),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +157,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507),
+                            CreatedAt = new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2140),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +165,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509),
+                            CreatedAt = new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2140),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +173,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510),
+                            CreatedAt = new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2140),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -245,6 +266,27 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.SpecialOpeningHours", b =>
+                {
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly>("CloseTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("OpenTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Date", "FacilityId");
+
+                    b.HasIndex("FacilityId");
+
+                    b.ToTable("SpecialOpeningHours");
+                });
+
             modelBuilder.Entity("DataAccess.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -280,6 +322,17 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.DefaultOpeningHours", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Facility");
+                });
+
             modelBuilder.Entity("DataAccess.Models.FacilityReport", b =>
                 {
                     b.HasOne("DataAccess.Models.ProposedFacility", "ProposedFacility")
@@ -296,6 +349,17 @@ namespace DataAccess.Migrations
                     b.HasOne("DataAccess.Models.Facility", "Facility")
                         .WithMany()
                         .HasForeignKey("FacilityId");
+
+                    b.Navigation("Facility");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.SpecialOpeningHours", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Facility");
                 });
