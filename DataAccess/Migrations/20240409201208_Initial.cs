@@ -78,7 +78,8 @@ namespace DataAccess.Migrations
                     ProposedFacilityId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,6 +88,12 @@ namespace DataAccess.Migrations
                         name: "FK_FacilityReports_ProposedFacilities_ProposedFacilityId",
                         column: x => x.ProposedFacilityId,
                         principalTable: "ProposedFacilities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FacilityReports_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,8 +125,8 @@ namespace DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "FacilityReports",
-                columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
-                values: new object[] { 4, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510), "Seed", 4 });
+                columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId", "UserId" },
+                values: new object[] { 4, new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3540), "Seed", 4, 1 });
 
             migrationBuilder.InsertData(
                 table: "ProposedFacilities",
@@ -133,18 +140,23 @@ namespace DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "FacilityReports",
-                columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
+                columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453), "Seed", 1 },
-                    { 2, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507), "Seed", 2 },
-                    { 3, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509), "Seed", 3 }
+                    { 1, new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3475), "Seed", 1, 1 },
+                    { 2, new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3535), "Seed", 2, 1 },
+                    { 3, new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3537), "Seed", 3, 1 }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_FacilityReports_ProposedFacilityId",
                 table: "FacilityReports",
                 column: "ProposedFacilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FacilityReports_UserId",
+                table: "FacilityReports",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProposedFacilities_FacilityId",
@@ -159,10 +171,10 @@ namespace DataAccess.Migrations
                 name: "FacilityReports");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "ProposedFacilities");
 
             migrationBuilder.DropTable(
-                name: "ProposedFacilities");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Facilities");

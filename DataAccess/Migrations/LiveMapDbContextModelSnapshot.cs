@@ -118,9 +118,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProposedFacilityId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FacilityReports");
 
@@ -128,34 +133,38 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453),
+                            CreatedAt = new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3475),
                             Description = "Seed",
                             ProposedFacilityId = 1,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507),
+                            CreatedAt = new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3535),
                             Description = "Seed",
                             ProposedFacilityId = 2,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509),
+                            CreatedAt = new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3537),
                             Description = "Seed",
                             ProposedFacilityId = 3,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510),
+                            CreatedAt = new DateTime(2024, 4, 9, 22, 12, 7, 806, DateTimeKind.Local).AddTicks(3540),
                             Description = "Seed",
                             ProposedFacilityId = 4,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         });
                 });
 
@@ -288,7 +297,15 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccess.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ProposedFacility");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>

@@ -3,6 +3,7 @@
 public enum FacilityReportStatus
 {
     Pending,
+    Cancelled,
     Accepted,
     Denied,
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataAccess.Interfaces;
 using DataAccess.Models.Enums;
 
 namespace DataAccess.Models;
@@ -24,4 +25,10 @@ public class FacilityReport
     
     [Required]
     public DateTime CreatedAt { get; set; }
+    
+    [Required]
+    public int UserId { get; set; }
+
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; }
 }
