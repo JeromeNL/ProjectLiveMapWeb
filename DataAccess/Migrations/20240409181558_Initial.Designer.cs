@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240409170725_Initial")]
+    [Migration("20240409181558_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -33,14 +33,13 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -55,11 +54,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Facilities");
 
@@ -67,32 +64,29 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
-                            IconName = "trash",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
-                            Name = "Restaurant de Kom",
-                            Type = "Restaurant"
+                            Name = "Restaurant de Kom"
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 3,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            IconName = "chef-hat",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
-                            Name = "Zwemmeer",
-                            Type = "Recreatie"
+                            Name = "Zwemmeer"
                         },
                         new
                         {
                             Id = 3,
+                            CategoryId = 1,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
-                            IconName = "horse-toy",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
-                            Name = "Speeltuin",
-                            Type = "Recreatie"
+                            Name = "Speeltuin"
                         });
                 });
 
@@ -189,7 +183,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6087),
+                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(939),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -197,7 +191,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6174),
+                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(995),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -205,7 +199,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6176),
+                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(997),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -213,7 +207,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6178),
+                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(999),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -228,16 +222,15 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FacilityId")
                         .HasColumnType("int");
-
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
@@ -250,11 +243,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("FacilityId");
 
@@ -264,45 +255,41 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
                             FacilityId = 1,
-                            IconName = "trash",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
-                            Name = "Restaurant de Kom",
-                            Type = "Restaurant"
+                            Name = "Restaurant de Kom"
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 3,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
                             FacilityId = 2,
-                            IconName = "chef-hat",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
-                            Name = "Zwemmeer",
-                            Type = "Recreatie"
+                            Name = "Zwemmeer"
                         },
                         new
                         {
                             Id = 3,
+                            CategoryId = 1,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
                             FacilityId = 3,
-                            IconName = "horse-toy",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
-                            Name = "Speeltuin",
-                            Type = "Recreatie"
+                            Name = "Speeltuin"
                         },
                         new
                         {
                             Id = 4,
+                            CategoryId = 1,
                             Description = "De nieuwe zwemzee",
-                            IconName = "trash",
-                            Latitude = 51.647958020963685,
-                            Longitude = 5.0452297925949106,
-                            Name = "Zwemzee",
-                            Type = "Recreatie"
+                            Latitude = 51.651976894252684,
+                            Longitude = 5.0534545833544868,
+                            Name = "Zwemzee"
                         });
                 });
 
@@ -341,6 +328,17 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.Facility", b =>
+                {
+                    b.HasOne("DataAccess.Models.FacilityCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("DataAccess.Models.FacilityReport", b =>
                 {
                     b.HasOne("DataAccess.Models.ProposedFacility", "ProposedFacility")
@@ -354,9 +352,17 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
                 {
+                    b.HasOne("DataAccess.Models.FacilityCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DataAccess.Models.Facility", "Facility")
                         .WithMany()
                         .HasForeignKey("FacilityId");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Facility");
                 });

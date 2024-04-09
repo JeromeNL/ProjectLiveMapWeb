@@ -20,7 +20,7 @@ public class FacilityController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFacilities()
     {
-        var facilities = await _context.Facilities.ToListAsync();
+        var facilities = await _context.Facilities.Include(f => f.Category).ToListAsync();
         return Ok(facilities);
     }
     
@@ -44,8 +44,7 @@ public class FacilityController : ControllerBase
             FacilityId = existingFacilityId,
             Name = data.Name,
             Description = data.Description,
-            Type = data.Type,
-            IconName = data.IconName,
+            CategoryId = data.CategoryId,
             Latitude = data.Latitude,
             Longitude = data.Longitude
         };

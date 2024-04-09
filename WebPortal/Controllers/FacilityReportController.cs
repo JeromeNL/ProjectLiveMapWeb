@@ -21,6 +21,7 @@ public class FacilityReportController : Controller
             .Where(report => report.Status == FacilityReportStatus.Pending)
             .Include(report => report.ProposedFacility.Facility)
             .Include(report => report.ProposedFacility)
+            .Include(report => report.ProposedFacility.Category)
             .OrderBy(report => report.CreatedAt).ToListAsync();
             
         return View(pendingReports);
@@ -58,8 +59,7 @@ public class FacilityReportController : Controller
                 Description = report.ProposedFacility.Description,
                 Longitude = report.ProposedFacility.Longitude,
                 Latitude = report.ProposedFacility.Latitude,
-                Type = report.ProposedFacility.Type,
-                IconName = report.ProposedFacility.IconName,
+                CategoryId = report.ProposedFacility.CategoryId,
             };
 
             await _context.Facilities.AddAsync(newFacility);
@@ -72,10 +72,9 @@ public class FacilityReportController : Controller
                 // Apply changes from ProposedFacilityChange to Facility
                 facility.Name = proposedFacilityChange.Name;
                 facility.Description = proposedFacilityChange.Description;
-                facility.Type = proposedFacilityChange.Type;
+                facility.CategoryId = proposedFacilityChange.CategoryId;
                 facility.Latitude = proposedFacilityChange.Latitude;
                 facility.Longitude = proposedFacilityChange.Longitude;
-                facility.IconName = proposedFacilityChange.IconName;
                 
             }
         }

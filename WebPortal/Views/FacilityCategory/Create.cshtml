@@ -9,14 +9,15 @@
 <form method="post" class="flex flex-col">
     <label>Naam</label>
     <input type="text" class="input input-bordered" asp-for="Name" required>
-
+    <span asp-validation-for="Name" class="text-red-600"></span>
 
     <label>Omschrijving</label>
     <input type="text" class="input input-bordered" asp-for="Description" required>
-
+    <span asp-validation-for="Description" class="text-red-600"></span>
 
     <label>Icoontje</label>
     <input type="text" class="input input-bordered" asp-for="IconName" required>
+    <span asp-validation-for="IconName" class="text-red-600"></span>
 
     <button type="submit" class="btn btn-primary mt-2">Aanmaken</button>
 </form>

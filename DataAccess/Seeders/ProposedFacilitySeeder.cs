@@ -15,11 +15,10 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
             {
                 Id = id++,
                 Name = facility.Name,
-                Type = facility.Type,
+                CategoryId = facility.CategoryId,
                 Description = facility.Description,
                 Latitude = facility.Latitude,
                 Longitude = facility.Longitude,
-                IconName = facility.IconName,
                 FacilityId = facility.Id
             };
             proposedFacilities.Add(proposedFacility);
@@ -29,11 +28,10 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
         {
             Id = 4,
             Name = "Zwemzee",
-            Type = "Recreatie",
+            CategoryId = 1,
             Description = "De nieuwe zwemzee",
             Latitude = 51.651976894252684,
             Longitude = 5.053454583354487,
-            IconName = "trash"
         };
         proposedFacilities.Add(newProposedFacility);
         
