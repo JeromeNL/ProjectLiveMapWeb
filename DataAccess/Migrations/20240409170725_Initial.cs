@@ -33,6 +33,22 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FacilityCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IconName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FacilityCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -102,9 +118,20 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "FacilityCategories",
+                columns: new[] { "Id", "DeletedAt", "Description", "IconName", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, "Voorzieningen die eten en drinken mogelijk maken", "chef-hat", "Restaurant" },
+                    { 2, null, "Voorzieningen die sport mogelijk maken", "ball-tennis", "Sport" },
+                    { 3, null, "Voorzieningen die boodschappen mogelijk maken", "shopping-cart", "Supermarkt" },
+                    { 4, null, "Voorzieningen die zwemmen mogelijk maken", "swimming", "Zwembad" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "ProposedFacilities",
                 columns: new[] { "Id", "Description", "FacilityId", "IconName", "Latitude", "Longitude", "Name", "Type" },
-                values: new object[] { 4, "De nieuwe zwemzee", null, "trash", 51.651976894252684, 5.0534545833544868, "Zwemzee", "Recreatie" });
+                values: new object[] { 4, "De nieuwe zwemzee", null, "trash", 51.647958020963685, 5.0452297925949106, "Zwemzee", "Recreatie" });
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -119,7 +146,7 @@ namespace DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "FacilityReports",
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
-                values: new object[] { 4, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510), "Seed", 4 });
+                values: new object[] { 4, new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6178), "Seed", 4 });
 
             migrationBuilder.InsertData(
                 table: "ProposedFacilities",
@@ -136,9 +163,9 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453), "Seed", 1 },
-                    { 2, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507), "Seed", 2 },
-                    { 3, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509), "Seed", 3 }
+                    { 1, new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6087), "Seed", 1 },
+                    { 2, new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6174), "Seed", 2 },
+                    { 3, new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6176), "Seed", 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -155,6 +182,9 @@ namespace DataAccess.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FacilityCategories");
+
             migrationBuilder.DropTable(
                 name: "FacilityReports");
 

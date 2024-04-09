@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240327112658_Initial")]
+    [Migration("20240409170725_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -96,6 +96,64 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.FacilityCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FacilityCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Voorzieningen die eten en drinken mogelijk maken",
+                            IconName = "chef-hat",
+                            Name = "Restaurant"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Voorzieningen die sport mogelijk maken",
+                            IconName = "ball-tennis",
+                            Name = "Sport"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Voorzieningen die boodschappen mogelijk maken",
+                            IconName = "shopping-cart",
+                            Name = "Supermarkt"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Voorzieningen die zwemmen mogelijk maken",
+                            IconName = "swimming",
+                            Name = "Zwembad"
+                        });
+                });
+
             modelBuilder.Entity("DataAccess.Models.FacilityReport", b =>
                 {
                     b.Property<int>("Id")
@@ -131,7 +189,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453),
+                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6087),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -139,7 +197,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507),
+                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6174),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -147,7 +205,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509),
+                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6176),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -155,7 +213,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510),
+                            CreatedAt = new DateTime(2024, 4, 9, 19, 7, 24, 943, DateTimeKind.Local).AddTicks(6178),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -241,8 +299,8 @@ namespace DataAccess.Migrations
                             Id = 4,
                             Description = "De nieuwe zwemzee",
                             IconName = "trash",
-                            Latitude = 51.651976894252684,
-                            Longitude = 5.0534545833544868,
+                            Latitude = 51.647958020963685,
+                            Longitude = 5.0452297925949106,
                             Name = "Zwemzee",
                             Type = "Recreatie"
                         });
