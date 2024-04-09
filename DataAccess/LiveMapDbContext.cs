@@ -17,6 +17,8 @@ public class LiveMapDbContext : DbContext
     public DbSet<User> Users { get; set; }
     
     public DbSet<ProposedFacility> ProposedFacilities { get; set; }
+    
+    public DbSet<FacilityCategory> FacilityCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,6 +33,9 @@ public class LiveMapDbContext : DbContext
             .Property(report => report.Status).HasDefaultValue(FacilityReportStatus.Pending);
         
         modelBuilder.Entity<Facility>()
+            .HasQueryFilter(x => x.DeletedAt == null);
+        
+        modelBuilder.Entity<FacilityCategory>()
             .HasQueryFilter(x => x.DeletedAt == null);
     }
 }
