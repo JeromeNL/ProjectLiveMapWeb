@@ -5,6 +5,10 @@ namespace DataAccess.Models;
 
 public class DefaultOpeningHours : OpeningHoursBase
 {
-    public WeekDay WeekDay { get; set; }
-    
+    public DefaultOpeningHours(DayOfWeek weekDay)
+    {
+        WeekDay = weekDay;
+    }
+
+    public override DayOfWeek WeekDay { get; }
 }

@@ -10,59 +10,52 @@ public class DefaultOpeningHoursSeeder : ISeeder<DefaultOpeningHours>
     {
         var defaultOpeningHours = new List<DefaultOpeningHours>
         {
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Monday)
             {
                 FacilityId = 1,
-                WeekDay = WeekDay.Monday,
                 OpenTime = TimeOnly.Parse("14:00"),
                 CloseTime = TimeOnly.Parse("20:00")
             },
             
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Tuesday)
             {
                 FacilityId = 1,
-                WeekDay = WeekDay.Tuesday,
                 OpenTime = TimeOnly.Parse("12:00"),
                 CloseTime = TimeOnly.Parse("20:00")
             },
             
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Wednesday)
             {
                 FacilityId = 1,
-                WeekDay = WeekDay.Wednesday,
                 OpenTime = TimeOnly.Parse("11:00"),
                 CloseTime = TimeOnly.Parse("21:00")
             },
             
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Thursday)
             {
                 FacilityId = 1,
-                WeekDay = WeekDay.Thursday,
                 OpenTime = TimeOnly.Parse("12:00"),
                 CloseTime = TimeOnly.Parse("21:00")
             },
             
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Friday)
             {
                 FacilityId = 1,
-                WeekDay = WeekDay.Friday,
                 OpenTime = TimeOnly.Parse("12:00"),
                 CloseTime = TimeOnly.Parse("21:00")
             },
             
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Saturday)
             {
                 FacilityId = 1,
-                WeekDay = WeekDay.Saturday,
                 OpenTime = TimeOnly.Parse("09:00"),
                 CloseTime = TimeOnly.Parse("23:00")
             },
             
-            new DefaultOpeningHours
+            new DefaultOpeningHours(DayOfWeek.Sunday)
             {
-                FacilityId = 1,
-                WeekDay = WeekDay.Sunday
-            },
+                FacilityId = 1
+            }
         };
 
         return defaultOpeningHours;

@@ -8,8 +8,10 @@ public abstract class OpeningHoursBase
 {
     public TimeOnly OpenTime { get; set; }
     public TimeOnly CloseTime { get; set; }
-    
+
     [ForeignKey("Facility")]
     public int FacilityId { get; set; }
     public Facility Facility { get; set; }
+
+    public abstract DayOfWeek WeekDay { get; }
 }
