@@ -128,7 +128,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2905),
+                            CreatedAt = new DateTime(2024, 4, 11, 14, 24, 6, 280, DateTimeKind.Local).AddTicks(24),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +136,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2966),
+                            CreatedAt = new DateTime(2024, 4, 11, 14, 24, 6, 280, DateTimeKind.Local).AddTicks(86),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +144,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2968),
+                            CreatedAt = new DateTime(2024, 4, 11, 14, 24, 6, 280, DateTimeKind.Local).AddTicks(88),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,42 +152,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2969),
+                            CreatedAt = new DateTime(2024, 4, 11, 14, 24, 6, 280, DateTimeKind.Local).AddTicks(89),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
                         });
-                });
-
-            modelBuilder.Entity("DataAccess.Models.Fault", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("facilityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("facilityId");
-
-                    b.ToTable("Faults");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
@@ -276,6 +245,37 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.ServiceReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("facilityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("facilityId");
+
+                    b.ToTable("ServiceReports");
+                });
+
             modelBuilder.Entity("DataAccess.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -337,22 +337,22 @@ namespace DataAccess.Migrations
                     b.Navigation("ProposedFacility");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Fault", b =>
+            modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("FacilityId");
+
+                    b.Navigation("Facility");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ServiceReport", b =>
                 {
                     b.HasOne("DataAccess.Models.Facility", "Facility")
                         .WithMany()
                         .HasForeignKey("facilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Facility");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
-                {
-                    b.HasOne("DataAccess.Models.Facility", "Facility")
-                        .WithMany()
-                        .HasForeignKey("FacilityId");
 
                     b.Navigation("Facility");
                 });

@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DataAccess.Models;
 
-public class Fault
+public class ServiceReport
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [JsonIgnore]
     public int Id { get; set; }
     
     [Required]
@@ -23,5 +25,6 @@ public class Fault
     public int facilityId { get; set; }
     
     [ForeignKey(nameof(facilityId))]
-    public Facility Facility { get; set; }
+    [JsonIgnore]
+    public Facility? Facility { get; set; }
 }

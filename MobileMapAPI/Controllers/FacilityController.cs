@@ -3,6 +3,7 @@ using DataAccess.Models;
 using DataAccess.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MobileMapAPI.Controllers;
 
@@ -21,6 +22,10 @@ public class FacilityController : ControllerBase
     public async Task<IActionResult> GetAllFacilities()
     {
         var facilities = await _context.Facilities.ToListAsync();
+        if (facilities.IsNullOrEmpty())
+        {
+            return NotFound("No facilities were found");
+        }
         return Ok(facilities);
     }
     
