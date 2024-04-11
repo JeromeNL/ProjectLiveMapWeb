@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DataAccess.Models;
 
@@ -13,18 +14,22 @@ public class ServiceReport
     
     [Required]
     [MaxLength(100)]
-    public string title { get; set; }
+    public string Title { get; set; }
     
     [Required]
-    public string description { get; set; }
+    public string Description { get; set; }
     
     [Required]
-    public string category { get; set; }
+    public int ServiceReportCategoryId { get; set; }
+
+    [ForeignKey(nameof(ServiceReportCategoryId))]
+    [JsonIgnore]
+    public ServiceReportCategory ServiceReportCategory { get; set; }
     
     [Required]
-    public int facilityId { get; set; }
+    public int FacilityId { get; set; }
     
-    [ForeignKey(nameof(facilityId))]
+    [ForeignKey(nameof(FacilityId))]
     [JsonIgnore]
     public Facility? Facility { get; set; }
 }

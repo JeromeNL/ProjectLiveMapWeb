@@ -128,7 +128,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 11, 14, 52, 26, 1, DateTimeKind.Local).AddTicks(8732),
+                            CreatedAt = new DateTime(2024, 4, 11, 15, 33, 55, 639, DateTimeKind.Local).AddTicks(6417),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +136,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 11, 14, 52, 26, 1, DateTimeKind.Local).AddTicks(8793),
+                            CreatedAt = new DateTime(2024, 4, 11, 15, 33, 55, 639, DateTimeKind.Local).AddTicks(6480),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +144,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 11, 14, 52, 26, 1, DateTimeKind.Local).AddTicks(8796),
+                            CreatedAt = new DateTime(2024, 4, 11, 15, 33, 55, 639, DateTimeKind.Local).AddTicks(6482),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +152,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 11, 14, 52, 26, 1, DateTimeKind.Local).AddTicks(8797),
+                            CreatedAt = new DateTime(2024, 4, 11, 15, 33, 55, 639, DateTimeKind.Local).AddTicks(6483),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -253,27 +253,45 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("category")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("facilityId")
+                    b.Property<int>("FacilityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("title")
+                    b.Property<int>("ServiceReportCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("facilityId");
+                    b.HasIndex("FacilityId");
+
+                    b.HasIndex("ServiceReportCategoryId");
 
                     b.ToTable("ServiceReports");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ServiceReportCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceReportCategories");
                 });
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
@@ -350,11 +368,19 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("DataAccess.Models.Facility", "Facility")
                         .WithMany()
-                        .HasForeignKey("facilityId")
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.ServiceReportCategory", "ServiceReportCategory")
+                        .WithMany()
+                        .HasForeignKey("ServiceReportCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Facility");
+
+                    b.Navigation("ServiceReportCategory");
                 });
 #pragma warning restore 612, 618
         }
