@@ -21,11 +21,6 @@ public class ServiceReportController : ControllerBase
     public async Task<IActionResult> GetAllFaults()
     {
         var serviceReports = await _context.ServiceReports.ToListAsync();
-
-        if (serviceReports.IsNullOrEmpty())
-        {
-            return NotFound("No service reports were found");
-        }
         
         return Ok(serviceReports);
     }
@@ -33,7 +28,7 @@ public class ServiceReportController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddFault(ServiceReport data)
     {
-        var belongsTo = await _context.Facilities.FindAsync(data.facilityId);
+        var belongsTo = await _context.Facilities.FindAsync(data.FacilityId);
 
         if (belongsTo == null)
         {
@@ -42,10 +37,10 @@ public class ServiceReportController : ControllerBase
         
         var newFault = new ServiceReport()
         {
-            title = data.title,
-            description = data.description,
-            category = data.category,
-            facilityId = data.facilityId,
+            Title = data.Title,
+            Description = data.Description,
+            ServiceReportCategoryId = data.ServiceReportCategoryId,
+            FacilityId = data.FacilityId,
             Facility = belongsTo
         };
 
@@ -58,13 +53,7 @@ public class ServiceReportController : ControllerBase
     [HttpGet("categories")]
     public async Task<IActionResult> GetAllCategories()
     {
-        var categories = new[]
-        {
-            new { name = "name1" },
-            new { name = "name2" },
-            new { name = "name3" }
-        };
-            
+        var categories = _context.ServiceReportCategories.ToListAsync();
         return Ok(categories);
     }
 }
