@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("serviceReports")]
+[Route("service_reports")]
 public class ServiceReportController : ControllerBase
 {
     private readonly LiveMapDbContext _context;
@@ -53,5 +53,18 @@ public class ServiceReportController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok("New service report has been saved");
+    }
+
+    [HttpGet("/categories")]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        var categories = new[]
+        {
+            new { name = "name1" },
+            new { name = "name2" },
+            new { name = "name3" }
+        };
+            
+        return Ok(categories);
     }
 }
