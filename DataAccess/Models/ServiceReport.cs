@@ -24,7 +24,7 @@ public class ServiceReport
 
     [ForeignKey(nameof(ServiceReportCategoryId))]
     [JsonIgnore]
-    public ServiceReportCategory ServiceReportCategory { get; set; }
+    public ServiceReportCategory? ServiceReportCategory { get; set; }
     
     [Required]
     public int FacilityId { get; set; }
