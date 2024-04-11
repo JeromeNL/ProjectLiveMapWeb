@@ -44,7 +44,7 @@ public class ServiceReportController : ControllerBase
         {
             title = data.title,
             description = data.description,
-            type = data.type,
+            category = data.category,
             facilityId = data.facilityId,
             Facility = belongsTo
         };
@@ -55,7 +55,7 @@ public class ServiceReportController : ControllerBase
         return Ok("New service report has been saved");
     }
 
-    [HttpGet("/categories")]
+    [HttpGet("categories")]
     public async Task<IActionResult> GetAllCategories()
     {
         var categories = new[]

@@ -19,7 +19,7 @@ public class ServiceReport
     public string description { get; set; }
     
     [Required]
-    public string type { get; set; }
+    public string category { get; set; }
     
     [Required]
     public int facilityId { get; set; }
