@@ -128,7 +128,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(529),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3254),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +136,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(586),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3314),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +144,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(588),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3316),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +152,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(589),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3317),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -281,6 +281,35 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ServiceReports");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "description1",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 1",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "description2",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 2",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "description3",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 3",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.ServiceReportCategory", b =>
@@ -298,6 +327,23 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceReportCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "category 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "category 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "category 3"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
