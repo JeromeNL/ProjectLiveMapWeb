@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using DataAccess.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -58,6 +59,21 @@ public class ServiceReportController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok("New service report has been saved");
+    }
+
+    [HttpPatch("{reportId:int}/cancel")]
+    public async Task<IActionResult> CancelReport(int reportId)
+    {
+        var serviceReport = await _context.ServiceReports.FindAsync(reportId);
+
+        if (serviceReport == null)
+        {
+            return NotFound("Report not found");
+        }
+
+        serviceReport.Status = ReportStatus.Cancelled;
+        await _context.SaveChangesAsync();
+        return Ok("Report has been succesfully cancelled");
     }
 
     [HttpGet("categories")]
