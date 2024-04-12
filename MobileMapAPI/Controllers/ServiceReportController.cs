@@ -27,7 +27,7 @@ public class ServiceReportController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddServiceReport(ServiceReport data)
     {
-        var belongsTo = await _context.Facilities.FindAsync(data.facilityId);
+        var belongsTo = await _context.Facilities.FindAsync(data.FacilityId);
 
         if (belongsTo == null)
         {
@@ -36,10 +36,10 @@ public class ServiceReportController : ControllerBase
         
         var newFault = new ServiceReport()
         {
-            title = data.title,
-            description = data.description,
-            category = data.category,
-            facilityId = data.facilityId,
+            Title = data.Title,
+            Description = data.Description,
+            Category = data.Category,
+            FacilityId = data.FacilityId,
             Facility = belongsTo
         };
 
