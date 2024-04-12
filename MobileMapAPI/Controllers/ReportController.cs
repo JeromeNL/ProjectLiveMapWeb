@@ -9,16 +9,6 @@ namespace MobileMapAPI.Controllers;
 [Route("reports")]
 public class ReportController(LiveMapDbContext context) : ControllerBase
 {
-    [HttpGet("{userId:int}")]
-    public async Task<IActionResult> GetSubmittedReportsByUser(int userId)
-    {
-        var facilityReports = await context.FacilityReports
-            .Include(report => report.ProposedFacility)
-            .Include(report => report.User)
-            .Where(report => report.UserId == userId).ToListAsync();
-        return Ok(facilityReports);
-    }
-
     [HttpPatch("{reportId:int}/cancel")]
     public async Task<IActionResult> CancelReport(int reportId)
     {
