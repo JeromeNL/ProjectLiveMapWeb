@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebPortal.Controllers;
 
@@ -48,6 +49,13 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
     }
     public IActionResult Delete(int id)
     {
+        var reports = context.ServiceReports.Where(r => r.ServiceReportCategoryId == id).ToList();
+        if (!reports.IsNullOrEmpty())
+        {
+            ViewBag.message = "Deze categorie kan niet verwijderd worden omdat deze aan een service melding gekoppeld is";
+            return View("Index", context.ServiceReportCategories.ToList());
+        }
+        
         var category = context.ServiceReportCategories.Find(id);
         if (category == null) return RedirectToAction("Index");
 

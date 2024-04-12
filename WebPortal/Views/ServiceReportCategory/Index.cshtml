@@ -2,6 +2,10 @@
 <div>
     <h1 class="text-2xl font-semibold">service report category index</h1>
     <a class="btn btn-success mt-2" asp-controller="ServiceReportCategory" asp-action="Create">Nieuwe categorie toevoegen</a>
+    @if (ViewBag.message != null)
+    {
+        <p class="text-red-600">@ViewBag.message</p>
+    }
     <div class="overflow-x-auto mt-2">
         <table id="datatable" class="table gap-y-5">
             <thead>
