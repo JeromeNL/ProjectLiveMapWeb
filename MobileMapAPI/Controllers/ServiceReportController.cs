@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("service_reports")]
+[Route("facilities/service-reports")]
 public class ServiceReportController : ControllerBase
 {
     private readonly LiveMapDbContext _context;
@@ -20,7 +20,10 @@ public class ServiceReportController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllServiceReports()
     {
-        var serviceReports = await _context.ServiceReports.Include(i => i.Facility).ToListAsync();
+        var serviceReports = await _context.ServiceReports
+            .Include(i => i.Facility)
+            .Include(i => i.User)
+            .ToListAsync();
         return Ok(serviceReports);
     }
 
@@ -28,10 +31,16 @@ public class ServiceReportController : ControllerBase
     public async Task<IActionResult> AddServiceReport(ServiceReport data)
     {
         var belongsTo = await _context.Facilities.FindAsync(data.FacilityId);
+        var user = await _context.Users.FindAsync(data.UserId);
 
         if (belongsTo == null)
         {
             return NotFound("Could not find provided Facility");
+        }
+
+        if (user == null)
+        {
+            return NotFound("Could not find provided User");
         }
         
         var newFault = new ServiceReport()
@@ -40,7 +49,9 @@ public class ServiceReportController : ControllerBase
             Description = data.Description,
             Category = data.Category,
             FacilityId = data.FacilityId,
-            Facility = belongsTo
+            Facility = belongsTo,
+            UserId = data.UserId,
+            User = user
         };
 
         await _context.ServiceReports.AddAsync(newFault);

@@ -26,4 +26,9 @@ public class ServiceReport
     
     [ForeignKey(nameof(FacilityId))]
     public Facility? Facility { get; set; }
+    
+    [Required]
+    public int UserId { get; set; }
+    [ForeignKey(nameof(UserId))]
+    public User? User { get; set; }
 }
