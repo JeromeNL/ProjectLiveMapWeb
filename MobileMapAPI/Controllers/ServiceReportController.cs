@@ -18,14 +18,14 @@ public class ServiceReportController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllFaults()
+    public async Task<IActionResult> GetAllServiceReports()
     {
         var serviceReports = await _context.ServiceReports.ToListAsync();
         return Ok(serviceReports);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddFault(ServiceReport data)
+    public async Task<IActionResult> AddServiceReport(ServiceReport data)
     {
         var belongsTo = await _context.Facilities.FindAsync(data.facilityId);
 
