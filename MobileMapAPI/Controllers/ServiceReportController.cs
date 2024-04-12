@@ -21,12 +21,6 @@ public class ServiceReportController : ControllerBase
     public async Task<IActionResult> GetAllFaults()
     {
         var serviceReports = await _context.ServiceReports.ToListAsync();
-
-        if (serviceReports.IsNullOrEmpty())
-        {
-            return NotFound("No service reports were found");
-        }
-        
         return Ok(serviceReports);
     }
 
