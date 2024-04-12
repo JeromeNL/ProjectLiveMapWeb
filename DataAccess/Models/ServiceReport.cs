@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using DataAccess.Models.Enums;
 
 namespace DataAccess.Models;
 
@@ -18,6 +19,9 @@ public class ServiceReport
     [Required]
     [MaxLength(300)]
     public string Description { get; set; }
+    
+    [Required]
+    public ReportStatus Status { get; set; }
     
     [Required]
     public string Category { get; set; }
