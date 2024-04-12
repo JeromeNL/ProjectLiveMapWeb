@@ -2,7 +2,6 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace MobileMapAPI.Controllers;
 
@@ -23,6 +22,7 @@ public class ServiceReportController : ControllerBase
         var serviceReports = await _context.ServiceReports
             .Include(i => i.Facility)
             .Include(i => i.User)
+            .Include(i => i.ServiceReportCategory)
             .ToListAsync();
         return Ok(serviceReports);
     }
@@ -53,12 +53,12 @@ public class ServiceReportController : ControllerBase
         {
             Title = data.Title,
             Description = data.Description,
-            UserId = data.UserId,
-            User = user,
             ServiceReportCategoryId = data.ServiceReportCategoryId,
             ServiceReportCategory = category,
             FacilityId = data.FacilityId,
-            Facility = belongsTo
+            Facility = belongsTo,
+            UserId = data.UserId,
+            User = user,
         };
 
         await _context.ServiceReports.AddAsync(newServiceReport);
