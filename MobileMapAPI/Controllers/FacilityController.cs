@@ -23,6 +23,13 @@ public class FacilityController : ControllerBase
         var facilities = await _context.Facilities.Include(f => f.Category).ToListAsync();
         return Ok(facilities);
     }
+
+    [HttpGet("/categories")]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        var categories = await _context.FacilityCategories.ToListAsync();
+        return Ok(categories);
+    }
     
     [HttpPost("upsert")]
     public async Task<IActionResult> RequestFacilityChange(ProposedFacility data)
