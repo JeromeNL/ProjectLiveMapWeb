@@ -9,19 +9,12 @@ namespace MobileMapAPI.Controllers;
 
 [ApiController]
 [Route("facilities/service-reports")]
-public class ServiceReportController : ControllerBase
+public class ServiceReportController(LiveMapDbContext context) : ControllerBase
 {
-    private readonly LiveMapDbContext _context;
-
-    public ServiceReportController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetAllServiceReports()
     {
-        var serviceReports = await _context.ServiceReports
+        var serviceReports = await context.ServiceReports
             .Include(i => i.Facility)
             .Include(i => i.User)
             .ToListAsync();
@@ -31,8 +24,8 @@ public class ServiceReportController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddServiceReport(ServiceReport data)
     {
-        var belongsTo = await _context.Facilities.FindAsync(data.FacilityId);
-        var user = await _context.Users.FindAsync(data.UserId);
+        var belongsTo = await context.Facilities.FindAsync(data.FacilityId);
+        var user = await context.Users.FindAsync(data.UserId);
 
         if (belongsTo == null)
         {
@@ -55,8 +48,8 @@ public class ServiceReportController : ControllerBase
             User = user
         };
 
-        await _context.ServiceReports.AddAsync(newServiceReport);
-        await _context.SaveChangesAsync();
+        await context.ServiceReports.AddAsync(newServiceReport);
+        await context.SaveChangesAsync();
 
         return Ok("New service report has been saved");
     }
@@ -64,7 +57,7 @@ public class ServiceReportController : ControllerBase
     [HttpPatch("{reportId:int}/cancel")]
     public async Task<IActionResult> CancelReport(int reportId)
     {
-        var serviceReport = await _context.ServiceReports.FindAsync(reportId);
+        var serviceReport = await context.ServiceReports.FindAsync(reportId);
 
         if (serviceReport == null)
         {
@@ -77,7 +70,7 @@ public class ServiceReportController : ControllerBase
         }
 
         serviceReport.Status = ReportStatus.Cancelled;
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return Ok("Report has been succesfully cancelled");
     }
 

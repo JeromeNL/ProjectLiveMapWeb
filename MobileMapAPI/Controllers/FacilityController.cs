@@ -9,19 +9,12 @@ namespace MobileMapAPI.Controllers;
 
 [ApiController]
 [Route("facilities")]
-public class FacilityController : ControllerBase
+public class FacilityController(LiveMapDbContext context) : ControllerBase
 {
-    private readonly LiveMapDbContext _context;
-
-    public FacilityController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-    
     [HttpGet]
     public async Task<IActionResult> GetAllFacilities()
     {
-        var facilities = await _context.Facilities.ToListAsync();
+        var facilities = await context.Facilities.ToListAsync();
         if (facilities.IsNullOrEmpty())
         {
             return NotFound("No facilities were found");
@@ -35,7 +28,7 @@ public class FacilityController : ControllerBase
         int? existingFacilityId = null;
         if (data.FacilityId != null)
         {
-            var existingFacility = await _context.Facilities.FindAsync(data.FacilityId);
+            var existingFacility = await context.Facilities.FindAsync(data.FacilityId);
         
             if (existingFacility == null)
             {
@@ -63,8 +56,8 @@ public class FacilityController : ControllerBase
             ProposedFacility = proposedFacilityChange,
         };
         
-        await _context.FacilityReports.AddAsync(facilityReport);
-        await _context.SaveChangesAsync();
+        await context.FacilityReports.AddAsync(facilityReport);
+        await context.SaveChangesAsync();
 
         return Ok($"Your report has been saved in the database.");
     }

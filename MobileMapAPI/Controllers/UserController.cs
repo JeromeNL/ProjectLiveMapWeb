@@ -8,19 +8,12 @@ namespace MobileMapAPI.Controllers;
 
 [ApiController]
 [Route("users")]
-public class UserController : ControllerBase
+public class UserController(LiveMapDbContext context) : ControllerBase
 {
-    private readonly LiveMapDbContext _context;
-
-    public UserController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     [HttpPost("{name}")]
     public IActionResult PostUserByName(string name)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Name == name);
+        var user = context.Users.FirstOrDefault(u => u.Name == name);
 
         if (user == null)
         {
@@ -33,7 +26,7 @@ public class UserController : ControllerBase
     [HttpGet("{userId:int}/service-reports")]
     public async Task<IActionResult> GetSubmittedServiceReports(int userId)
     {
-        var serviceReports = await _context.ServiceReports
+        var serviceReports = await context.ServiceReports
             .Include(report => report.Facility)
             .Include(report => report.User)
             .Where(report => report.UserId == userId).ToListAsync();
@@ -43,7 +36,7 @@ public class UserController : ControllerBase
     [HttpGet("{userId:int}/facility-reports")]
     public async Task<IActionResult> GetSubmittedFacilityReports(int userId)
     {
-        var facilityReports = await _context.FacilityReports
+        var facilityReports = await context.FacilityReports
             .Include(report => report.ProposedFacility)
             .Include(report => report.User)
             .Where(report => report.UserId == userId).ToListAsync();
