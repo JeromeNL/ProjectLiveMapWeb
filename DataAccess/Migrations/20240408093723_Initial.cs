@@ -119,7 +119,7 @@ namespace DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "FacilityReports",
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
-                values: new object[] { 4, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510), "Seed", 4 });
+                values: new object[] { 4, new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9622), "Seed", 4 });
 
             migrationBuilder.InsertData(
                 table: "ProposedFacilities",
@@ -136,9 +136,9 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453), "Seed", 1 },
-                    { 2, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507), "Seed", 2 },
-                    { 3, new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509), "Seed", 3 }
+                    { 1, new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9560), "Seed", 1 },
+                    { 2, new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9618), "Seed", 2 },
+                    { 3, new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9620), "Seed", 3 }
                 });
 
             migrationBuilder.CreateIndex(

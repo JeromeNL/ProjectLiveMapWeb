@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240327112658_Initial")]
-    partial class Initial
+    [Migration("20240408101445_faults")]
+    partial class faults
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(453),
+                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2905),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -139,7 +139,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(507),
+                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2966),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -147,7 +147,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(509),
+                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2968),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -155,11 +155,42 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 3, 27, 12, 26, 57, 883, DateTimeKind.Local).AddTicks(510),
+                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2969),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
                         });
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Fault", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("facilityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("facilityId");
+
+                    b.ToTable("Faults");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
@@ -280,6 +311,21 @@ namespace DataAccess.Migrations
                         {
                             Id = 3,
                             Name = "Thieme"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Mauro"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Imke"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Lamine"
                         });
                 });
 
@@ -292,6 +338,17 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("ProposedFacility");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Fault", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("facilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Facility");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
