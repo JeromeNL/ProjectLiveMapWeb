@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240408101445_faults")]
-    partial class faults
+    [Migration("20240412134501_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,9 +121,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProposedFacilityId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FacilityReports");
 
@@ -131,66 +136,39 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2905),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(269),
                             Description = "Seed",
                             ProposedFacilityId = 1,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2966),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(314),
                             Description = "Seed",
                             ProposedFacilityId = 2,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2968),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(316),
                             Description = "Seed",
                             ProposedFacilityId = 3,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 8, 12, 14, 45, 597, DateTimeKind.Local).AddTicks(2969),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(317),
                             Description = "Seed",
                             ProposedFacilityId = 4,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         });
-                });
-
-            modelBuilder.Entity("DataAccess.Models.Fault", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("facilityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("facilityId");
-
-                    b.ToTable("Faults");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
@@ -279,6 +257,48 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.ServiceReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacilityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ServiceReports");
+                });
+
             modelBuilder.Entity("DataAccess.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -337,18 +357,15 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProposedFacility");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.Fault", b =>
-                {
-                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                    b.HasOne("DataAccess.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("facilityId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Facility");
+                    b.Navigation("ProposedFacility");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
@@ -358,6 +375,25 @@ namespace DataAccess.Migrations
                         .HasForeignKey("FacilityId");
 
                     b.Navigation("Facility");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ServiceReport", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Facility");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

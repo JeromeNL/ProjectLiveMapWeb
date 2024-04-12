@@ -32,6 +32,9 @@ public class LiveMapDbContext : DbContext
         modelBuilder.Entity<FacilityReport>()
             .Property(report => report.Status).HasDefaultValue(ReportStatus.Pending);
         
+        modelBuilder.Entity<ServiceReport>()
+            .Property(report => report.Status).HasDefaultValue(ReportStatus.Pending);
+        
         modelBuilder.Entity<Facility>()
             .HasQueryFilter(x => x.DeletedAt == null);
     }

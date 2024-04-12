@@ -118,9 +118,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProposedFacilityId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FacilityReports");
 
@@ -128,34 +133,38 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7777),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(269),
                             Description = "Seed",
                             ProposedFacilityId = 1,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7834),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(314),
                             Description = "Seed",
                             ProposedFacilityId = 2,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7836),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(316),
                             Description = "Seed",
                             ProposedFacilityId = 3,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7837),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 45, 0, 976, DateTimeKind.Local).AddTicks(317),
                             Description = "Seed",
                             ProposedFacilityId = 4,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         });
                 });
 
@@ -259,10 +268,16 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -339,7 +354,15 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccess.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ProposedFacility");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
