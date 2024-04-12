@@ -19,7 +19,7 @@ public class ReportController(LiveMapDbContext context) : ControllerBase
             return NotFound("Report not found");
         }
 
-        facilityReport.Status = FacilityReportStatus.Cancelled;
+        facilityReport.Status = ReportStatus.Cancelled;
         await context.SaveChangesAsync();
         return Ok("Report has been succesfully cancelled");
     }

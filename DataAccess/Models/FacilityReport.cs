@@ -21,7 +21,7 @@ public class FacilityReport
     public string Description { get; set; }
     
     [Required]
-    public FacilityReportStatus Status { get; set; }
+    public ReportStatus Status { get; set; }
     
     [Required]
     public DateTime CreatedAt { get; set; }

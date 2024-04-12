@@ -59,7 +59,7 @@ public class FacilityController : ControllerBase
         {
             Description = data.Description, 
             CreatedAt = DateTime.Now,
-            Status = FacilityReportStatus.Pending,
+            Status = ReportStatus.Pending,
             ProposedFacility = proposedFacilityChange,
         };
         

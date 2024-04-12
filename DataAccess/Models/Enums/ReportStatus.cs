@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Models.Enums;
 
-public enum FacilityReportStatus
+public enum ReportStatus
 {
     Pending,
     Cancelled,
