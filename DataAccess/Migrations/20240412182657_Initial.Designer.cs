@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240409181558_Initial")]
+    [Migration("20240412182657_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -183,7 +183,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(939),
+                            CreatedAt = new DateTime(2024, 4, 12, 20, 26, 57, 55, DateTimeKind.Local).AddTicks(220),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -191,7 +191,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(995),
+                            CreatedAt = new DateTime(2024, 4, 12, 20, 26, 57, 55, DateTimeKind.Local).AddTicks(269),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -199,7 +199,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(997),
+                            CreatedAt = new DateTime(2024, 4, 12, 20, 26, 57, 55, DateTimeKind.Local).AddTicks(271),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -207,7 +207,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 9, 20, 15, 57, 739, DateTimeKind.Local).AddTicks(999),
+                            CreatedAt = new DateTime(2024, 4, 12, 20, 26, 57, 55, DateTimeKind.Local).AddTicks(272),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
