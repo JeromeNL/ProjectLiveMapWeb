@@ -14,7 +14,11 @@
     <label>Omschrijving</label>
     <input type="text" class="input input-bordered" asp-for="Description" value="@Model.Description" required>
 
-    <label>Icoontje</label>
+    <label>Naam icoontje</label>
+    <p class="text-slate-400 text-sm">
+        Vul hier de naam van een <a class="text-blue-600" href="https://tabler.io/icons" target="_blank">valide tabler icoontje</a>
+        in. Deze wordt vervolgens weergegeven voor alle faciliteiten die gekoppeld zijn aan de categorie.
+    </p>
     <input type="text" class="input input-bordered" asp-for="IconName" value="@Model.IconName" required>
 
     <button type="submit" class="btn btn-primary mt-2">Bewerken</button>
