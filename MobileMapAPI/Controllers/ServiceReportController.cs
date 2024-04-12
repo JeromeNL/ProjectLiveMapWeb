@@ -20,7 +20,7 @@ public class ServiceReportController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllServiceReports()
     {
-        var serviceReports = await _context.ServiceReports.ToListAsync();
+        var serviceReports = await _context.ServiceReports.Include(i => i.Facility).ToListAsync();
         return Ok(serviceReports);
     }
 
