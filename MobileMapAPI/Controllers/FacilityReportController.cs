@@ -45,6 +45,11 @@ public class FacilityReportController(LiveMapDbContext context) : ControllerBase
             return NotFound("Report not found");
         }
 
+        if (facilityReport.Status != ReportStatus.Pending)
+        {
+            return BadRequest("Report is already in progress or has been completed, so it cannot be cancelled.");
+        }
+
         facilityReport.Status = ReportStatus.Cancelled;
         await context.SaveChangesAsync();
         return Ok("Report has been succesfully cancelled");

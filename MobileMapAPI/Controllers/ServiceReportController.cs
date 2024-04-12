@@ -43,7 +43,7 @@ public class ServiceReportController : ControllerBase
         {
             return NotFound("Could not find provided User");
         }
-        
+
         var newServiceReport = new ServiceReport()
         {
             Title = data.Title,
@@ -71,6 +71,11 @@ public class ServiceReportController : ControllerBase
             return NotFound("Report not found");
         }
 
+        if (serviceReport.Status != ReportStatus.Pending)
+        {
+            return BadRequest("Report is already in progress or has been completed, so it cannot be cancelled.");
+        }
+
         serviceReport.Status = ReportStatus.Cancelled;
         await _context.SaveChangesAsync();
         return Ok("Report has been succesfully cancelled");
@@ -85,7 +90,7 @@ public class ServiceReportController : ControllerBase
             new { name = "name2" },
             new { name = "name3" }
         };
-            
+
         return Ok(categories);
     }
 }
