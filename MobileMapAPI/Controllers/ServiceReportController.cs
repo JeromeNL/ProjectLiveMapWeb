@@ -43,7 +43,7 @@ public class ServiceReportController : ControllerBase
             return NotFound("Could not find provided User");
         }
         
-        var newFault = new ServiceReport()
+        var newServiceReport = new ServiceReport()
         {
             Title = data.Title,
             Description = data.Description,
@@ -54,7 +54,7 @@ public class ServiceReportController : ControllerBase
             User = user
         };
 
-        await _context.ServiceReports.AddAsync(newFault);
+        await _context.ServiceReports.AddAsync(newServiceReport);
         await _context.SaveChangesAsync();
 
         return Ok("New service report has been saved");
