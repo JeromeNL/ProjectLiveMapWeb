@@ -9,6 +9,6 @@ public class ServiceReportCategory
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "Het naam veld is verplicht")]
     public string Name { get; set; }
 }

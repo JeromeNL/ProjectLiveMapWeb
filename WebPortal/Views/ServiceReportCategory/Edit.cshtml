@@ -1,0 +1,12 @@
+﻿@model DataAccess.Models.ServiceReportCategory
+<div>
+    <h1 class="text-2xl font-bold">Aanpassen categorie: @Model.Name</h1>
+    <a asp-controller="ServiceReportCategory" asp-action="Index" class="text-blue-500 hover:text-blue-900 mx-4">Terug</a>
+    <form class="flex flex-col max-w-96" asp-action="Update" method="post">
+        <input hidden required readonly asp-for="Id" value="@Model.Id"/>
+        <label>Naam</label>
+        <span asp-validation-for="Name" class="text-red-600"></span>
+        <input class="input input-bordered" required asp-for="Name" placeholder="@Model.Name" value=""/>
+        <input class="btn btn-success mt-2" type="submit" value="Opslaan"/>
+    </form>
+</div>
