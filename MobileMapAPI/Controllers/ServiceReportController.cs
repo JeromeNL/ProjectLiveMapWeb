@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("service_reports")]
+[Route("facilities/service-reports")]
 public class ServiceReportController : ControllerBase
 {
     private readonly LiveMapDbContext _context;
@@ -20,7 +20,10 @@ public class ServiceReportController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllServiceReports()
     {
-        var serviceReports = await _context.ServiceReports.ToListAsync();
+        var serviceReports = await _context.ServiceReports
+            .Include(i => i.Facility)
+            .Include(i => i.User)
+            .ToListAsync();
         return Ok(serviceReports);
     }
 
@@ -29,10 +32,16 @@ public class ServiceReportController : ControllerBase
     {
         var belongsTo = await _context.Facilities.FindAsync(data.FacilityId);
         var category = await _context.ServiceReportCategories.FindAsync(data.ServiceReportCategoryId);
+        var user = await _context.Users.FindAsync(data.UserId);
 
         if (belongsTo == null)
         {
             return NotFound("Could not find provided Facility");
+        }
+
+        if (user == null)
+        {
+            return NotFound("Could not find provided User");
         }
 
         if (category == null)
@@ -40,17 +49,19 @@ public class ServiceReportController : ControllerBase
             return NotFound("Could not find provided ServiceReportCategory");
         }
         
-        var newFault = new ServiceReport()
+        var newServiceReport = new ServiceReport()
         {
             Title = data.Title,
             Description = data.Description,
+            UserId = data.UserId,
+            User = user,
             ServiceReportCategoryId = data.ServiceReportCategoryId,
             ServiceReportCategory = category,
             FacilityId = data.FacilityId,
             Facility = belongsTo
         };
 
-        await _context.ServiceReports.AddAsync(newFault);
+        await _context.ServiceReports.AddAsync(newServiceReport);
         await _context.SaveChangesAsync();
 
         return Ok("New service report has been saved");

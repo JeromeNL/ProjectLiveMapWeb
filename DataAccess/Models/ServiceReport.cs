@@ -17,6 +17,7 @@ public class ServiceReport
     public string Title { get; set; }
     
     [Required]
+    [MaxLength(300)]
     public string Description { get; set; }
     
     [Required]
@@ -27,9 +28,13 @@ public class ServiceReport
     public ServiceReportCategory? ServiceReportCategory { get; set; }
     
     [Required]
-    public int FacilityId { get; set; }
+    public int facilityId { get; set; }
     
     [ForeignKey(nameof(FacilityId))]
-    [JsonIgnore]
     public Facility? Facility { get; set; }
+    
+    [Required]
+    public int UserId { get; set; }
+    [ForeignKey(nameof(UserId))]
+    public User? User { get; set; }
 }
