@@ -13,18 +13,18 @@ public class ServiceReport
     
     [Required]
     [MaxLength(100)]
-    public string title { get; set; }
+    public string Title { get; set; }
     
     [Required]
-    public string description { get; set; }
+    public string Description { get; set; }
     
     [Required]
-    public string category { get; set; }
+    public string Category { get; set; }
     
     [Required]
-    public int facilityId { get; set; }
+    public int FacilityId { get; set; }
     
-    [ForeignKey(nameof(facilityId))]
+    [ForeignKey(nameof(FacilityId))]
     [JsonIgnore]
     public Facility? Facility { get; set; }
 }
