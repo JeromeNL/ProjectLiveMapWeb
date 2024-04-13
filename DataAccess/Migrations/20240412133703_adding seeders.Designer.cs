@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240412084816_updating_servicereport_properties")]
-    partial class updating_servicereport_properties
+    [Migration("20240412133703_adding seeders")]
+    partial class addingseeders
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4670),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3254),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -139,7 +139,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4727),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3314),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -147,7 +147,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4730),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3316),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -155,7 +155,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4731),
+                            CreatedAt = new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3317),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -256,15 +256,15 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("FacilityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceReportCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -272,11 +272,81 @@ namespace DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FacilityId");
 
+                    b.HasIndex("ServiceReportCategoryId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("ServiceReports");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "description1",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 1",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "description2",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 2",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "description3",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 3",
+                            UserId = 1
+                        });
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ServiceReportCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceReportCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "category 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "category 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "category 3"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
@@ -357,7 +427,23 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccess.Models.ServiceReportCategory", "ServiceReportCategory")
+                        .WithMany()
+                        .HasForeignKey("ServiceReportCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Facility");
+
+                    b.Navigation("ServiceReportCategory");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,73 +6,92 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class adding_users_to_serviceReports : Migration
+    public partial class adding_servicereports_to_facilities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "UserId",
+                name: "ProposedFacilityId",
                 table: "ServiceReports",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7777));
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2096));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7834));
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2153));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7836));
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2155));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 11, 30, 50, 786, DateTimeKind.Local).AddTicks(7837));
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2157));
+
+            migrationBuilder.UpdateData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "ProposedFacilityId",
+                value: null);
+
+            migrationBuilder.UpdateData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "ProposedFacilityId",
+                value: null);
+
+            migrationBuilder.UpdateData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "ProposedFacilityId",
+                value: null);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceReports_UserId",
+                name: "IX_ServiceReports_ProposedFacilityId",
                 table: "ServiceReports",
-                column: "UserId");
+                column: "ProposedFacilityId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ServiceReports_Users_UserId",
+                name: "FK_ServiceReports_ProposedFacilities_ProposedFacilityId",
                 table: "ServiceReports",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "ProposedFacilityId",
+                principalTable: "ProposedFacilities",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ServiceReports_Users_UserId",
+                name: "FK_ServiceReports_ProposedFacilities_ProposedFacilityId",
                 table: "ServiceReports");
 
             migrationBuilder.DropIndex(
-                name: "IX_ServiceReports_UserId",
+                name: "IX_ServiceReports_ProposedFacilityId",
                 table: "ServiceReports");
 
             migrationBuilder.DropColumn(
-                name: "UserId",
+                name: "ProposedFacilityId",
                 table: "ServiceReports");
 
             migrationBuilder.UpdateData(
@@ -80,28 +99,28 @@ namespace DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4670));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3254));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4727));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3314));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4730));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3316));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 12, 10, 48, 16, 623, DateTimeKind.Local).AddTicks(4731));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3317));
         }
     }
 }

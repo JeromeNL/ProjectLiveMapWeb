@@ -19,6 +19,7 @@ public class LiveMapDbContext : DbContext
     public DbSet<ProposedFacility> ProposedFacilities { get; set; }
     
     public DbSet<ServiceReport> ServiceReports { get; set; }
+    public DbSet<ServiceReportCategory> ServiceReportCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -20,11 +20,12 @@ public class ServiceReport
     public string Description { get; set; }
     
     [Required]
-    public string Category { get; set; }
+    public int ServiceReportCategoryId { get; set; }
+    [ForeignKey(nameof(ServiceReportCategoryId))]
+    public ServiceReportCategory? ServiceReportCategory { get; set; }
     
     [Required]
     public int FacilityId { get; set; }
-    
     [ForeignKey(nameof(FacilityId))]
     public Facility? Facility { get; set; }
     

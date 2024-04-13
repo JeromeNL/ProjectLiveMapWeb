@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class adding_faults : Migration
+    public partial class addingseeders : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,37 +18,47 @@ namespace DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 12, 12, 32, 843, DateTimeKind.Local).AddTicks(9448));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3254));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 12, 12, 32, 843, DateTimeKind.Local).AddTicks(9504));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3314));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 12, 12, 32, 843, DateTimeKind.Local).AddTicks(9507));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3316));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 12, 12, 32, 843, DateTimeKind.Local).AddTicks(9508));
+                value: new DateTime(2024, 4, 12, 15, 37, 3, 183, DateTimeKind.Local).AddTicks(3317));
 
             migrationBuilder.InsertData(
-                table: "Users",
+                table: "ServiceReportCategories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 4, "Mauro" },
-                    { 5, "Imke" },
-                    { 6, "Lamine" }
+                    { 1, "category 1" },
+                    { 2, "category 2" },
+                    { 3, "category 3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ServiceReports",
+                columns: new[] { "Id", "Description", "FacilityId", "ServiceReportCategoryId", "Title", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "description1", 1, 1, "report 1", 1 },
+                    { 2, "description2", 1, 1, "report 2", 1 },
+                    { 3, "description3", 1, 1, "report 3", 1 }
                 });
         }
 
@@ -56,47 +66,62 @@ namespace DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
-                table: "Users",
+                table: "ServiceReportCategories",
                 keyColumn: "Id",
-                keyValue: 4);
+                keyValue: 2);
 
             migrationBuilder.DeleteData(
-                table: "Users",
+                table: "ServiceReportCategories",
                 keyColumn: "Id",
-                keyValue: 5);
+                keyValue: 3);
 
             migrationBuilder.DeleteData(
-                table: "Users",
+                table: "ServiceReports",
                 keyColumn: "Id",
-                keyValue: 6);
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "ServiceReportCategories",
+                keyColumn: "Id",
+                keyValue: 1);
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9560));
+                value: new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(529));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9618));
+                value: new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(586));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9620));
+                value: new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(588));
 
             migrationBuilder.UpdateData(
                 table: "FacilityReports",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2024, 4, 8, 11, 37, 22, 754, DateTimeKind.Local).AddTicks(9622));
+                value: new DateTime(2024, 4, 12, 11, 58, 20, 412, DateTimeKind.Local).AddTicks(589));
         }
     }
 }

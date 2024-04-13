@@ -21,7 +21,7 @@ public class FacilityController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFacilities()
     {
-        var facilities = await _context.Facilities.ToListAsync();
+        var facilities = await _context.Facilities.Include(f => f.ServiceReports).ToListAsync();
         if (facilities.IsNullOrEmpty())
         {
             return NotFound("No facilities were found");

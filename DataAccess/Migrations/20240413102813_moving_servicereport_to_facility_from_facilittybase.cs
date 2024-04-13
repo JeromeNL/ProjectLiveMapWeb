@@ -1,0 +1,126 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace DataAccess.Migrations
+{
+    /// <inheritdoc />
+    public partial class moving_servicereport_to_facility_from_facilittybase : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ServiceReports_ProposedFacilities_ProposedFacilityId",
+                table: "ServiceReports");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ServiceReports_ProposedFacilityId",
+                table: "ServiceReports");
+
+            migrationBuilder.DropColumn(
+                name: "ProposedFacilityId",
+                table: "ServiceReports");
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7639));
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7692));
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7694));
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 4,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7695));
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "ProposedFacilityId",
+                table: "ServiceReports",
+                type: "int",
+                nullable: true);
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2096));
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2153));
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2155));
+
+            migrationBuilder.UpdateData(
+                table: "FacilityReports",
+                keyColumn: "Id",
+                keyValue: 4,
+                column: "CreatedAt",
+                value: new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2157));
+
+            migrationBuilder.UpdateData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "ProposedFacilityId",
+                value: null);
+
+            migrationBuilder.UpdateData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "ProposedFacilityId",
+                value: null);
+
+            migrationBuilder.UpdateData(
+                table: "ServiceReports",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "ProposedFacilityId",
+                value: null);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceReports_ProposedFacilityId",
+                table: "ServiceReports",
+                column: "ProposedFacilityId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ServiceReports_ProposedFacilities_ProposedFacilityId",
+                table: "ServiceReports",
+                column: "ProposedFacilityId",
+                principalTable: "ProposedFacilities",
+                principalColumn: "Id");
+        }
+    }
+}
