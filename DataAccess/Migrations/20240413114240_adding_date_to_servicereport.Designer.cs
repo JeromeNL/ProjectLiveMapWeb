@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413114240_adding_date_to_servicereport")]
+    partial class adding_date_to_servicereport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6359),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 42, 39, 725, DateTimeKind.Local).AddTicks(8432),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +139,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6419),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 42, 39, 725, DateTimeKind.Local).AddTicks(8490),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +147,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6421),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 42, 39, 725, DateTimeKind.Local).AddTicks(8492),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +155,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6423),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 42, 39, 725, DateTimeKind.Local).AddTicks(8494),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -264,9 +267,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("ServiceReportCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("SubmittedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -274,6 +274,9 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("submittedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -292,7 +295,6 @@ namespace DataAccess.Migrations
                             Description = "description1",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6443),
                             Title = "report 1",
                             UserId = 1
                         },
@@ -302,7 +304,6 @@ namespace DataAccess.Migrations
                             Description = "description2",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6453),
                             Title = "report 2",
                             UserId = 1
                         },
@@ -312,7 +313,6 @@ namespace DataAccess.Migrations
                             Description = "description3",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6455),
                             Title = "report 3",
                             UserId = 1
                         },
@@ -322,7 +322,6 @@ namespace DataAccess.Migrations
                             Description = "description4",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6457),
                             Title = "report 4",
                             UserId = 1
                         },
@@ -332,7 +331,6 @@ namespace DataAccess.Migrations
                             Description = "description5",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6459),
                             Title = "report 5",
                             UserId = 2
                         },
@@ -342,7 +340,6 @@ namespace DataAccess.Migrations
                             Description = "description6",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6462),
                             Title = "report 6",
                             UserId = 3
                         },
@@ -352,7 +349,6 @@ namespace DataAccess.Migrations
                             Description = "description7",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6464),
                             Title = "report 7",
                             UserId = 4
                         },
@@ -362,7 +358,6 @@ namespace DataAccess.Migrations
                             Description = "description8",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6465),
                             Title = "report 8",
                             UserId = 5
                         },
@@ -372,7 +367,6 @@ namespace DataAccess.Migrations
                             Description = "description9",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6467),
                             Title = "report 9",
                             UserId = 6
                         },
@@ -382,7 +376,6 @@ namespace DataAccess.Migrations
                             Description = "description10",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6470),
                             Title = "report 10",
                             UserId = 1
                         },
@@ -392,7 +385,6 @@ namespace DataAccess.Migrations
                             Description = "description11",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6472),
                             Title = "report 11",
                             UserId = 2
                         },
@@ -402,7 +394,6 @@ namespace DataAccess.Migrations
                             Description = "description12",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6474),
                             Title = "report 12",
                             UserId = 3
                         },
@@ -412,7 +403,6 @@ namespace DataAccess.Migrations
                             Description = "description13",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6476),
                             Title = "report 13",
                             UserId = 4
                         },
@@ -422,7 +412,6 @@ namespace DataAccess.Migrations
                             Description = "description14",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6478),
                             Title = "report 14",
                             UserId = 5
                         },
@@ -432,7 +421,6 @@ namespace DataAccess.Migrations
                             Description = "description15",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6480),
                             Title = "report 15",
                             UserId = 6
                         },
@@ -442,7 +430,6 @@ namespace DataAccess.Migrations
                             Description = "description16",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6482),
                             Title = "report 16",
                             UserId = 2
                         },
@@ -452,7 +439,6 @@ namespace DataAccess.Migrations
                             Description = "description17",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6484),
                             Title = "report 17",
                             UserId = 3
                         },
@@ -462,7 +448,6 @@ namespace DataAccess.Migrations
                             Description = "description18",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6486),
                             Title = "report 18",
                             UserId = 4
                         },
@@ -472,7 +457,6 @@ namespace DataAccess.Migrations
                             Description = "description19",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6488),
                             Title = "report 19",
                             UserId = 5
                         },
@@ -482,7 +466,6 @@ namespace DataAccess.Migrations
                             Description = "description20",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6490),
                             Title = "report 20",
                             UserId = 6
                         },
@@ -492,7 +475,6 @@ namespace DataAccess.Migrations
                             Description = "description21",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6492),
                             Title = "report 21",
                             UserId = 1
                         },
@@ -502,7 +484,6 @@ namespace DataAccess.Migrations
                             Description = "description22",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6494),
                             Title = "report 22",
                             UserId = 2
                         },
@@ -512,7 +493,6 @@ namespace DataAccess.Migrations
                             Description = "description23",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6496),
                             Title = "report 23",
                             UserId = 3
                         },
@@ -522,7 +502,6 @@ namespace DataAccess.Migrations
                             Description = "description24",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6498),
                             Title = "report 24",
                             UserId = 4
                         },
@@ -532,7 +511,6 @@ namespace DataAccess.Migrations
                             Description = "description25",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6500),
                             Title = "report 25",
                             UserId = 5
                         },
@@ -542,7 +520,6 @@ namespace DataAccess.Migrations
                             Description = "description26",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6502),
                             Title = "report 26",
                             UserId = 6
                         },
@@ -552,7 +529,6 @@ namespace DataAccess.Migrations
                             Description = "description27",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6504),
                             Title = "report 27",
                             UserId = 1
                         },
@@ -562,7 +538,6 @@ namespace DataAccess.Migrations
                             Description = "description28",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6506),
                             Title = "report 28",
                             UserId = 2
                         },
@@ -572,7 +547,6 @@ namespace DataAccess.Migrations
                             Description = "description29",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6508),
                             Title = "report 29",
                             UserId = 3
                         },
@@ -582,7 +556,6 @@ namespace DataAccess.Migrations
                             Description = "description30",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6509),
                             Title = "report 30",
                             UserId = 4
                         });

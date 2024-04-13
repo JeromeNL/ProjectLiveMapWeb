@@ -53,6 +53,7 @@ public class ServiceReportController : ControllerBase
         {
             Title = data.Title,
             Description = data.Description,
+            SubmittedAt = DateTime.Now,
             ServiceReportCategoryId = data.ServiceReportCategoryId,
             ServiceReportCategory = category,
             FacilityId = data.FacilityId,
