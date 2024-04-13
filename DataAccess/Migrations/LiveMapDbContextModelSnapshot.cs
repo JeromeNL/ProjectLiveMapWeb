@@ -128,7 +128,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7639),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 33, 52, 569, DateTimeKind.Local).AddTicks(9749),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +136,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7692),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 33, 52, 569, DateTimeKind.Local).AddTicks(9821),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +144,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7694),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 33, 52, 569, DateTimeKind.Local).AddTicks(9824),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +152,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7695),
+                            CreatedAt = new DateTime(2024, 4, 13, 13, 33, 52, 569, DateTimeKind.Local).AddTicks(9825),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -309,6 +309,186 @@ namespace DataAccess.Migrations
                             ServiceReportCategoryId = 1,
                             Title = "report 3",
                             UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "description4",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 4",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "description5",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 2,
+                            Title = "report 5",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "description6",
+                            FacilityId = 3,
+                            ServiceReportCategoryId = 3,
+                            Title = "report 6",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "description7",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 4,
+                            Title = "report 7",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "description8",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 5,
+                            Title = "report 8",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "description9",
+                            FacilityId = 3,
+                            ServiceReportCategoryId = 6,
+                            Title = "report 9",
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "description10",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 10",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "description11",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 2,
+                            Title = "report 11",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "description12",
+                            FacilityId = 3,
+                            ServiceReportCategoryId = 3,
+                            Title = "report 12",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "description13",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 4,
+                            Title = "report 13",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "description14",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 5,
+                            Title = "report 14",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "description15",
+                            FacilityId = 3,
+                            ServiceReportCategoryId = 6,
+                            Title = "report 15",
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "description16",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 16",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "description17",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 2,
+                            Title = "report 17",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "description18",
+                            FacilityId = 3,
+                            ServiceReportCategoryId = 3,
+                            Title = "report 18",
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "description19",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 4,
+                            Title = "report 19",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "description20",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 5,
+                            Title = "report 20",
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "description21",
+                            FacilityId = 3,
+                            ServiceReportCategoryId = 6,
+                            Title = "report 21",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "description22",
+                            FacilityId = 1,
+                            ServiceReportCategoryId = 1,
+                            Title = "report 22",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "description23",
+                            FacilityId = 2,
+                            ServiceReportCategoryId = 2,
+                            Title = "report 23",
+                            UserId = 3
                         });
                 });
 
@@ -332,17 +512,32 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "category 1"
+                            Name = "Onderhoud"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "category 2"
+                            Name = "Beveiliging"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "category 3"
+                            Name = "Schoonmaak"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Apperatuur storing"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Inspectie"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Feedback"
                         });
                 });
 

@@ -1,4 +1,56 @@
-﻿<div>
+﻿@model List<DataAccess.Models.ServiceReport>
+<div> 
     <h1 class="text-2xl font-semibold">Overzicht van service meldingen</h1>
-    <a asp-controller="ServiceReportCategory" asp-action="Index" class="text-blue-500 hover:text-blue-900 mx-4">Service melding categorien</a>
+    @if (ViewBag.message != null)
+    {
+        <p class="text-red-600">@ViewBag.message</p>
+    }
+    <div class="overflow-x-auto mt-2">
+        <table id="datatable" class="table gap-y-5">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titel</th>
+                <th>Beschrijving</th>
+                <th>Categorie</th>
+                <th>Faciliteit</th>
+                <th>Gebruiker</th>
+                <th>Verwijder</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var report in Model)
+            {
+                <tr>
+                    <td>@report.Id</td>
+                    <td>@report.Title</td>
+                    <td>@report.Description</td>
+                    <td>@report.ServiceReportCategory.Name</td>
+                    <td>@report.Facility.Name</td>
+                    <td>@report.User.Name</td>
+                    <td>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@report.Id" />
+                            <input class="btn btn-sm btn-error" type="submit" value="Verwijder"/>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>   
+    </div>
 </div>
+@section Scripts
+{
+    <script>
+      new DataTable('#datatable', {
+           searchable: true,
+            sortable: true,
+            perPage: 5,
+            order: [4, 'asc'],
+            language: {
+                    url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
+            },
+      });
+      </script>
+}
