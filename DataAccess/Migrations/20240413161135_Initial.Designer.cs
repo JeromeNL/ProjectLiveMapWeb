@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240413115130_update_servicereportseeder")]
-    partial class update_servicereportseeder
+    [Migration("20240413161135_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6359),
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1090),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -139,7 +139,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6419),
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1195),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -147,7 +147,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6421),
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1199),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -155,7 +155,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6423),
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1202),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -256,6 +256,12 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -266,9 +272,6 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("ServiceReportCategoryId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("SubmittedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -292,300 +295,300 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1307),
                             Description = "description1",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6443),
                             Title = "report 1",
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1325),
                             Description = "description2",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6453),
                             Title = "report 2",
                             UserId = 1
                         },
                         new
                         {
                             Id = 3,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1328),
                             Description = "description3",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6455),
                             Title = "report 3",
                             UserId = 1
                         },
                         new
                         {
                             Id = 4,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1331),
                             Description = "description4",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6457),
                             Title = "report 4",
                             UserId = 1
                         },
                         new
                         {
                             Id = 5,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1336),
                             Description = "description5",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6459),
                             Title = "report 5",
                             UserId = 2
                         },
                         new
                         {
                             Id = 6,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1341),
                             Description = "description6",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6462),
                             Title = "report 6",
                             UserId = 3
                         },
                         new
                         {
                             Id = 7,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1346),
                             Description = "description7",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6464),
                             Title = "report 7",
                             UserId = 4
                         },
                         new
                         {
                             Id = 8,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1350),
                             Description = "description8",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6465),
                             Title = "report 8",
                             UserId = 5
                         },
                         new
                         {
                             Id = 9,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1353),
                             Description = "description9",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6467),
                             Title = "report 9",
                             UserId = 6
                         },
                         new
                         {
                             Id = 10,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1358),
                             Description = "description10",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6470),
                             Title = "report 10",
                             UserId = 1
                         },
                         new
                         {
                             Id = 11,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1365),
                             Description = "description11",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6472),
                             Title = "report 11",
                             UserId = 2
                         },
                         new
                         {
                             Id = 12,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1368),
                             Description = "description12",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6474),
                             Title = "report 12",
                             UserId = 3
                         },
                         new
                         {
                             Id = 13,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1372),
                             Description = "description13",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6476),
                             Title = "report 13",
                             UserId = 4
                         },
                         new
                         {
                             Id = 14,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1375),
                             Description = "description14",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6478),
                             Title = "report 14",
                             UserId = 5
                         },
                         new
                         {
                             Id = 15,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1378),
                             Description = "description15",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6480),
                             Title = "report 15",
                             UserId = 6
                         },
                         new
                         {
                             Id = 16,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1382),
                             Description = "description16",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6482),
                             Title = "report 16",
                             UserId = 2
                         },
                         new
                         {
                             Id = 17,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1385),
                             Description = "description17",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6484),
                             Title = "report 17",
                             UserId = 3
                         },
                         new
                         {
                             Id = 18,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1390),
                             Description = "description18",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6486),
                             Title = "report 18",
                             UserId = 4
                         },
                         new
                         {
                             Id = 19,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1393),
                             Description = "description19",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6488),
                             Title = "report 19",
                             UserId = 5
                         },
                         new
                         {
                             Id = 20,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1396),
                             Description = "description20",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6490),
                             Title = "report 20",
                             UserId = 6
                         },
                         new
                         {
                             Id = 21,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1399),
                             Description = "description21",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6492),
                             Title = "report 21",
                             UserId = 1
                         },
                         new
                         {
                             Id = 22,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1403),
                             Description = "description22",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6494),
                             Title = "report 22",
                             UserId = 2
                         },
                         new
                         {
                             Id = 23,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1407),
                             Description = "description23",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6496),
                             Title = "report 23",
                             UserId = 3
                         },
                         new
                         {
                             Id = 24,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1410),
                             Description = "description24",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6498),
                             Title = "report 24",
                             UserId = 4
                         },
                         new
                         {
                             Id = 25,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1413),
                             Description = "description25",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6500),
                             Title = "report 25",
                             UserId = 5
                         },
                         new
                         {
                             Id = 26,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1417),
                             Description = "description26",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6502),
                             Title = "report 26",
                             UserId = 6
                         },
                         new
                         {
                             Id = 27,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1420),
                             Description = "description27",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6504),
                             Title = "report 27",
                             UserId = 1
                         },
                         new
                         {
                             Id = 28,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1424),
                             Description = "description28",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6506),
                             Title = "report 28",
                             UserId = 2
                         },
                         new
                         {
                             Id = 29,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1427),
                             Description = "description29",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6508),
                             Title = "report 29",
                             UserId = 3
                         },
                         new
                         {
                             Id = 30,
+                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1430),
                             Description = "description30",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
-                            SubmittedAt = new DateTime(2024, 4, 13, 13, 51, 29, 739, DateTimeKind.Local).AddTicks(6509),
                             Title = "report 30",
                             UserId = 4
                         });
@@ -626,7 +629,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Apperatuur storing"
+                            Name = "Apparatuurstoring"
                         },
                         new
                         {
