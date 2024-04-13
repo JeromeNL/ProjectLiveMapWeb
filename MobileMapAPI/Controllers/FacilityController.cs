@@ -20,7 +20,12 @@ public class FacilityController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFacilities()
     {
-        var facilities = await _context.Facilities.ToListAsync();
+        var oneWeekAgo = DateOnly.FromDateTime(DateTime.Today.AddDays(-7));
+        var oneWeekAhead = DateOnly.FromDateTime(DateTime.Today.AddDays(7));
+        var facilities = await _context.Facilities
+            .Include(x => x.DefaultOpeningHours)
+            .Include(x => x.SpecialOpeningHours.Where(s => s.Date >= oneWeekAgo && s.Date <= oneWeekAhead))
+            .ToListAsync();
         return Ok(facilities);
     }
     
