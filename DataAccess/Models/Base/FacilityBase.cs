@@ -22,4 +22,8 @@ public abstract class FacilityBase
 
     [Required]
     public string IconName { get; set; }
+    
+    public List<DefaultOpeningHours> DefaultOpeningHours { get; set; }
+    
+    public List<SpecialOpeningHours> SpecialOpeningHours { get; set; }
 }
