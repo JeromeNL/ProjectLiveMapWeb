@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413102555_adding_servicereports_to_facilities")]
+    partial class adding_servicereports_to_facilities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +131,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7639),
+                            CreatedAt = new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2096),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -136,7 +139,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7692),
+                            CreatedAt = new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2153),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -144,7 +147,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7694),
+                            CreatedAt = new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2155),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -152,7 +155,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 13, 12, 28, 12, 739, DateTimeKind.Local).AddTicks(7695),
+                            CreatedAt = new DateTime(2024, 4, 13, 12, 25, 55, 327, DateTimeKind.Local).AddTicks(2157),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -261,6 +264,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProposedFacilityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ServiceReportCategoryId")
                         .HasColumnType("int");
 
@@ -275,6 +281,8 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FacilityId");
+
+                    b.HasIndex("ProposedFacilityId");
 
                     b.HasIndex("ServiceReportCategoryId");
 
@@ -424,6 +432,10 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccess.Models.ProposedFacility", null)
+                        .WithMany("ServiceReports")
+                        .HasForeignKey("ProposedFacilityId");
+
                     b.HasOne("DataAccess.Models.ServiceReportCategory", "ServiceReportCategory")
                         .WithMany()
                         .HasForeignKey("ServiceReportCategoryId")
@@ -444,6 +456,11 @@ namespace DataAccess.Migrations
                 });
 
             modelBuilder.Entity("DataAccess.Models.Facility", b =>
+                {
+                    b.Navigation("ServiceReports");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
                 {
                     b.Navigation("ServiceReports");
                 });

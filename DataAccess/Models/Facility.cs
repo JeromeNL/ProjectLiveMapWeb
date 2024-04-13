@@ -14,4 +14,5 @@ public class Facility : FacilityBase, ISoftDelete
     public int Id { get; set; }
 
     public DateTimeOffset? DeletedAt { get; set; }
+    public ICollection<ServiceReport>? ServiceReports { get; }
 }
