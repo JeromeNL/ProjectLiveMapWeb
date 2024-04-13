@@ -24,6 +24,7 @@ public class ServiceReportController : ControllerBase
             .Include(i => i.User)
             .Include(i => i.ServiceReportCategory)
             .ToListAsync();
+        
         return Ok(serviceReports);
     }
 
@@ -53,6 +54,7 @@ public class ServiceReportController : ControllerBase
         {
             Title = data.Title,
             Description = data.Description,
+            CreatedAt = DateTime.Now,
             ServiceReportCategoryId = data.ServiceReportCategoryId,
             ServiceReportCategory = category,
             FacilityId = data.FacilityId,

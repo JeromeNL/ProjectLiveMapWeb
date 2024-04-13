@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using DataAccess.Interfaces;
 
 namespace DataAccess.Models;
 
-public class ServiceReport
+public class ServiceReport: ISoftDelete
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,6 +19,8 @@ public class ServiceReport
     [Required]
     [MaxLength(300)]
     public string Description { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
     
     [Required]
     public int ServiceReportCategoryId { get; set; }
@@ -33,4 +36,6 @@ public class ServiceReport
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
+
+    public DateTimeOffset? DeletedAt { get; set; }
 }

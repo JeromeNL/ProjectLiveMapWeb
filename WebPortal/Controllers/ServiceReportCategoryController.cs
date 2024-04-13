@@ -53,6 +53,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
         return RedirectToAction("Index");
     }
     
+    [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
         var reports = await context.ServiceReports.Where(r => r.ServiceReportCategoryId == id).ToListAsync();
