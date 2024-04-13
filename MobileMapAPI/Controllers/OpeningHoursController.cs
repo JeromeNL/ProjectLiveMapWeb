@@ -18,20 +18,20 @@ public class OpeningHoursController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetOpeningHoursForWeek(int facilityId, int weekNumber, int year)
+    public async Task<IActionResult> GetOpeningHoursForDate(int facilityId, DateTime date)
     {
-        DateTime firstDayOfWeek = ISOWeek.ToDateTime(year, weekNumber, DayOfWeek.Monday);
+        DateTime firstDayOfWeek = ISOWeek.ToDateTime(date.Year, ISOWeek.GetWeekOfYear(date), DayOfWeek.Monday);
         DateTime lastDayOfWeek = firstDayOfWeek.AddDays(6);
-        
+    
         var defaultOpeningHours = await _context.DefaultOpeningHours
-                                                .Where(e => e.FacilityId == facilityId)
-                                                .ToListAsync();
+            .Where(e => e.FacilityId == facilityId)
+            .ToListAsync();
         
         var specialOpeningHours = await _context.SpecialOpeningHours
-                                                .Where(e => e.FacilityId == facilityId)
-                                                .Where(e => e.Date >= DateOnly.FromDateTime(firstDayOfWeek) && 
-                                                            e.Date <= DateOnly.FromDateTime(lastDayOfWeek))
-                                                .ToListAsync();
+            .Where(e => e.FacilityId == facilityId)
+            .Where(e => e.Date >= DateOnly.FromDateTime(firstDayOfWeek) && 
+                        e.Date <= DateOnly.FromDateTime(lastDayOfWeek))
+            .ToListAsync();
 
         List<OpeningHoursBase> weeklyOpeningHours = new List<OpeningHoursBase>();
         
@@ -39,7 +39,7 @@ public class OpeningHoursController : ControllerBase
         {
             var currentDay = firstDayOfWeek.AddDays(i);
             var currentDayDateOnly = DateOnly.FromDateTime(currentDay);
-            
+        
             var specialHoursForDay = specialOpeningHours.FirstOrDefault(e => e.Date == currentDayDateOnly);
 
             if (specialHoursForDay != null)
@@ -57,8 +57,7 @@ public class OpeningHoursController : ControllerBase
                 }
             }
         }
-        
+    
         return Ok(weeklyOpeningHours);
     }
-
 }
