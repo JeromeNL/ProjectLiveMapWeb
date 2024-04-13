@@ -18,6 +18,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
         return View();
     }
 
+    [HttpPost]
     public async Task<IActionResult> Add(ServiceReportCategory category)
     {
         if (!ModelState.IsValid)
@@ -28,11 +29,14 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
         await context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
+    
     public async Task<IActionResult> Edit(int id)
     {
         var category = await context.ServiceReportCategories.FindAsync(id);
         return View(category);
     }
+    
+    [HttpPost]
     public async Task<IActionResult> Update(ServiceReportCategory category)
     {
         if (!ModelState.IsValid)
@@ -48,6 +52,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
         
         return RedirectToAction("Index");
     }
+    
     public async Task<IActionResult> Delete(int id)
     {
         var reports = await context.ServiceReports.Where(r => r.ServiceReportCategoryId == id).ToListAsync();
