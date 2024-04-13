@@ -19,7 +19,7 @@ public class ServiceReport
     [MaxLength(300)]
     public string Description { get; set; }
 
-    public DateTime? SubmittedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
     
     [Required]
     public int ServiceReportCategoryId { get; set; }

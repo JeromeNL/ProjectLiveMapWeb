@@ -27,7 +27,7 @@ public class ServiceReportCategorySeeder: ISeeder<ServiceReportCategory>
             new()
             {
                 Id = 4,
-                Name = "Apperatuur storing"
+                Name = "Apparatuurstoring"
             },
             new()
             {

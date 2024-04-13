@@ -14,7 +14,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 1,
                 Title = "report 1",
                 Description = "description1",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 1
@@ -24,7 +24,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 2,
                 Title = "report 2",
                 Description = "description2",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 1
@@ -34,7 +34,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 3,
                 Title = "report 3",
                 Description = "description3",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 1
@@ -44,7 +44,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 4,
                 Title = "report 4",
                 Description = "description4",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 1
@@ -54,7 +54,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 5,
                 Title = "report 5",
                 Description = "description5",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 2,
                 UserId = 2
@@ -64,7 +64,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 6,
                 Title = "report 6",
                 Description = "description6",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 3,
                 UserId = 3
@@ -74,7 +74,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 7,
                 Title = "report 7",
                 Description = "description7",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 4,
                 UserId = 4
@@ -84,7 +84,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 8,
                 Title = "report 8",
                 Description = "description8",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 5,
                 UserId = 5
@@ -94,7 +94,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 9,
                 Title = "report 9",
                 Description = "description9",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 6,
                 UserId = 6
@@ -104,7 +104,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 10,
                 Title = "report 10",
                 Description = "description10",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 1
@@ -114,7 +114,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 11,
                 Title = "report 11",
                 Description = "description11",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 2,
                 UserId = 2
@@ -124,7 +124,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 12,
                 Title = "report 12",
                 Description = "description12",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 3,
                 UserId = 3
@@ -134,7 +134,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 13,
                 Title = "report 13",
                 Description = "description13",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 4,
                 UserId = 4
@@ -144,7 +144,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 14,
                 Title = "report 14",
                 Description = "description14",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 5,
                 UserId = 5
@@ -154,7 +154,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 15,
                 Title = "report 15",
                 Description = "description15",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 6,
                 UserId = 6
@@ -164,7 +164,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 16,
                 Title = "report 16",
                 Description = "description16",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 2
@@ -174,7 +174,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 17,
                 Title = "report 17",
                 Description = "description17",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 2,
                 UserId = 3
@@ -184,7 +184,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 18,
                 Title = "report 18",
                 Description = "description18",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 3,
                 UserId = 4
@@ -194,7 +194,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 19,
                 Title = "report 19",
                 Description = "description19",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 4,
                 UserId = 5
@@ -204,7 +204,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 20,
                 Title = "report 20",
                 Description = "description20",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 5,
                 UserId = 6
@@ -214,7 +214,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 21,
                 Title = "report 21",
                 Description = "description21",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 6,
                 UserId = 1
@@ -224,7 +224,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 22,
                 Title = "report 22",
                 Description = "description22",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 2
@@ -234,7 +234,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 23,
                 Title = "report 23",
                 Description = "description23",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 2,
                 UserId = 3
@@ -244,7 +244,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 24,
                 Title = "report 24",
                 Description = "description24",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 3,
                 UserId = 4
@@ -254,7 +254,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 25,
                 Title = "report 25",
                 Description = "description25",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 4,
                 UserId = 5
@@ -264,7 +264,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 26,
                 Title = "report 26",
                 Description = "description26",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 5,
                 UserId = 6
@@ -274,7 +274,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 27,
                 Title = "report 27",
                 Description = "description27",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 6,
                 UserId = 1
@@ -284,7 +284,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 28,
                 Title = "report 28",
                 Description = "description28",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
                 UserId = 2
@@ -294,7 +294,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 29,
                 Title = "report 29",
                 Description = "description29",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 2,
                 ServiceReportCategoryId = 2,
                 UserId = 3
@@ -304,7 +304,7 @@ public class ServiceReportSeeder: ISeeder<ServiceReport>
                 Id = 30,
                 Title = "report 30",
                 Description = "description30",
-                SubmittedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FacilityId = 3,
                 ServiceReportCategoryId = 3,
                 UserId = 4
