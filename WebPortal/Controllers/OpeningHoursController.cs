@@ -10,6 +10,8 @@ namespace WebPortal.Controllers;
 
 public class OpeningHoursController(LiveMapDbContext context) : Controller
 {
+   
+    
     
     [HttpPost]
     public async Task<IActionResult> SaveOpeningHours(OpeningHoursInputModel model)
@@ -44,5 +46,22 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
         return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> SpecialOpeningHours(int facilityId)
+    {
+        var specialHours = context.SpecialOpeningHours
+            .Where(oh => oh.FacilityId == facilityId)
+            .ToList();
+
+        var facility = await context.Facilities.FirstAsync(e => facilityId == e.Id);
+
+        var viewModel = new SpecialOpeningHoursViewModel
+        {
+            Facility = facility,
+            SpecialOpeningHoursList = specialHours
+        };
+
+        return View("SpecialOpeningHours", viewModel);
+    }
 
 }

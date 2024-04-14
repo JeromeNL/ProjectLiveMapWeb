@@ -6,22 +6,13 @@
     Layout = "_Layout";
 }
 
-<style>
-    .flex-container {
-        display: flex;
-    }
-    .flex-item {
-        flex: 1 1 50%; 
-    }
-</style>
-
 <div class="flex-container">
     <div class="flex-item">
         <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
             <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
             </svg>
-            <span>Terug</span>
+          
         </a>
         <div class="flex items-center space-x-4">
             <h2 class="text-2xl font-semibold">@Model.Facility.Name - @Model.Facility.Id</h2>
@@ -39,48 +30,54 @@
     </div>
     
     <div class="flex-item">
-        <h2 class="text-2xl font-semibold">Openingstijden</h2>
-       @{
-           ViewBag.Title = "Openingstijden invoeren";
-           Layout = "_Layout";
-       }
-       
-       <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
-           <table class="table mb-auto">
-               <thead>
-                   <tr>
-                       <th>Dag van de week</th>
-                       <th>Openingstijd</th>
-                       <th>Sluitingstijd</th>
-                   </tr>
-               </thead>
-               <tbody>
-               @for (int i = 0; i < 7; i++)
-               {
-                   var day = (DayOfWeek)i;
-                   var dayName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day);
-                   var openingHour = Model.Facility.DefaultOpeningHours.FirstOrDefault(oh => oh.WeekDay == day);
-       
-                   <tr>
-                       <td>@dayName</td>
-                       <td>
-                           <input type="time" class="form-control" name="DayHours[@i].OpenTime" 
-                                  value="@(openingHour?.OpenTime.ToString("HH\\:mm") ?? "")" />
-                       </td>
-                       <td>
-                           <input type="time" class="form-control" name="DayHours[@i].CloseTime" 
-                                  value="@(openingHour?.CloseTime.ToString("HH\\:mm") ?? "")" />
-                       </td>
-                       <input type="hidden" name="DayHours[@i].Day" value="@day" />
-                   </tr>
-               }
-               <input type="hidden" name="FacilityId" value="@Model.Facility.Id" />
-               </tbody>
-           </table>
-           <div class="mt-auto flex justify-end p-2">
-                <button type="submit" class="btn btn-primary">Opslaan</button>
+        <div class="inline-block w-auto px-5 py-5"></div>
+           <div class="flex items-center space-x-3">
+               <h2 class="text-2xl font-semibold">Openingstijden</h2>
+          <a href="@Url.Action("SpecialOpeningHours", "OpeningHours", new { facilityId = Model.Facility.Id })" class="underline">Speciale openingstijden</a>
+
            </div>
-       </form>
+        
+        @{
+            ViewBag.Title = "Openingstijden invoeren";
+            Layout = "_Layout";
+        }
+
+        <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
+            <table class="table mb-auto">
+                <thead>
+                <tr>
+                    <th>Dag van de week</th>
+                    <th>Openingstijd</th>
+                    <th>Sluitingstijd</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for (int i = 0; i < 7; i++)
+                {
+                    var day = (DayOfWeek)i;
+                    var dayName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day);
+                    var openingHour = Model.Facility.DefaultOpeningHours.FirstOrDefault(oh => oh.WeekDay == day);
+
+                    <tr>
+                        <td>@dayName</td>
+                        <td>
+                            <input type="time" class="form-control" name="DayHours[@i].OpenTime"
+                                   value="@(openingHour?.OpenTime.ToString("HH\\:mm") ?? "")"/>
+                        </td>
+                        <td>
+                            <input type="time" class="form-control" name="DayHours[@i].CloseTime"
+                                   value="@(openingHour?.CloseTime.ToString("HH\\:mm") ?? "")"/>
+                        </td>
+                        <input type="hidden" name="DayHours[@i].Day" value="@day"/>
+                    </tr>
+                }
+                <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
+                </tbody>
+            </table>
+            <div class="mt-auto flex justify-end p-2">
+                <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -114,4 +111,13 @@
             return confirm('Weet u zeker dat u deze faciliteit wilt verwijderen?');
         }
     </script>
+    
+    <style>
+        .flex-container {
+            display: flex;
+        }
+        .flex-item {
+            flex: 1 1 50%; 
+        }
+    </style>
 }

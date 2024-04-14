@@ -1,0 +1,28 @@
+@model WebPortal.Models.SpecialOpeningHoursViewModel
+
+@{
+    ViewData["Title"] = "Speciale Openingstijden";
+    Layout = "_Layout";
+}
+
+<h2 class="text-xl font-bold">Speciale Openingstijden - @Model.Facility.Name</h2>
+ <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
+            <table class="table mb-auto">
+                <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Openingstijd</th>
+                    <th>Sluitingstijd</th>
+                </tr>
+                </thead>
+                <tbody>
+               
+                <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
+                </tbody>
+            </table>
+            <div class="mt-auto flex justify-end p-2">
+                <button type="submit" class="btn btn-primary">Opslaan</button>
+            </div>
+        </form>
+
+
