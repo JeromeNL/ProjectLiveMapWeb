@@ -16,9 +16,10 @@ public class FacilityReportSeeder(List<ProposedFacility> proposedFacilities): IS
             {
                 Id = id++,
                 ProposedFacilityId = proposedFacility.Id,
-                Status = FacilityReportStatus.Pending,
+                Status = ReportStatus.Pending,
                 Description = "Seed",
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                UserId = 1
             };
             facilityReports.Add(facilityReport);   
         }

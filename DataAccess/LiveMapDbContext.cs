@@ -31,8 +31,8 @@ public class LiveMapDbContext : DbContext
             .Property(report => report.CreatedAt).HasDefaultValueSql("getdate()");
 
         modelBuilder.Entity<FacilityReport>()
-            .Property(report => report.Status).HasDefaultValue(FacilityReportStatus.Pending);
-
+            .Property(report => report.Status).HasDefaultValue(ReportStatus.Pending);
+        
         modelBuilder.Entity<Facility>()
             .HasQueryFilter(x => x.DeletedAt == null);
 

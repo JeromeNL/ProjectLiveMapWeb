@@ -18,7 +18,7 @@ public class FacilityReportController : Controller
     public async Task<IActionResult> Index()
     {
         var pendingReports = await _context.FacilityReports
-            .Where(report => report.Status == FacilityReportStatus.Pending)
+            .Where(report => report.Status == ReportStatus.Pending)
             .Include(report => report.ProposedFacility.Facility)
             .Include(report => report.ProposedFacility)
             .OrderBy(report => report.CreatedAt).ToListAsync();
@@ -31,7 +31,7 @@ public class FacilityReportController : Controller
         var report = await _context.FacilityReports.FindAsync(id);
         if (report == null) return NotFound();
 
-        report.Status = FacilityReportStatus.Denied;
+        report.Status = ReportStatus.Denied;
         await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
@@ -79,7 +79,7 @@ public class FacilityReportController : Controller
                 
             }
         }
-        report.Status = FacilityReportStatus.Accepted;
+        report.Status = ReportStatus.Accepted;
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }

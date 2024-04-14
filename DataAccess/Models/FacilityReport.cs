@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataAccess.Interfaces;
 using DataAccess.Models.Enums;
 
 namespace DataAccess.Models;
@@ -20,8 +21,14 @@ public class FacilityReport
     public string Description { get; set; }
     
     [Required]
-    public FacilityReportStatus Status { get; set; }
+    public ReportStatus Status { get; set; }
     
     [Required]
     public DateTime CreatedAt { get; set; }
+    
+    [Required]
+    public int UserId { get; set; }
+
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; }
 }
