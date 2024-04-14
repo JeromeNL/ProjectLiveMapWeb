@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240414090156_Default_OpeningHours_Added")]
+    partial class Default_OpeningHours_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,104 +97,6 @@ namespace DataAccess.Migrations
                         {
                             WeekDay = 0,
                             FacilityId = 1,
-                            CloseTime = new TimeOnly(23, 59, 0),
-                            OpenTime = new TimeOnly(0, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 1,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(20, 0, 0),
-                            OpenTime = new TimeOnly(14, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 2,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(20, 0, 0),
-                            OpenTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 3,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(21, 0, 0),
-                            OpenTime = new TimeOnly(11, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 4,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(21, 0, 0),
-                            OpenTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 5,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(21, 0, 0),
-                            OpenTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 6,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(23, 0, 0),
-                            OpenTime = new TimeOnly(9, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 0,
-                            FacilityId = 2,
-                            CloseTime = new TimeOnly(23, 59, 0),
-                            OpenTime = new TimeOnly(0, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 1,
-                            FacilityId = 3,
-                            CloseTime = new TimeOnly(20, 0, 0),
-                            OpenTime = new TimeOnly(14, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 2,
-                            FacilityId = 3,
-                            CloseTime = new TimeOnly(20, 0, 0),
-                            OpenTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 3,
-                            FacilityId = 3,
-                            CloseTime = new TimeOnly(21, 0, 0),
-                            OpenTime = new TimeOnly(11, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 4,
-                            FacilityId = 3,
-                            CloseTime = new TimeOnly(21, 0, 0),
-                            OpenTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 5,
-                            FacilityId = 3,
-                            CloseTime = new TimeOnly(21, 0, 0),
-                            OpenTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 6,
-                            FacilityId = 3,
-                            CloseTime = new TimeOnly(23, 0, 0),
-                            OpenTime = new TimeOnly(9, 0, 0)
-                        },
-                        new
-                        {
-                            WeekDay = 0,
-                            FacilityId = 3,
                             CloseTime = new TimeOnly(23, 59, 0),
                             OpenTime = new TimeOnly(0, 0, 0)
                         });
@@ -303,7 +208,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 11, 6, 47, 454, DateTimeKind.Local).AddTicks(4780),
+                            CreatedAt = new DateTime(2024, 4, 14, 11, 1, 55, 655, DateTimeKind.Local).AddTicks(2060),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -311,7 +216,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 14, 11, 6, 47, 454, DateTimeKind.Local).AddTicks(4820),
+                            CreatedAt = new DateTime(2024, 4, 14, 11, 1, 55, 655, DateTimeKind.Local).AddTicks(2110),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -319,7 +224,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 11, 6, 47, 454, DateTimeKind.Local).AddTicks(4830),
+                            CreatedAt = new DateTime(2024, 4, 14, 11, 1, 55, 655, DateTimeKind.Local).AddTicks(2110),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -327,7 +232,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 11, 6, 47, 454, DateTimeKind.Local).AddTicks(4830),
+                            CreatedAt = new DateTime(2024, 4, 14, 11, 1, 55, 655, DateTimeKind.Local).AddTicks(2110),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0

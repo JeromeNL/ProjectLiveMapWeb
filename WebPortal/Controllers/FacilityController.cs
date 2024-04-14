@@ -40,13 +40,21 @@ public class FacilityController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(Facility facility)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(facility);
-        }
-        
         _context.Facilities.Add(facility);
         await _context.SaveChangesAsync();
+
+        foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+        {
+            var openingHour = new DefaultOpeningHours(day)
+            {
+                FacilityId = facility.Id,
+                OpenTime = new TimeOnly(0, 0),  
+                CloseTime = new TimeOnly(23, 59) 
+            };
+            _context.DefaultOpeningHours.Add(openingHour);
+        }
+        await _context.SaveChangesAsync(); 
+
         return RedirectToAction("Index");
     }
     

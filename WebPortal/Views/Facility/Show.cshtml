@@ -60,27 +60,28 @@
                    var day = (DayOfWeek)i;
                    var dayName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day);
                    var openingHour = Model.Facility.DefaultOpeningHours.FirstOrDefault(oh => oh.WeekDay == day);
-
+       
                    <tr>
                        <td>@dayName</td>
                        <td>
                            <input type="time" class="form-control" name="DayHours[@i].OpenTime" 
-                                  value="@(openingHour?.OpenTime.ToString("hh\\:mm") ?? "")" />
+                                  value="@(openingHour?.OpenTime.ToString("HH\\:mm") ?? "")" />
                        </td>
                        <td>
                            <input type="time" class="form-control" name="DayHours[@i].CloseTime" 
-                                  value="@(openingHour?.CloseTime.ToString("hh\\:mm") ?? "")" />
+                                  value="@(openingHour?.CloseTime.ToString("HH\\:mm") ?? "")" />
                        </td>
                        <input type="hidden" name="DayHours[@i].Day" value="@day" />
                    </tr>
                }
-
-             <input type="hidden" name="FacilityId" value="@Model.Facility.Id" />
+               <input type="hidden" name="FacilityId" value="@Model.Facility.Id" />
+               </tbody>
            </table>
            <div class="mt-auto d-flex justify-content-end p-2">
                <button type="submit" class="btn btn-primary">Opslaan</button>
            </div>
        </form>
+
 
     </div>
 </div>

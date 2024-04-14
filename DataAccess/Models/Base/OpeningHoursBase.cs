@@ -9,10 +9,10 @@ namespace DataAccess.Models.Base;
 public abstract class OpeningHoursBase
 {
     [JsonConverter(typeof(HourMinuteConverter))]
-    public TimeOnly OpenTime { get; set; }
+    public TimeOnly OpenTime { get; set; } = new TimeOnly(0, 0);  
     
     [JsonConverter(typeof(HourMinuteConverter))]
-    public TimeOnly CloseTime { get; set; }
+    public TimeOnly CloseTime { get; set; } = new TimeOnly(23, 59);
 
     [Required]
     [ForeignKey(nameof(Facility))]
