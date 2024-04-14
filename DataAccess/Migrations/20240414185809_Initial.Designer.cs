@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240413161135_Initial")]
+    [Migration("20240414185809_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -33,14 +33,13 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -55,11 +54,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Facilities");
 
@@ -67,32 +64,87 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
-                            IconName = "trash",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
-                            Name = "Restaurant de Kom",
-                            Type = "Restaurant"
+                            Name = "Restaurant de Kom"
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 3,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
-                            IconName = "chef-hat",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
-                            Name = "Zwemmeer",
-                            Type = "Recreatie"
+                            Name = "Zwemmeer"
                         },
                         new
                         {
                             Id = 3,
+                            CategoryId = 1,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
-                            IconName = "horse-toy",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
-                            Name = "Speeltuin",
-                            Type = "Recreatie"
+                            Name = "Speeltuin"
+                        });
+                });
+
+            modelBuilder.Entity("DataAccess.Models.FacilityCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FacilityCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Voorzieningen die eten en drinken mogelijk maken",
+                            IconName = "chef-hat",
+                            Name = "Restaurant"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Voorzieningen die sport mogelijk maken",
+                            IconName = "ball-tennis",
+                            Name = "Sport"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Voorzieningen die boodschappen mogelijk maken",
+                            IconName = "shopping-cart",
+                            Name = "Supermarkt"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Voorzieningen die zwemmen mogelijk maken",
+                            IconName = "swimming",
+                            Name = "Zwembad"
                         });
                 });
 
@@ -121,9 +173,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProposedFacilityId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FacilityReports");
 
@@ -131,34 +188,38 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1090),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(564),
                             Description = "Seed",
                             ProposedFacilityId = 1,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1195),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(612),
                             Description = "Seed",
                             ProposedFacilityId = 2,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1199),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(614),
                             Description = "Seed",
                             ProposedFacilityId = 3,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1202),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(615),
                             Description = "Seed",
                             ProposedFacilityId = 4,
-                            Status = 0
+                            Status = 0,
+                            UserId = 1
                         });
                 });
 
@@ -170,16 +231,15 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FacilityId")
                         .HasColumnType("int");
-
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
@@ -192,11 +252,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("FacilityId");
 
@@ -206,45 +264,41 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
                             FacilityId = 1,
-                            IconName = "trash",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
-                            Name = "Restaurant de Kom",
-                            Type = "Restaurant"
+                            Name = "Restaurant de Kom"
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 3,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
                             FacilityId = 2,
-                            IconName = "chef-hat",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
-                            Name = "Zwemmeer",
-                            Type = "Recreatie"
+                            Name = "Zwemmeer"
                         },
                         new
                         {
                             Id = 3,
+                            CategoryId = 1,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
                             FacilityId = 3,
-                            IconName = "horse-toy",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
-                            Name = "Speeltuin",
-                            Type = "Recreatie"
+                            Name = "Speeltuin"
                         },
                         new
                         {
                             Id = 4,
+                            CategoryId = 1,
                             Description = "De nieuwe zwemzee",
-                            IconName = "trash",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
-                            Name = "Zwemzee",
-                            Type = "Recreatie"
+                            Name = "Zwemzee"
                         });
                 });
 
@@ -295,7 +349,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1307),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(641),
                             Description = "description1",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -305,7 +359,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1325),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(649),
                             Description = "description2",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -315,7 +369,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1328),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(652),
                             Description = "description3",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -325,7 +379,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1331),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(655),
                             Description = "description4",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -335,7 +389,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1336),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(657),
                             Description = "description5",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -345,7 +399,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1341),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(661),
                             Description = "description6",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -355,7 +409,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1346),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(663),
                             Description = "description7",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -365,7 +419,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1350),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(665),
                             Description = "description8",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -375,7 +429,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1353),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(669),
                             Description = "description9",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -385,7 +439,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1358),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(672),
                             Description = "description10",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -395,7 +449,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1365),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(674),
                             Description = "description11",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -405,7 +459,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1368),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(676),
                             Description = "description12",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -415,7 +469,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1372),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(679),
                             Description = "description13",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -425,7 +479,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1375),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(681),
                             Description = "description14",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -435,7 +489,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1378),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(683),
                             Description = "description15",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -445,7 +499,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1382),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(685),
                             Description = "description16",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -455,7 +509,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1385),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(687),
                             Description = "description17",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -465,7 +519,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1390),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(691),
                             Description = "description18",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -475,7 +529,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1393),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(693),
                             Description = "description19",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -485,7 +539,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1396),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(695),
                             Description = "description20",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -495,7 +549,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1399),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(698),
                             Description = "description21",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -505,7 +559,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1403),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(700),
                             Description = "description22",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -515,7 +569,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1407),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(703),
                             Description = "description23",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -525,7 +579,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1410),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(705),
                             Description = "description24",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -535,7 +589,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1413),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(707),
                             Description = "description25",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -545,7 +599,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1417),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(709),
                             Description = "description26",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -555,7 +609,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1420),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(712),
                             Description = "description27",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -565,7 +619,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1424),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(714),
                             Description = "description28",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -575,7 +629,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1427),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(716),
                             Description = "description29",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -585,7 +639,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedAt = new DateTime(2024, 4, 13, 18, 11, 34, 283, DateTimeKind.Local).AddTicks(1430),
+                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(718),
                             Description = "description30",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -693,6 +747,17 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.Facility", b =>
+                {
+                    b.HasOne("DataAccess.Models.FacilityCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("DataAccess.Models.FacilityReport", b =>
                 {
                     b.HasOne("DataAccess.Models.ProposedFacility", "ProposedFacility")
@@ -701,14 +766,30 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccess.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ProposedFacility");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
                 {
+                    b.HasOne("DataAccess.Models.FacilityCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DataAccess.Models.Facility", "Facility")
                         .WithMany()
                         .HasForeignKey("FacilityId");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Facility");
                 });
