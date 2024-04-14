@@ -1,5 +1,5 @@
 ﻿@using DataAccess.Models
-@model DataAccess.Models.Facility
+@model WebPortal.Models.FacilityViewModel
 
 @{
     ViewBag.Title = "Faciliteit bekijken";
@@ -24,16 +24,16 @@
             <span>Terug</span>
         </a>
         <div class="flex items-center space-x-4">
-            <h2 class="text-2xl font-semibold">@Model.Name - @Model.Id</h2>
-            <form id="deleteform" method="post" asp-action="Delete" asp-route-id="@Model.Id" onsubmit="return confirmDeletion()">
+            <h2 class="text-2xl font-semibold">@Model.Facility.Name - @Model.Facility.Id</h2>
+            <form id="deleteform" method="post" asp-action="Delete" asp-route-id="@Model.Facility.Id" onsubmit="return confirmDeletion()">
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="submit" class="underline">Verwijder</button>
             </form>
         </div>
-        <p>@Model.Description</p>
-        <p>Type: @Model.Type</p>
+        <p>@Model.Facility.Description</p>
+        <p>Type: @Model.Facility.Type</p>
         <p>Icoontje:</p>
-        <i class="ti ti-@Model.IconName text-4xl"></i>
+        <i class="ti ti-@Model.Facility.IconName text-4xl"></i>
         <p>Huidige locatie:</p>
         <div id="map" class="h-[20vh] w-[20vw]"></div>
     </div>
@@ -55,18 +55,27 @@
                    </tr>
                </thead>
                <tbody>
-             @for (int i = 0; i < 7; i++)
-             {
-                 var day = (DayOfWeek)i;
-                 var dayName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day);
-                 <tr>
-                     <td>@dayName</td>
-                     <td><input type="time" class="form-control" name="DayHours[@i].OpenTime" /></td>
-                     <td><input type="time" class="form-control" name="DayHours[@i].CloseTime" /></td>
-                     <input type="hidden" name="DayHours[@i].Day" value="@day" />
-                 </tr>
-             }
-             <input type="hidden" name="FacilityId" value="@Model.Id" />
+               @for (int i = 0; i < 7; i++)
+               {
+                   var day = (DayOfWeek)i;
+                   var dayName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day);
+                   var openingHour = Model.Facility.DefaultOpeningHours.FirstOrDefault(oh => oh.WeekDay == day);
+
+                   <tr>
+                       <td>@dayName</td>
+                       <td>
+                           <input type="time" class="form-control" name="DayHours[@i].OpenTime" 
+                                  value="@(openingHour?.OpenTime.ToString("hh\\:mm") ?? "")" />
+                       </td>
+                       <td>
+                           <input type="time" class="form-control" name="DayHours[@i].CloseTime" 
+                                  value="@(openingHour?.CloseTime.ToString("hh\\:mm") ?? "")" />
+                       </td>
+                       <input type="hidden" name="DayHours[@i].Day" value="@day" />
+                   </tr>
+               }
+
+             <input type="hidden" name="FacilityId" value="@Model.Facility.Id" />
            </table>
            <div class="mt-auto d-flex justify-content-end p-2">
                <button type="submit" class="btn btn-primary">Opslaan</button>
@@ -79,7 +88,7 @@
 @section Scripts
 {
     <script>
-        let markerLocation = L.latLng(@Model.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        let markerLocation = L.latLng(@Model.Facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.Facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
         let map = L.map('map', {
             center: markerLocation,
             zoom: 18
@@ -89,7 +98,7 @@
         }).addTo(map);
 
         let icon = L.divIcon({
-            html: `<i class="ti ti-@Model.IconName text-lg"></i>`,
+            html: `<i class="ti ti-@Model.Facility.IconName text-lg"></i>`,
             className: 'facility-icon',
             iconSize: [35, 35],
             iconAnchor: [15, 15],
@@ -97,10 +106,10 @@
         });
 
         let marker = L.marker(markerLocation, {
-            title: '@Model.Name',
+            title: '@Model.Facility.Name',
             icon: icon
         });
-        marker.addTo(map).bindPopup('<p>@Model.Name - @Model.Description</p>');
+        marker.addTo(map).bindPopup('<p>@Model.Facility.Name - @Model.Facility.Description</p>');
 
         function confirmDeletion() {
             return confirm('Weet u zeker dat u deze faciliteit wilt verwijderen?');

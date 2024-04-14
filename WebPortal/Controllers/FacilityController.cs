@@ -2,6 +2,8 @@
 using DataAccess;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
@@ -50,10 +52,19 @@ public class FacilityController : Controller
     
     public async Task<IActionResult> Show(int id)
     {
-        var facility = await _context.Facilities.FindAsync(id);
-        if (facility == null) return NotFound();
+        var facility = await _context.Facilities
+            .Include(f => f.DefaultOpeningHours) 
+            .FirstOrDefaultAsync(f => f.Id == id);
         
-        return View(facility);
+        if (facility == null) return NotFound();
+      
+        var viewModel = new FacilityViewModel
+        {
+            Facility = facility,
+            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() 
+        };
+    
+        return View(viewModel);
     }
 
     [HttpGet]
