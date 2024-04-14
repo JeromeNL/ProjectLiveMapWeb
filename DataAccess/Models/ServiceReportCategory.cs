@@ -1,18 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DataAccess.Interfaces;
-using DataAccess.Models.Base;
-
+using System.Text.Json.Serialization;
 
 namespace DataAccess.Models;
-
-public class Facility : FacilityBase, ISoftDelete
-
+public class ServiceReportCategory
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-
-    public DateTimeOffset? DeletedAt { get; set; }
-    public ICollection<ServiceReport>? ServiceReports { get; }
+    
+    [Required(ErrorMessage = "Het naam veld is verplicht")]
+    public string Name { get; set; }
 }
