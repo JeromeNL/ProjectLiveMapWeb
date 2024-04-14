@@ -53,11 +53,15 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             .Where(oh => oh.FacilityId == facilityId)
             .ToList();
 
-        var facility = await context.Facilities.FirstAsync(e => facilityId == e.Id);
-
+        var FacilityObject = await context.Facilities.FirstOrDefaultAsync(e => e.Id == facilityId);
+        if (FacilityObject == null)
+        {
+            return NotFound("Faciliteit niet gevonden.");
+        }
+        
         var viewModel = new SpecialOpeningHoursViewModel
         {
-            Facility = facility,
+            Facility = FacilityObject,
             SpecialOpeningHoursList = specialHours
         };
 
@@ -65,32 +69,16 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> SaveSpecialOpeningHours(SpecialOpeningHoursViewModel model)
+    public async Task<IActionResult> SaveSpecialOpeningHours(int facilityId, SpecialOpeningHours newOpeningHour)
     {
-        foreach (var dayHours in model.SpecialOpeningHoursList)
+        if (newOpeningHour != null)
         {
-            var existingHours = context.SpecialOpeningHours
-                .FirstOrDefault(e => e.FacilityId == model.Facility.Id && e.Date == dayHours.Date);
-
-            if (existingHours != null)
-            {
-                existingHours.OpenTime = new TimeOnly(dayHours.OpenTime.Hour, dayHours.OpenTime.Minute);
-                existingHours.CloseTime = new TimeOnly(dayHours.CloseTime.Hour, dayHours.CloseTime.Minute);
-            }
-            else
-            {
-                var newHours = new SpecialOpeningHours
-                {
-                    OpenTime = new TimeOnly(dayHours.OpenTime.Hour, dayHours.OpenTime.Minute),
-                    CloseTime = new TimeOnly(dayHours.CloseTime.Hour, dayHours.CloseTime.Minute),
-                    FacilityId = model.Facility.Id,
-                    Date = dayHours.Date
-                };
-                context.SpecialOpeningHours.Add(newHours);
-            }
+            newOpeningHour.FacilityId = facilityId;
+            context.SpecialOpeningHours.Add(newOpeningHour);
+            await context.SaveChangesAsync();
         }
-        await context.SaveChangesAsync();
-        return RedirectToAction("SpecialOpeningHours", "OpeningHours", new { id = model.Facility.Id });
+
+        return RedirectToAction("SpecialOpeningHours", facilityId);
     }
     
     [HttpPost]
