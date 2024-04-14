@@ -14,14 +14,22 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFacilities()
     {
-        var facilities = await context.Facilities.Include(f => f.ServiceReports).ToListAsync();
+        var facilities = await context.Facilities.Include(f => f.ServiceReports).Include(f => f.Category).ToListAsync();
         if (facilities.IsNullOrEmpty())
         {
             return NotFound("No facilities were found");
         }
+
         return Ok(facilities);
     }
-    
+
+    [HttpGet("/categories")]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        var categories = await context.FacilityCategories.ToListAsync();
+        return Ok(categories);
+    }
+
     [HttpPost("upsert")]
     public async Task<IActionResult> RequestFacilityChange(ProposedFacility data)
     {
@@ -29,33 +37,33 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
         if (data.FacilityId != null)
         {
             var existingFacility = await context.Facilities.FindAsync(data.FacilityId);
-        
+
             if (existingFacility == null)
             {
                 return NotFound($"Facility with ID {data.Id} not found.");
             }
+
             existingFacilityId = existingFacility.Id;
         }
-        
+
         var proposedFacilityChange = new ProposedFacility
         {
             FacilityId = existingFacilityId,
             Name = data.Name,
             Description = data.Description,
-            Type = data.Type,
-            IconName = data.IconName,
+            CategoryId = data.CategoryId,
             Latitude = data.Latitude,
             Longitude = data.Longitude
         };
 
         var facilityReport = new FacilityReport
         {
-            Description = data.Description, 
+            Description = data.Description,
             CreatedAt = DateTime.Now,
             Status = ReportStatus.Pending,
             ProposedFacility = proposedFacilityChange,
         };
-        
+
         await context.FacilityReports.AddAsync(facilityReport);
         await context.SaveChangesAsync();
 

@@ -1,5 +1,5 @@
 ﻿@using System.Net.Mime
-@model DataAccess.Models.Facility
+@model FacilityCreateViewModel
 
 @{
     ViewBag.Title = "Faciliteit aanmaken";
@@ -8,48 +8,29 @@
 
 <h2 class="text-2xl font-semibold mb-6">Creëer faciliteit</h2>
 <form asp-action="create" class="flex flex-col">
-    @if (ViewBag.latitude != null)
-    {
-        <input hidden required type="text" asp-for="Latitude" readonly value="@ViewBag.latitude"/>
-        <span asp-validation-for="Latitude" class="text-red-600"></span>
-    }
-    else
-    {
-        <input hidden required type="text" asp-for="Latitude" readonly/>
-        <span asp-validation-for="Latitude" class="text-red-600"></span>
-    }
- 
-    @if (ViewBag.longitude != null)
-    {
-        <input hidden required type="text" asp-for="Longitude" readonly value="@ViewBag.longitude"/>
-        <span asp-validation-for="Longitude" class="text-red-600"></span>
-    }
-    else
-    {
-        <input hidden required type="text" asp-for="Longitude" readonly/>
-        <span asp-validation-for="Longitude" class="text-red-600"></span>
-    }
+
+    <input hidden required type="text" asp-for="Facility.Latitude" readonly value="@Model.Latitude"/>
+    <span asp-validation-for="Latitude" class="text-red-600"></span>
+    
+    <input hidden required type="text" asp-for="Facility.Longitude" readonly value="@Model.Longitude"/>
+    <span asp-validation-for="Longitude" class="text-red-600"></span>
     
     <label>Naam</label>
-    <input class="input input-bordered" required type="text" asp-for="Name"/>
-    <span asp-validation-for="Name" class="text-red-600"></span>
+    <input class="input input-bordered" required type="text" asp-for="Facility.Name"/>
+    <span asp-validation-for="Facility.Name" class="text-red-600"></span>
 
     <label>Beschrijving</label>
-    <textarea class="textarea textarea-bordered" required type="text" rows="3" asp-for="Description"></textarea>
-    <span asp-validation-for="Description" class="text-red-600"></span>
+    <textarea class="textarea textarea-bordered" required type="text" rows="3" asp-for="Facility.Description"></textarea>
+    <span asp-validation-for="Facility.Description" class="text-red-600"></span>
 
-    <label>Type</label>
-    <input class="input input-bordered" required type="text" asp-for="Type"/>
-    <span asp-validation-for="Type" class="text-red-600"></span>
-
-    <label>Icoon naam</label>
-    <select required class="input input-bordered" asp-for="IconName">
-        <option value="chef-hat">chef hat</option>
-        <option value="sandbox">sandbox</option>
-        <option value="smoking">smoking</option>
-        <option value="trash">trash</option>
+    <label>Categorie</label>
+    <select required class="input input-bordered" asp-for="Facility.CategoryId">
+        @foreach(var category in Model.FacilityCategories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
     </select>
-    <span asp-validation-for="IconName" class="text-red-600"></span>
-    
+    <span asp-validation-for="Facility.Category" class="text-red-600"></span>
+
     <input type="submit" value="Aanmaken" class="btn btn-neutral mt-2"/>
 </form>
