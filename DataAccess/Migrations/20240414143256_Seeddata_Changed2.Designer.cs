@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    partial class LiveMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240414143256_Seeddata_Changed2")]
+    partial class Seeddata_Changed2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,7 +306,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(7980),
+                            CreatedAt = new DateTime(2024, 4, 14, 16, 32, 55, 540, DateTimeKind.Local).AddTicks(6640),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -311,7 +314,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(8060),
+                            CreatedAt = new DateTime(2024, 4, 14, 16, 32, 55, 540, DateTimeKind.Local).AddTicks(6690),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -319,7 +322,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(8070),
+                            CreatedAt = new DateTime(2024, 4, 14, 16, 32, 55, 540, DateTimeKind.Local).AddTicks(6690),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -327,7 +330,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(8070),
+                            CreatedAt = new DateTime(2024, 4, 14, 16, 32, 55, 540, DateTimeKind.Local).AddTicks(6690),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -448,7 +451,7 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Date = new DateOnly(2024, 4, 16),
+                            Date = new DateOnly(2024, 4, 14),
                             FacilityId = 1,
                             CloseTime = new TimeOnly(23, 30, 0),
                             OpenTime = new TimeOnly(6, 0, 0)

@@ -6,23 +6,32 @@
 }
 
 <h2 class="text-xl font-bold">Speciale Openingstijden - @Model.Facility.Name</h2>
- <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
-            <table class="table mb-auto">
-                <thead>
-                <tr>
-                    <th>Datum</th>
-                    <th>Openingstijd</th>
-                    <th>Sluitingstijd</th>
-                </tr>
-                </thead>
-                <tbody>
-               
-                <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
-                </tbody>
-            </table>
-            <div class="mt-auto flex justify-end p-2">
-                <button type="submit" class="btn btn-primary">Opslaan</button>
-            </div>
-        </form>
-
-
+<table class="w-full min-w-full divide-y divide-gray-200 mb-4">
+    <thead class="bg-gray-50">
+        <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Datum</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Openingstijd</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sluitingstijd</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acties</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+        @foreach (var hour in Model.SpecialOpeningHoursList)
+        {
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap">@hour.Date.ToString("dd-MM-yyyy")</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <input type="time" class="form-input rounded-md" name="SpecialHours[@hour.Facility.Id].OpenTime" value="@hour.OpenTime.ToString("HH\\:mm")"/>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <input type="time" class="form-input rounded-md" name="SpecialHours[@hour.Facility.Id].CloseTime" value="@hour.CloseTime.ToString("HH\\:mm")"/>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <form method="post" asp-action="DeleteSpecialOpeningHour" asp-route-facilityId="@hour.Facility.Id" asp-route-date="@hour.Date.ToString("yyyy-MM-dd")">
+                        <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
