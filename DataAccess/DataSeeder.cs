@@ -13,11 +13,15 @@ public static class DataSeeder
         var facilityReports = new FacilityReportSeeder(proposedFacilities).Seed();
         var users = new UserSeeder().Seed();
         var facilityCategories = new FacilityCategorySeeder().Seed();
+        var serviceReports = new ServiceReportSeeder().Seed();
+        var serviceReportsCategories = new ServiceReportCategorySeeder().Seed();
         
         modelBuilder.Entity<Facility>().HasData(facilities);
         modelBuilder.Entity<ProposedFacility>().HasData(proposedFacilities);
         modelBuilder.Entity<FacilityReport>().HasData(facilityReports);
         modelBuilder.Entity<User>().HasData(users);
         modelBuilder.Entity<FacilityCategory>().HasData(facilityCategories);
+        modelBuilder.Entity<ServiceReport>().HasData(serviceReports);
+        modelBuilder.Entity<ServiceReportCategory>().HasData(serviceReportsCategories);
     }
 }

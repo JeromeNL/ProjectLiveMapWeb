@@ -1,0 +1,53 @@
+﻿@model List<DataAccess.Models.ServiceReportCategory>
+<div>
+    <h1 class="text-2xl font-semibold">Overzicht van service melding categorieën</h1>
+    <a class="btn btn-success mt-2" asp-controller="ServiceReportCategory" asp-action="Create">Nieuwe categorie toevoegen</a>
+    @if (ViewBag.message != null)
+    {
+        <p class="text-red-600">@ViewBag.message</p>
+    }
+    <div class="overflow-x-auto mt-2">
+        <table id="datatable" class="table gap-y-5">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Naam</th>
+                <th>Wijzig/Verwijder</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>
+                        <form asp-action="Edit" method="get">
+                            <input type="hidden" name="id" value="@category.Id" />
+                            <input class="btn btn-sm btn-warning" type="submit" value="Pas aan"/>
+                        </form>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@category.Id" />
+                            <input class="btn btn-sm btn-error" type="submit" value="Verwijder"/>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>   
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+      new DataTable('#datatable', {
+           searchable: true,
+            sortable: true,
+            perPage: 5,
+            order: [4, 'asc'],
+            language: {
+                    url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
+            },
+      });
+      </script>
+}

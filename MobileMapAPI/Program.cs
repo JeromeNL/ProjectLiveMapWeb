@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,10 @@ builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//json circular dependency
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 var app = builder.Build();
 app.UseSwagger();
 
@@ -23,6 +28,5 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 app.MapControllers();
-
 
 app.Run();

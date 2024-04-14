@@ -2,36 +2,31 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
 [Route("facilities/service-reports")]
-public class ServiceReportController : ControllerBase
+public class ServiceReportController(LiveMapDbContext context) : ControllerBase
 {
-    private readonly LiveMapDbContext _context;
-
-    public ServiceReportController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetAllServiceReports()
     {
-        var serviceReports = await _context.ServiceReports
+        var serviceReports = await context.ServiceReports
             .Include(i => i.Facility)
             .Include(i => i.User)
+            .Include(i => i.ServiceReportCategory)
             .ToListAsync();
+        
         return Ok(serviceReports);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddServiceReport(ServiceReport data)
     {
-        var belongsTo = await _context.Facilities.FindAsync(data.FacilityId);
-        var user = await _context.Users.FindAsync(data.UserId);
+        var belongsTo = await context.Facilities.FindAsync(data.FacilityId);
+        var category = await context.ServiceReportCategories.FindAsync(data.ServiceReportCategoryId);
+        var user = await context.Users.FindAsync(data.UserId);
 
         if (belongsTo == null)
         {
@@ -42,20 +37,27 @@ public class ServiceReportController : ControllerBase
         {
             return NotFound("Could not find provided User");
         }
+
+        if (category == null)
+        {
+            return NotFound("Could not find provided ServiceReportCategory");
+        }
         
         var newServiceReport = new ServiceReport()
         {
             Title = data.Title,
             Description = data.Description,
-            Category = data.Category,
+            CreatedAt = DateTime.Now,
+            ServiceReportCategoryId = data.ServiceReportCategoryId,
+            ServiceReportCategory = category,
             FacilityId = data.FacilityId,
             Facility = belongsTo,
             UserId = data.UserId,
-            User = user
+            User = user,
         };
 
-        await _context.ServiceReports.AddAsync(newServiceReport);
-        await _context.SaveChangesAsync();
+        await context.ServiceReports.AddAsync(newServiceReport);
+        await context.SaveChangesAsync();
 
         return Ok("New service report has been saved");
     }
@@ -63,13 +65,7 @@ public class ServiceReportController : ControllerBase
     [HttpGet("categories")]
     public async Task<IActionResult> GetAllCategories()
     {
-        var categories = new[]
-        {
-            new { name = "name1" },
-            new { name = "name2" },
-            new { name = "name3" }
-        };
-            
+        var categories = await context.ServiceReportCategories.ToListAsync();
         return Ok(categories);
     }
 }
