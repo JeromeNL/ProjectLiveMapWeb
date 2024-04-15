@@ -18,8 +18,7 @@
     </div>
 }
 
-<form method="post" asp-controller="OpeningHours" asp-action="SaveSpecialOpeningHours">
-    <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
+
     <table class="w-full min-w-full divide-y divide-gray-200 mb-4">
         <thead class="bg-gray-50">
         <tr>
@@ -47,21 +46,24 @@
                 </td>
             </tr>
         }
-        <tr>
-            <td class="px-6 py-4">
-                <input type="date" class="form-input rounded-md" name="NewOpeningHour.Date"/>
-            </td>
-            <td class="px-6 py-4">
-                <input type="time" class="form-input rounded-md" name="NewOpeningHour.OpenTime"/>
-            </td>
-            <td class="px-6 py-4">
-                <input type="time" class="form-input rounded-md" name="NewOpeningHour.CloseTime"/>
-            </td>
+        <form method="post" asp-controller="OpeningHours" asp-action="SaveSpecialOpeningHours">
+            <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
+            <tr>
+            
+                <td class="px-6 py-4">
+                    <input type="date" class="form-input rounded-md" name="NewOpeningHour.Date"/>
+                </td>
+                <td class="px-6 py-4">
+                    <input type="time" class="form-input rounded-md" name="NewOpeningHour.OpenTime"/>
+                </td>
+                <td class="px-6 py-4">
+                    <input type="time" class="form-input rounded-md" name="NewOpeningHour.CloseTime"/>
+                </td>
 
-            <td class="px-6 py-4">
-                <button type="submit" class="text-green-500 hover:text-green-700">Toevoegen</button>
-            </td>
-        </tr>
+                <td class="px-6 py-4">
+                    <button type="submit" class="text-green-500 hover:text-green-700">Toevoegen</button>
+                </td>
+            </tr>
+            </form>
         </tbody>
     </table>
-</form>

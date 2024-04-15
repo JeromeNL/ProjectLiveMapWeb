@@ -10,9 +10,6 @@ namespace WebPortal.Controllers;
 
 public class OpeningHoursController(LiveMapDbContext context) : Controller
 {
-   
-    
-    
     [HttpPost]
     public async Task<IActionResult> SaveOpeningHours(OpeningHoursInputModel model)
     {
