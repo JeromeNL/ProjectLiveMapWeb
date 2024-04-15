@@ -61,8 +61,8 @@ public class FacilityController : Controller
             .Select(day => new DefaultOpeningHours(day)
             {
                 Facility = viewModel.Facility,
-                OpenTime = new TimeOnly(0, 0), // Begin tijd op 00:00
-                CloseTime = new TimeOnly(23, 59) // Eind tijd op 23:59
+                OpenTime = new TimeOnly(0, 0), 
+                CloseTime = new TimeOnly(23, 59) 
             }).ToList();
         
         _context.Facilities.Add(viewModel.Facility);
