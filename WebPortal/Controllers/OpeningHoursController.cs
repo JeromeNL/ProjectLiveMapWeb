@@ -79,7 +79,8 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             await context.SaveChangesAsync();
         }
 
-        return RedirectToAction("SpecialOpeningHours", facilityId);
+        return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
+
     }
     
     [HttpPost]
