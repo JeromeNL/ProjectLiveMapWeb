@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Added_Openinghours_Models : Migration
+    public partial class New_Initial_Migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,26 +46,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DefaultOpeningHours",
-                columns: table => new
-                {
-                    FacilityId = table.Column<int>(type: "int", nullable: false),
-                    WeekDay = table.Column<int>(type: "int", nullable: false),
-                    OpenTime = table.Column<TimeOnly>(type: "time", nullable: false),
-                    CloseTime = table.Column<TimeOnly>(type: "time", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DefaultOpeningHours", x => new { x.WeekDay, x.FacilityId });
-                    table.ForeignKey(
-                        name: "FK_DefaultOpeningHours_Facilities_FacilityId",
-                        column: x => x.FacilityId,
-                        principalTable: "Facilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProposedFacilities",
                 columns: table => new
                 {
@@ -90,23 +70,29 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SpecialOpeningHours",
+                name: "DefaultOpeningHours",
                 columns: table => new
                 {
                     FacilityId = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    WeekDay = table.Column<int>(type: "int", nullable: false),
+                    ProposedFacilityId = table.Column<int>(type: "int", nullable: true),
                     OpenTime = table.Column<TimeOnly>(type: "time", nullable: false),
                     CloseTime = table.Column<TimeOnly>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SpecialOpeningHours", x => new { x.Date, x.FacilityId });
+                    table.PrimaryKey("PK_DefaultOpeningHours", x => new { x.WeekDay, x.FacilityId });
                     table.ForeignKey(
-                        name: "FK_SpecialOpeningHours_Facilities_FacilityId",
+                        name: "FK_DefaultOpeningHours_Facilities_FacilityId",
                         column: x => x.FacilityId,
                         principalTable: "Facilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DefaultOpeningHours_ProposedFacilities_ProposedFacilityId",
+                        column: x => x.ProposedFacilityId,
+                        principalTable: "ProposedFacilities",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -129,6 +115,32 @@ namespace DataAccess.Migrations
                         principalTable: "ProposedFacilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialOpeningHours",
+                columns: table => new
+                {
+                    FacilityId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    ProposedFacilityId = table.Column<int>(type: "int", nullable: true),
+                    OpenTime = table.Column<TimeOnly>(type: "time", nullable: false),
+                    CloseTime = table.Column<TimeOnly>(type: "time", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialOpeningHours", x => new { x.Date, x.FacilityId });
+                    table.ForeignKey(
+                        name: "FK_SpecialOpeningHours_Facilities_FacilityId",
+                        column: x => x.FacilityId,
+                        principalTable: "Facilities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpecialOpeningHours_ProposedFacilities_ProposedFacilityId",
+                        column: x => x.ProposedFacilityId,
+                        principalTable: "ProposedFacilities",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -157,9 +169,37 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "DefaultOpeningHours",
+                columns: new[] { "FacilityId", "WeekDay", "CloseTime", "OpenTime", "ProposedFacilityId" },
+                values: new object[,]
+                {
+                    { 1, 0, new TimeOnly(23, 59, 0), new TimeOnly(0, 0, 0), null },
+                    { 2, 0, new TimeOnly(23, 59, 0), new TimeOnly(0, 0, 0), null },
+                    { 3, 0, new TimeOnly(23, 59, 0), new TimeOnly(0, 0, 0), null },
+                    { 1, 1, new TimeOnly(20, 0, 0), new TimeOnly(14, 0, 0), null },
+                    { 2, 1, new TimeOnly(20, 0, 0), new TimeOnly(14, 0, 0), null },
+                    { 3, 1, new TimeOnly(20, 0, 0), new TimeOnly(14, 0, 0), null },
+                    { 1, 2, new TimeOnly(20, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 2, 2, new TimeOnly(20, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 3, 2, new TimeOnly(20, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 1, 3, new TimeOnly(21, 0, 0), new TimeOnly(11, 0, 0), null },
+                    { 2, 3, new TimeOnly(21, 0, 0), new TimeOnly(11, 0, 0), null },
+                    { 3, 3, new TimeOnly(21, 0, 0), new TimeOnly(11, 0, 0), null },
+                    { 1, 4, new TimeOnly(21, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 2, 4, new TimeOnly(21, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 3, 4, new TimeOnly(21, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 1, 5, new TimeOnly(21, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 2, 5, new TimeOnly(21, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 3, 5, new TimeOnly(21, 0, 0), new TimeOnly(12, 0, 0), null },
+                    { 1, 6, new TimeOnly(23, 0, 0), new TimeOnly(9, 0, 0), null },
+                    { 2, 6, new TimeOnly(23, 0, 0), new TimeOnly(9, 0, 0), null },
+                    { 3, 6, new TimeOnly(23, 0, 0), new TimeOnly(9, 0, 0), null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "FacilityReports",
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
-                values: new object[] { 4, new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2140), "Seed", 4 });
+                values: new object[] { 4, new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9430), "Seed", 4 });
 
             migrationBuilder.InsertData(
                 table: "ProposedFacilities",
@@ -172,19 +212,36 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "SpecialOpeningHours",
+                columns: new[] { "Date", "FacilityId", "CloseTime", "OpenTime", "ProposedFacilityId" },
+                values: new object[,]
+                {
+                    { new DateOnly(2024, 4, 17), 1, new TimeOnly(23, 30, 0), new TimeOnly(6, 0, 0), null },
+                    { new DateOnly(2024, 4, 20), 1, new TimeOnly(14, 0, 0), new TimeOnly(9, 0, 0), null },
+                    { new DateOnly(2024, 4, 30), 1, new TimeOnly(22, 0, 0), new TimeOnly(15, 0, 0), null },
+                    { new DateOnly(2024, 4, 30), 2, new TimeOnly(22, 0, 0), new TimeOnly(15, 0, 0), null },
+                    { new DateOnly(2024, 5, 5), 2, new TimeOnly(22, 0, 0), new TimeOnly(15, 0, 0), null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "FacilityReports",
                 columns: new[] { "Id", "CreatedAt", "Description", "ProposedFacilityId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2080), "Seed", 1 },
-                    { 2, new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2140), "Seed", 2 },
-                    { 3, new DateTime(2024, 4, 9, 18, 31, 52, 347, DateTimeKind.Local).AddTicks(2140), "Seed", 3 }
+                    { 1, new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9370), "Seed", 1 },
+                    { 2, new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9420), "Seed", 2 },
+                    { 3, new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9430), "Seed", 3 }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DefaultOpeningHours_FacilityId",
                 table: "DefaultOpeningHours",
                 column: "FacilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DefaultOpeningHours_ProposedFacilityId",
+                table: "DefaultOpeningHours",
+                column: "ProposedFacilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FacilityReports_ProposedFacilityId",
@@ -200,6 +257,11 @@ namespace DataAccess.Migrations
                 name: "IX_SpecialOpeningHours_FacilityId",
                 table: "SpecialOpeningHours",
                 column: "FacilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialOpeningHours_ProposedFacilityId",
+                table: "SpecialOpeningHours",
+                column: "ProposedFacilityId");
         }
 
         /// <inheritdoc />

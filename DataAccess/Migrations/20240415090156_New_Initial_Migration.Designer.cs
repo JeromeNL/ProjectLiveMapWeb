@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240414171720_Seeddata_Changed4")]
-    partial class Seeddata_Changed4
+    [Migration("20240415090156_New_Initial_Migration")]
+    partial class New_Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -306,7 +306,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(7980),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9370),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0
@@ -314,7 +314,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(8060),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9420),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0
@@ -322,7 +322,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(8070),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9430),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0
@@ -330,7 +330,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 19, 17, 19, 929, DateTimeKind.Local).AddTicks(8070),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 1, 56, 294, DateTimeKind.Local).AddTicks(9430),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0
@@ -451,22 +451,36 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Date = new DateOnly(2024, 4, 16),
+                            Date = new DateOnly(2024, 4, 17),
                             FacilityId = 1,
                             CloseTime = new TimeOnly(23, 30, 0),
                             OpenTime = new TimeOnly(6, 0, 0)
                         },
                         new
                         {
-                            Date = new DateOnly(2024, 4, 19),
+                            Date = new DateOnly(2024, 4, 20),
                             FacilityId = 1,
                             CloseTime = new TimeOnly(14, 0, 0),
                             OpenTime = new TimeOnly(9, 0, 0)
                         },
                         new
                         {
-                            Date = new DateOnly(2024, 4, 29),
+                            Date = new DateOnly(2024, 4, 30),
                             FacilityId = 1,
+                            CloseTime = new TimeOnly(22, 0, 0),
+                            OpenTime = new TimeOnly(15, 0, 0)
+                        },
+                        new
+                        {
+                            Date = new DateOnly(2024, 4, 30),
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(22, 0, 0),
+                            OpenTime = new TimeOnly(15, 0, 0)
+                        },
+                        new
+                        {
+                            Date = new DateOnly(2024, 5, 5),
+                            FacilityId = 2,
                             CloseTime = new TimeOnly(22, 0, 0),
                             OpenTime = new TimeOnly(15, 0, 0)
                         });
