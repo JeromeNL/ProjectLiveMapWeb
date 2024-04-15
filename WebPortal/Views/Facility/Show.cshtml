@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Faciliteit bekijken";
     Layout = "_Layout";
+    var errorMessage = TempData["Error"] as string;
 }
 
 <div class="flex-container">
@@ -35,12 +36,12 @@
           <a href="@Url.Action("SpecialOpeningHours", "OpeningHours", new { facilityId = Model.Facility.Id })" class="underline">Speciale openingstijden</a>
 
            </div>
-        
-        @{
-            ViewBag.Title = "Openingstijden invoeren";
-            Layout = "_Layout";
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="text-red-500">
+                @errorMessage
+            </div>
         }
-
         <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
             <table class="table mb-auto">
                 <thead>

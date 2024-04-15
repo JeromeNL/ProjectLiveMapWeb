@@ -18,8 +18,17 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
     {
         if (ModelState.IsValid)
         {
+            bool isValid = true;
+
             foreach (var dayHours in model.DayHours)
             {
+                if (dayHours.CloseTime < dayHours.OpenTime)
+                {
+                    TempData["Error"] = $"Sluitingstijd moet later zijn dan openingstijd voor {@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(dayHours.Day)}.";
+                    isValid = false;
+                    break; 
+                }
+
                 var existingHours = context.DefaultOpeningHours
                     .FirstOrDefault(e => e.FacilityId == model.FacilityId && e.WeekDay == dayHours.Day);
 
@@ -39,12 +48,16 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
                     context.DefaultOpeningHours.Add(newHours);
                 }
             }
-            await context.SaveChangesAsync();
-            return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
+
+            if (isValid)
+            {
+                await context.SaveChangesAsync();
+                return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
+            }
         }
-        // Handle the case when the model is not valid
         return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
     }
+
 
     [HttpGet]
     public async Task<IActionResult> SpecialOpeningHours(int facilityId)
@@ -75,13 +88,30 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
         if (newOpeningHour != null)
         {
             newOpeningHour.FacilityId = facilityId;
+        
+            if (newOpeningHour.CloseTime < newOpeningHour.OpenTime)
+            {
+                TempData["Error"] = "De sluitingstijd moet later zijn dan de openingstijd.";
+                return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
+            }
+        
+            bool exists = await context.SpecialOpeningHours
+                .AnyAsync(oh => oh.FacilityId == facilityId && oh.Date == newOpeningHour.Date);
+
+            if (exists)
+            {
+                TempData["Error"] = "Er is al een speciale openingstijd geregistreerd voor deze datum.";
+                return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
+            }
+
             context.SpecialOpeningHours.Add(newOpeningHour);
             await context.SaveChangesAsync();
         }
 
         return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
-
     }
+
+
     
     [HttpPost]
     public async Task<IActionResult> DeleteSpecialOpeningHour(int facilityId, DateOnly date)
