@@ -1,18 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DataAccess.Interfaces;
-using DataAccess.Models.Base;
-
 
 namespace DataAccess.Models;
 
-public class Facility : FacilityBase, ISoftDelete
-
+public class FacilityCategory : ISoftDelete
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+    
+    [Required]
+    public string Name { get; set; }
+    
+    [Required]
+    public string Description { get; set; }
+    
+    [Required]
+    public string IconName { get; set; }
 
     public DateTimeOffset? DeletedAt { get; set; }
-    public ICollection<ServiceReport>? ServiceReports { get; }
 }

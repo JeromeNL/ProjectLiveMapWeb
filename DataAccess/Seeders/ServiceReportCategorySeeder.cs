@@ -1,44 +1,45 @@
-using DataAccess.Models;
+﻿using DataAccess.Models;
 using DataAccess.Seeders.Abstract;
 
 namespace DataAccess.Seeders;
 
-public class UserSeeder: ISeeder<User>
+public class ServiceReportCategorySeeder: ISeeder<ServiceReportCategory>
 {
-    public List<User> Seed()
+    public List<ServiceReportCategory> Seed()
     {
-        return new List<User>
+        var list = new List<ServiceReportCategory>
         {
             new()
             {
                 Id = 1,
-                Name = "Almior"
+                Name = "Onderhoud"
             },
             new()
             {
                 Id = 2,
-                Name = "Joram"
+                Name = "Beveiliging"
             },
             new()
             {
                 Id = 3,
-                Name = "Thieme"
+                Name = "Schoonmaak"
             },
             new()
             {
                 Id = 4,
-                Name = "Mauro"
+                Name = "Apparatuurstoring"
             },
             new()
             {
                 Id = 5,
-                Name = "Imke"
+                Name = "Inspectie"
             },
             new()
             {
                 Id = 6,
-                Name = "Lamine"
-            },
+                Name = "Feedback"
+            }
         };
+        return list;
     }
 }

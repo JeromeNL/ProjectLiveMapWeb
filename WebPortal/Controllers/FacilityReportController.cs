@@ -18,9 +18,10 @@ public class FacilityReportController : Controller
     public async Task<IActionResult> Index()
     {
         var pendingReports = await _context.FacilityReports
-            .Where(report => report.Status == FacilityReportStatus.Pending)
+            .Where(report => report.Status == ReportStatus.Pending)
             .Include(report => report.ProposedFacility.Facility)
             .Include(report => report.ProposedFacility)
+            .Include(report => report.ProposedFacility.Category)
             .OrderBy(report => report.CreatedAt).ToListAsync();
             
         return View(pendingReports);
@@ -31,7 +32,7 @@ public class FacilityReportController : Controller
         var report = await _context.FacilityReports.FindAsync(id);
         if (report == null) return NotFound();
 
-        report.Status = FacilityReportStatus.Denied;
+        report.Status = ReportStatus.Denied;
         await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
@@ -58,8 +59,7 @@ public class FacilityReportController : Controller
                 Description = report.ProposedFacility.Description,
                 Longitude = report.ProposedFacility.Longitude,
                 Latitude = report.ProposedFacility.Latitude,
-                Type = report.ProposedFacility.Type,
-                IconName = report.ProposedFacility.IconName,
+                CategoryId = report.ProposedFacility.CategoryId,
             };
 
             await _context.Facilities.AddAsync(newFacility);
@@ -72,14 +72,13 @@ public class FacilityReportController : Controller
                 // Apply changes from ProposedFacilityChange to Facility
                 facility.Name = proposedFacilityChange.Name;
                 facility.Description = proposedFacilityChange.Description;
-                facility.Type = proposedFacilityChange.Type;
+                facility.CategoryId = proposedFacilityChange.CategoryId;
                 facility.Latitude = proposedFacilityChange.Latitude;
                 facility.Longitude = proposedFacilityChange.Longitude;
-                facility.IconName = proposedFacilityChange.IconName;
                 
             }
         }
-        report.Status = FacilityReportStatus.Accepted;
+        report.Status = ReportStatus.Accepted;
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }

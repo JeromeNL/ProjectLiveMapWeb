@@ -14,6 +14,9 @@ public static class DataSeeder
         var users = new UserSeeder().Seed();
         var defaultOpeningHours = new DefaultOpeningHoursSeeder().Seed();
         var specialOpeningHours = new SpecialOpeningHoursSeeder().Seed();
+        var facilityCategories = new FacilityCategorySeeder().Seed();
+        var serviceReports = new ServiceReportSeeder().Seed();
+        var serviceReportsCategories = new ServiceReportCategorySeeder().Seed();
         
         modelBuilder.Entity<Facility>().HasData(facilities);
         modelBuilder.Entity<ProposedFacility>().HasData(proposedFacilities);
@@ -21,5 +24,8 @@ public static class DataSeeder
         modelBuilder.Entity<User>().HasData(users);
         modelBuilder.Entity<DefaultOpeningHours>().HasData(defaultOpeningHours);
         modelBuilder.Entity<SpecialOpeningHours>().HasData(specialOpeningHours);
+        modelBuilder.Entity<FacilityCategory>().HasData(facilityCategories);
+        modelBuilder.Entity<ServiceReport>().HasData(serviceReports);
+        modelBuilder.Entity<ServiceReportCategory>().HasData(serviceReportsCategories);
     }
 }

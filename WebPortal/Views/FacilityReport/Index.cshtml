@@ -28,7 +28,7 @@
                     if (report.ProposedFacility.Facility != null)
                     {
                         <td>@report.ProposedFacility.Facility.Name</td>
-                        <td>@($"Naam: {report.ProposedFacility.Facility.Name}, Omschrijving: {report.ProposedFacility.Facility.Description}, Type: {report.ProposedFacility.Facility.Type}, Latitude: {report.ProposedFacility.Facility.Latitude}, Longitude: {report.ProposedFacility.Facility.Longitude}, Icoontje: {report.ProposedFacility.Facility.IconName}")</td>
+                        <td>@($"Naam: {report.ProposedFacility.Facility.Name}, Omschrijving: {report.ProposedFacility.Facility.Description}, Categorie: {report.ProposedFacility.Facility.Category.Name}, Latitude: {report.ProposedFacility.Facility.Latitude}, Longitude: {report.ProposedFacility.Facility.Longitude}")</td>
                     }
                     else
                     {
@@ -37,7 +37,7 @@
                     }
                 }
                 
-                <td>@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Type: {report.ProposedFacility.Type}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}, Icoontje: {report.ProposedFacility.IconName}")</td>
+                <td>@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
 
                 <td>@report.CreatedAt</td>
                 <td>

@@ -1,0 +1,27 @@
+﻿@model DataAccess.Models.FacilityCategory
+
+@{
+    ViewBag.Title = "Categorie aanmaken";
+    Layout = "_Layout";
+}
+
+<h1 class="text-2xl font-semibold mb-6">Categorie aanmaken</h1>
+<form method="post" class="flex flex-col">
+    <label>Naam</label>
+    <input type="text" class="input input-bordered" asp-for="Name" required>
+    <span asp-validation-for="Name" class="text-red-600"></span>
+
+    <label>Omschrijving</label>
+    <input type="text" class="input input-bordered" asp-for="Description" required>
+    <span asp-validation-for="Description" class="text-red-600"></span>
+
+    <label>Naam icoontje</label>
+    <p class="text-slate-400 text-sm">
+        Vul hier de naam van een <a class="text-blue-600" href="https://tabler.io/icons" target="_blank">valide tabler icoontje</a>
+        in. Deze wordt vervolgens weergegeven voor alle faciliteiten die gekoppeld zijn aan de categorie.
+    </p>
+    <input type="text" class="input input-bordered" asp-for="IconName" required>
+    <span asp-validation-for="IconName" class="text-red-600"></span>
+
+    <button type="submit" class="btn btn-primary mt-2">Aanmaken</button>
+</form>

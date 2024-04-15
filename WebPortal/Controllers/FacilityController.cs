@@ -19,12 +19,12 @@ public class FacilityController : Controller
     // GET
     public IActionResult Index()
     {
-        var facilities = _context.Facilities.ToList();
+        var facilities = _context.Facilities.Include(f => f.Category).ToList();
         return View(facilities);
     }
-    
+
     [HttpGet]
-    public IActionResult Create(double latitude, double longitude)
+    public async Task<IActionResult> Create(double latitude, double longitude)
     {
         if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
         {
@@ -32,15 +32,31 @@ public class FacilityController : Controller
             var facilities = _context.Facilities.ToList();
             return View("Index", facilities);
         }
-        ViewBag.latitude = latitude;
-        ViewBag.longitude = longitude;
-        return View();
+
+        var facilityCategories = await _context.FacilityCategories.ToListAsync();
+        var viewModel = new FacilityCreateViewModel
+        {
+            Facility = new Facility(),
+            FacilityCategories = facilityCategories,
+            Latitude = latitude,
+            Longitude = longitude
+        };
+        return View(viewModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Facility facility)
+    public async Task<IActionResult> Create(FacilityCreateViewModel viewModel)
     {
-        _context.Facilities.Add(facility);
+        ModelState.Remove("Facility.Category");
+        if (!ModelState.IsValid)
+        {
+            viewModel.FacilityCategories = await _context.FacilityCategories.ToListAsync();
+            viewModel.Latitude = viewModel.Facility.Latitude;
+            viewModel.Longitude = viewModel.Facility.Longitude;
+            return View(viewModel);
+        }
+
+        _context.Facilities.Add(viewModel.Facility);
         await _context.SaveChangesAsync();
 
         foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
@@ -60,11 +76,14 @@ public class FacilityController : Controller
     
     public async Task<IActionResult> Show(int id)
     {
+       
         var facility = await _context.Facilities
             .Include(f => f.DefaultOpeningHours) 
             .FirstOrDefaultAsync(f => f.Id == id);
         
         if (facility == null) return NotFound();
+
+        return View(facility);
       
         var viewModel = new FacilityViewModel
         {

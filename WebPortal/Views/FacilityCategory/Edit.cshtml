@@ -1,0 +1,25 @@
+﻿@using DataAccess.Models
+@model DataAccess.Models.FacilityCategory
+
+@{
+    ViewBag.Title = "Categorie bewerken";
+    Layout = "_Layout";
+}
+
+<h1 class="text-2xl font-semibold mb-6">Categorie bewerken</h1>
+<form method="post" class="flex flex-col" asp-action="Edit">
+    <label>Naam</label>
+    <input type="text" class="input input-bordered" asp-for="Name" value="@Model.Name" required>
+
+    <label>Omschrijving</label>
+    <input type="text" class="input input-bordered" asp-for="Description" value="@Model.Description" required>
+
+    <label>Naam icoontje</label>
+    <p class="text-slate-400 text-sm">
+        Vul hier de naam van een <a class="text-blue-600" href="https://tabler.io/icons" target="_blank">valide tabler icoontje</a>
+        in. Deze wordt vervolgens weergegeven voor alle faciliteiten die gekoppeld zijn aan de categorie.
+    </p>
+    <input type="text" class="input input-bordered" asp-for="IconName" value="@Model.IconName" required>
+
+    <button type="submit" class="btn btn-primary mt-2">Bewerken</button>
+</form>
