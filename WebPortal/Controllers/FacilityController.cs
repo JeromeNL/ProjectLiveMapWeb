@@ -48,13 +48,11 @@ public class FacilityController : Controller
     public async Task<IActionResult> Create(FacilityCreateViewModel viewModel)
     {
         ModelState.Remove("Facility.Category");
-        ModelState.Remove("Facility.IconName");
         if (!ModelState.IsValid)
         {
             viewModel.FacilityCategories = await _context.FacilityCategories.ToListAsync();
             viewModel.Latitude = viewModel.Facility.Latitude;
             viewModel.Longitude = viewModel.Facility.Longitude;
-            viewModel.Facility.IconName = "empty";
         }
         
         var openingHours = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()

@@ -19,8 +19,7 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
                 Description = facility.Description,
                 Latitude = facility.Latitude,
                 Longitude = facility.Longitude,
-                FacilityId = facility.Id,
-                IconName = facility.IconName
+                FacilityId = facility.Id
             };
             proposedFacilities.Add(proposedFacility);
         }
@@ -32,8 +31,7 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
             CategoryId = 1,
             Description = "De nieuwe zwemzee",
             Latitude = 51.651976894252684,
-            Longitude = 5.053454583354487,
-            IconName = "smoking"
+            Longitude = 5.053454583354487
         };
         proposedFacilities.Add(newProposedFacility);
         
