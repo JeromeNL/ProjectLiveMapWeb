@@ -23,7 +23,7 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
         return Ok(facilities);
     }
 
-    [HttpGet("/categories")]
+    [HttpGet("categories")]
     public async Task<IActionResult> GetAllCategories()
     {
         var categories = await context.FacilityCategories.ToListAsync();
