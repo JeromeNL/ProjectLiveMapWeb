@@ -17,9 +17,8 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
         var today = DateTime.Today;
         var monday = DateOnly.FromDateTime(today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday));
         var sunday = monday.AddDays(6);
-        
+
         var facilities = await context.Facilities
-            .Include(f => f.ServiceReports)
             .Include(f => f.Category)
             .Include(x => x.DefaultOpeningHours)
             .Include(x => x.SpecialOpeningHours.Where(s => s.Date >= monday && s.Date <= sunday))
@@ -28,7 +27,7 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
         {
             return NotFound("No facilities were found");
         }
-        
+
         return Ok(facilities);
     }
 
@@ -51,9 +50,10 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
             {
                 return NotFound($"Facility with ID {data.Id} not found.");
             }
+
             existingFacilityId = existingFacility.Id;
         }
-        
+
         var proposedFacilityChange = new ProposedFacility
         {
             FacilityId = existingFacilityId,
