@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(LiveMapDbContext))]
-    [Migration("20240414185809_Initial")]
-    partial class Initial
+    [Migration("20240415094559_New_Initial_Migration")]
+    partial class New_Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,181 @@ namespace DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DataAccess.Models.DefaultOpeningHours", b =>
+                {
+                    b.Property<int>("WeekDay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly>("CloseTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("OpenTime")
+                        .HasColumnType("time");
+
+                    b.Property<int?>("ProposedFacilityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WeekDay", "FacilityId");
+
+                    b.HasIndex("FacilityId");
+
+                    b.HasIndex("ProposedFacilityId");
+
+                    b.ToTable("DefaultOpeningHours");
+
+                    b.HasData(
+                        new
+                        {
+                            WeekDay = 1,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(20, 0, 0),
+                            OpenTime = new TimeOnly(14, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 2,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(20, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 3,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(11, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 4,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 5,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 6,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(23, 0, 0),
+                            OpenTime = new TimeOnly(9, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 0,
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(23, 59, 0),
+                            OpenTime = new TimeOnly(0, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 1,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(20, 0, 0),
+                            OpenTime = new TimeOnly(14, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 2,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(20, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 3,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(11, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 4,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 5,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 6,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(23, 0, 0),
+                            OpenTime = new TimeOnly(9, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 0,
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(23, 59, 0),
+                            OpenTime = new TimeOnly(0, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 1,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(20, 0, 0),
+                            OpenTime = new TimeOnly(14, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 2,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(20, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 3,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(11, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 4,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 5,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(21, 0, 0),
+                            OpenTime = new TimeOnly(12, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 6,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(23, 0, 0),
+                            OpenTime = new TimeOnly(9, 0, 0)
+                        },
+                        new
+                        {
+                            WeekDay = 0,
+                            FacilityId = 3,
+                            CloseTime = new TimeOnly(23, 59, 0),
+                            OpenTime = new TimeOnly(0, 0, 0)
+                        });
+                });
 
             modelBuilder.Entity("DataAccess.Models.Facility", b =>
                 {
@@ -40,6 +215,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -66,6 +245,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
+                            IconName = "smoking",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
                             Name = "Restaurant de Kom"
@@ -75,6 +255,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             CategoryId = 3,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
+                            IconName = "smoking",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
                             Name = "Zwemmeer"
@@ -84,6 +265,7 @@ namespace DataAccess.Migrations
                             Id = 3,
                             CategoryId = 1,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
+                            IconName = "smoking",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
                             Name = "Speeltuin"
@@ -188,7 +370,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(564),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1220),
                             Description = "Seed",
                             ProposedFacilityId = 1,
                             Status = 0,
@@ -197,7 +379,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(612),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1260),
                             Description = "Seed",
                             ProposedFacilityId = 2,
                             Status = 0,
@@ -206,7 +388,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(614),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1260),
                             Description = "Seed",
                             ProposedFacilityId = 3,
                             Status = 0,
@@ -215,7 +397,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(615),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1260),
                             Description = "Seed",
                             ProposedFacilityId = 4,
                             Status = 0,
@@ -240,6 +422,10 @@ namespace DataAccess.Migrations
 
                     b.Property<int?>("FacilityId")
                         .HasColumnType("int");
+
+                    b.Property<string>("IconName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
@@ -267,6 +453,7 @@ namespace DataAccess.Migrations
                             CategoryId = 1,
                             Description = "Restaurant de Kom is een gezellig restaurant",
                             FacilityId = 1,
+                            IconName = "smoking",
                             Latitude = 51.647970807304127,
                             Longitude = 5.0468584734210191,
                             Name = "Restaurant de Kom"
@@ -277,6 +464,7 @@ namespace DataAccess.Migrations
                             CategoryId = 3,
                             Description = "In dit meer kun je in de zomer heerlijk zwemmen. Ook is er een strandje waar je kunt zonnen.",
                             FacilityId = 2,
+                            IconName = "smoking",
                             Latitude = 51.647223135629211,
                             Longitude = 5.05165372379847,
                             Name = "Zwemmeer"
@@ -287,6 +475,7 @@ namespace DataAccess.Migrations
                             CategoryId = 1,
                             Description = "De speeltuin is een leuke plek voor kinderen om te spelen.",
                             FacilityId = 3,
+                            IconName = "smoking",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
                             Name = "Speeltuin"
@@ -296,6 +485,7 @@ namespace DataAccess.Migrations
                             Id = 4,
                             CategoryId = 1,
                             Description = "De nieuwe zwemzee",
+                            IconName = "smoking",
                             Latitude = 51.651976894252684,
                             Longitude = 5.0534545833544868,
                             Name = "Zwemzee"
@@ -349,7 +539,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(641),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1600),
                             Description = "description1",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -359,7 +549,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(649),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1610),
                             Description = "description2",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -369,7 +559,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(652),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1620),
                             Description = "description3",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -379,7 +569,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(655),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1620),
                             Description = "description4",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -389,7 +579,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(657),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1620),
                             Description = "description5",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -399,7 +589,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(661),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1630),
                             Description = "description6",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -409,7 +599,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(663),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1630),
                             Description = "description7",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -419,7 +609,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(665),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1640),
                             Description = "description8",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -429,7 +619,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(669),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1640),
                             Description = "description9",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -439,7 +629,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(672),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1640),
                             Description = "description10",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -449,7 +639,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(674),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1640),
                             Description = "description11",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -459,7 +649,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(676),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1650),
                             Description = "description12",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -469,7 +659,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(679),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1650),
                             Description = "description13",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -479,7 +669,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(681),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1650),
                             Description = "description14",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -489,7 +679,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(683),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1660),
                             Description = "description15",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -499,7 +689,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(685),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1660),
                             Description = "description16",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -509,7 +699,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(687),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1660),
                             Description = "description17",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -519,7 +709,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(691),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1670),
                             Description = "description18",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -529,7 +719,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(693),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1670),
                             Description = "description19",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -539,7 +729,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(695),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1740),
                             Description = "description20",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -549,7 +739,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(698),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1750),
                             Description = "description21",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -559,7 +749,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(700),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1750),
                             Description = "description22",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -569,7 +759,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(703),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1750),
                             Description = "description23",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -579,7 +769,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(705),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1760),
                             Description = "description24",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -589,7 +779,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(707),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1760),
                             Description = "description25",
                             FacilityId = 1,
                             ServiceReportCategoryId = 4,
@@ -599,7 +789,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(709),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1760),
                             Description = "description26",
                             FacilityId = 2,
                             ServiceReportCategoryId = 5,
@@ -609,7 +799,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(712),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1770),
                             Description = "description27",
                             FacilityId = 3,
                             ServiceReportCategoryId = 6,
@@ -619,7 +809,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(714),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1770),
                             Description = "description28",
                             FacilityId = 1,
                             ServiceReportCategoryId = 1,
@@ -629,7 +819,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(716),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1770),
                             Description = "description29",
                             FacilityId = 2,
                             ServiceReportCategoryId = 2,
@@ -639,7 +829,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedAt = new DateTime(2024, 4, 14, 20, 58, 8, 868, DateTimeKind.Local).AddTicks(718),
+                            CreatedAt = new DateTime(2024, 4, 15, 11, 45, 59, 46, DateTimeKind.Local).AddTicks(1770),
                             Description = "description30",
                             FacilityId = 3,
                             ServiceReportCategoryId = 3,
@@ -697,6 +887,69 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Models.SpecialOpeningHours", b =>
+                {
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly>("CloseTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("OpenTime")
+                        .HasColumnType("time");
+
+                    b.Property<int?>("ProposedFacilityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Date", "FacilityId");
+
+                    b.HasIndex("FacilityId");
+
+                    b.HasIndex("ProposedFacilityId");
+
+                    b.ToTable("SpecialOpeningHours");
+
+                    b.HasData(
+                        new
+                        {
+                            Date = new DateOnly(2024, 4, 17),
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(23, 30, 0),
+                            OpenTime = new TimeOnly(6, 0, 0)
+                        },
+                        new
+                        {
+                            Date = new DateOnly(2024, 4, 20),
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(14, 0, 0),
+                            OpenTime = new TimeOnly(9, 0, 0)
+                        },
+                        new
+                        {
+                            Date = new DateOnly(2024, 4, 30),
+                            FacilityId = 1,
+                            CloseTime = new TimeOnly(22, 0, 0),
+                            OpenTime = new TimeOnly(15, 0, 0)
+                        },
+                        new
+                        {
+                            Date = new DateOnly(2024, 4, 30),
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(22, 0, 0),
+                            OpenTime = new TimeOnly(15, 0, 0)
+                        },
+                        new
+                        {
+                            Date = new DateOnly(2024, 5, 5),
+                            FacilityId = 2,
+                            CloseTime = new TimeOnly(22, 0, 0),
+                            OpenTime = new TimeOnly(15, 0, 0)
+                        });
+                });
+
             modelBuilder.Entity("DataAccess.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -745,6 +998,21 @@ namespace DataAccess.Migrations
                             Id = 6,
                             Name = "Lamine"
                         });
+                });
+
+            modelBuilder.Entity("DataAccess.Models.DefaultOpeningHours", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany("DefaultOpeningHours")
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.ProposedFacility", null)
+                        .WithMany("DefaultOpeningHours")
+                        .HasForeignKey("ProposedFacilityId");
+
+                    b.Navigation("Facility");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Facility", b =>
@@ -821,9 +1089,35 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DataAccess.Models.SpecialOpeningHours", b =>
+                {
+                    b.HasOne("DataAccess.Models.Facility", "Facility")
+                        .WithMany("SpecialOpeningHours")
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.ProposedFacility", null)
+                        .WithMany("SpecialOpeningHours")
+                        .HasForeignKey("ProposedFacilityId");
+
+                    b.Navigation("Facility");
+                });
+
             modelBuilder.Entity("DataAccess.Models.Facility", b =>
                 {
+                    b.Navigation("DefaultOpeningHours");
+
                     b.Navigation("ServiceReports");
+
+                    b.Navigation("SpecialOpeningHours");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ProposedFacility", b =>
+                {
+                    b.Navigation("DefaultOpeningHours");
+
+                    b.Navigation("SpecialOpeningHours");
                 });
 #pragma warning restore 612, 618
         }

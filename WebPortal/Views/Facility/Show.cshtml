@@ -1,5 +1,5 @@
 ﻿@using DataAccess.Models
-@model DataAccess.Models.Facility
+@model WebPortal.Models.FacilityViewModel
 
 @{
     ViewBag.Title = "Faciliteit bekijken";
@@ -22,9 +22,9 @@
             </form>
         </div>
         <p>@Model.Facility.Description</p>
-        <p>Categorie: @Model.Category.Name</p>
+        <p>Categorie: @Model.Facility.Category.Name</p>
         <p>Icoontje:</p>
-        <i class="ti ti-@Model.Category.IconName text-4xl"></i>
+        <i class="ti ti-@Model.Facility.Category.IconName text-4xl"></i>
         <p>Huidige locatie:</p>
         <div id="map" class="h-[20vh] w-[20vw]"></div>
     </div>
@@ -94,7 +94,7 @@
         }).addTo(map);
 
         let icon = L.divIcon({
-            html: `<i class="ti ti-@Model.Category.IconName text-lg"></i>`,
+            html: `<i class="ti ti-@Model.Facility.Category.IconName text-lg"></i>`,
             className: 'facility-icon',
             iconSize: [35, 35],
             iconAnchor: [15, 15],
@@ -102,7 +102,7 @@
         });
 
         let marker = L.marker(markerLocation, {
-            title: '@Model.Name',
+            title: '@Model.Facility.Name',
             icon: icon
         });
         marker.addTo(map).bindPopup(popupContent);

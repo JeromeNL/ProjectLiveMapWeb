@@ -17,6 +17,7 @@ public class FacilitySeeder: ISeeder<Facility>
                 CategoryId = 1,
                 Latitude = 51.64797080730413,
                 Longitude = 5.046858473421019,
+                IconName = "smoking"
             },
             new()
             {
@@ -27,6 +28,7 @@ public class FacilitySeeder: ISeeder<Facility>
                 CategoryId = 3,
                 Latitude = 51.64722313562921,
                 Longitude = 5.05165372379847,
+                IconName = "smoking"
             },
             new()
             {
@@ -36,6 +38,7 @@ public class FacilitySeeder: ISeeder<Facility>
                 CategoryId = 1,
                 Latitude = 51.651976894252684,
                 Longitude = 5.053454583354487,
+                IconName = "smoking"
             }
         };
     }

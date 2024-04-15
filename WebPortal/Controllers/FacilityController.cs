@@ -58,19 +58,6 @@ public class FacilityController : Controller
 
         _context.Facilities.Add(viewModel.Facility);
         await _context.SaveChangesAsync();
-
-        foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
-        {
-            var openingHour = new DefaultOpeningHours(day)
-            {
-                FacilityId = facility.Id,
-                OpenTime = new TimeOnly(0, 0),  
-                CloseTime = new TimeOnly(23, 59) 
-            };
-            _context.DefaultOpeningHours.Add(openingHour);
-        }
-        await _context.SaveChangesAsync(); 
-
         return RedirectToAction("Index");
     }
     
@@ -79,11 +66,10 @@ public class FacilityController : Controller
        
         var facility = await _context.Facilities
             .Include(f => f.DefaultOpeningHours) 
+            .Include(f => f.Category)
             .FirstOrDefaultAsync(f => f.Id == id);
         
         if (facility == null) return NotFound();
-
-        return View(facility);
       
         var viewModel = new FacilityViewModel
         {
