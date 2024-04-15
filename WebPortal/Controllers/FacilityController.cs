@@ -53,20 +53,41 @@ public class FacilityController : Controller
             viewModel.FacilityCategories = await _context.FacilityCategories.ToListAsync();
             viewModel.Latitude = viewModel.Facility.Latitude;
             viewModel.Longitude = viewModel.Facility.Longitude;
-            return View(viewModel);
         }
-
+        
+        var openingHours = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
+            .Select(day => new DefaultOpeningHours(day)
+            {
+                Facility = viewModel.Facility,
+                OpenTime = new TimeOnly(0, 0), 
+                CloseTime = new TimeOnly(23, 59) 
+            }).ToList();
+        
         _context.Facilities.Add(viewModel.Facility);
+        
+        _context.AddRange(openingHours);
+        
         await _context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
-
+    
     public async Task<IActionResult> Show(int id)
     {
-        var facility = await _context.Facilities.Include(f => f.Category).FirstOrDefaultAsync(f => f.Id == id);
+       
+        var facility = await _context.Facilities
+            .Include(f => f.DefaultOpeningHours) 
+            .Include(f => f.Category)
+            .FirstOrDefaultAsync(f => f.Id == id);
+        
         if (facility == null) return NotFound();
-
-        return View(facility);
+      
+        var viewModel = new FacilityViewModel
+        {
+            Facility = facility,
+            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() 
+        };
+    
+        return View(viewModel);
     }
 
     [HttpGet]
@@ -80,15 +101,15 @@ public class FacilityController : Controller
     public async Task<IActionResult> Delete(int id)
     {
         var facility = await _context.Facilities.FindAsync(id);
-
+    
         if (facility == null)
         {
             return Json($"Geen faciliteit gevonden met ID {id}.");
         }
-
+        
         _context.Facilities.Remove(facility);
         await _context.SaveChangesAsync();
-
+        
         return RedirectToAction("Index");
     }
 }

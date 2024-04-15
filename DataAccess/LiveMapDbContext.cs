@@ -1,5 +1,4 @@
 using DataAccess.Models;
-using DataAccess.Models.Base;
 using DataAccess.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,12 +11,16 @@ public class LiveMapDbContext : DbContext
     }
 
     public DbSet<Facility> Facilities { get; set; }
-    
     public DbSet<FacilityReport> FacilityReports { get; set; }
 
     public DbSet<User> Users { get; set; }
 
     public DbSet<ProposedFacility> ProposedFacilities { get; set; }
+    
+    public DbSet<DefaultOpeningHours> DefaultOpeningHours { get; set; }
+    
+    public DbSet<SpecialOpeningHours> SpecialOpeningHours { get; set; }
+    
 
     public DbSet<ServiceReport> ServiceReports { get; set; }
     
@@ -39,6 +42,12 @@ public class LiveMapDbContext : DbContext
         
         modelBuilder.Entity<Facility>()
             .HasQueryFilter(x => x.DeletedAt == null);
+        
+        modelBuilder.Entity<DefaultOpeningHours>()
+            .HasKey(o => new { o.WeekDay, o.FacilityId });
+        
+        modelBuilder.Entity<SpecialOpeningHours>()
+            .HasKey(o => new { o.Date, o.FacilityId });
         
         modelBuilder.Entity<FacilityCategory>()
             .HasQueryFilter(x => x.DeletedAt == null);

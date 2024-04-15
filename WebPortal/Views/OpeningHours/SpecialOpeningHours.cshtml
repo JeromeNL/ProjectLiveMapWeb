@@ -1,0 +1,69 @@
+@model WebPortal.Models.SpecialOpeningHoursViewModel
+
+@{
+    ViewData["Title"] = "Speciale Openingstijden";
+    Layout = "_Layout";
+    var errorMessage = TempData["Error"] as string;
+}
+<a asp-controller="Facility" asp-action="Show" asp-route-id="@Model.Facility.Id" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
+            <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+            </svg>
+        </a>
+<h2 class="text-xl font-bold">Speciale Openingstijden - @Model.Facility.Name</h2>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="text-red-500">
+        @errorMessage
+    </div>
+}
+
+
+    <table class="w-full min-w-full divide-y divide-gray-200 mb-4">
+        <thead class="bg-gray-50">
+        <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Datum</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Openingstijd</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sluitingstijd</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acties</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+        @foreach (var hour in Model.SpecialOpeningHoursList)
+        {
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(hour.Date.DayOfWeek) @hour.Date.ToString("dd-MM-yyyy")</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <input readonly type="time" class="form-input rounded-md" name="SpecialOpeningHoursList[@hour].OpenTime" value="@hour.OpenTime.ToString("HH\\:mm")"/>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <input readonly type="time" class="form-input rounded-md" name="SpecialOpeningHoursList[@hour].CloseTime" value="@hour.CloseTime.ToString("HH\\:mm")"/>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <form method="post" asp-action="DeleteSpecialOpeningHour" asp-route-facilityId="@hour.Facility.Id" asp-route-date="@hour.Date.ToString("yyyy-MM-dd")">
+                        <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        <form method="post" asp-controller="OpeningHours" asp-action="SaveSpecialOpeningHours">
+            <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
+            <tr>
+            
+                <td class="px-6 py-4">
+                    <input type="date" class="form-input rounded-md" name="NewOpeningHour.Date"/>
+                </td>
+                <td class="px-6 py-4">
+                    <input type="time" class="form-input rounded-md" name="NewOpeningHour.OpenTime"/>
+                </td>
+                <td class="px-6 py-4">
+                    <input type="time" class="form-input rounded-md" name="NewOpeningHour.CloseTime"/>
+                </td>
+
+                <td class="px-6 py-4">
+                    <button type="submit" class="text-green-500 hover:text-green-700">Toevoegen</button>
+                </td>
+            </tr>
+            </form>
+        </tbody>
+    </table>

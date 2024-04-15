@@ -14,7 +14,15 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFacilities()
     {
-        var facilities = await context.Facilities.Include(f => f.ServiceReports).Include(f => f.Category).ToListAsync();
+        var today = DateTime.Today;
+        var monday = DateOnly.FromDateTime(today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday));
+        var sunday = monday.AddDays(6);
+
+        var facilities = await context.Facilities
+            .Include(f => f.Category)
+            .Include(x => x.DefaultOpeningHours)
+            .Include(x => x.SpecialOpeningHours.Where(s => s.Date >= monday && s.Date <= sunday))
+            .ToListAsync();
         if (facilities.IsNullOrEmpty())
         {
             return NotFound("No facilities were found");
