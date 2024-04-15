@@ -24,8 +24,7 @@ public abstract class FacilityBase
 
     [Required(ErrorMessage = "Dit veld is verplicht.")]
     public double Longitude { get; set; }
-
-    [Required]
+    
     public string IconName { get; set; }
     
     public List<DefaultOpeningHours> DefaultOpeningHours { get; set; }

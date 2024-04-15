@@ -48,15 +48,27 @@ public class FacilityController : Controller
     public async Task<IActionResult> Create(FacilityCreateViewModel viewModel)
     {
         ModelState.Remove("Facility.Category");
+        ModelState.Remove("Facility.IconName");
         if (!ModelState.IsValid)
         {
             viewModel.FacilityCategories = await _context.FacilityCategories.ToListAsync();
             viewModel.Latitude = viewModel.Facility.Latitude;
             viewModel.Longitude = viewModel.Facility.Longitude;
-            return View(viewModel);
+            viewModel.Facility.IconName = "empty";
         }
-
+        
+        var openingHours = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
+            .Select(day => new DefaultOpeningHours(day)
+            {
+                Facility = viewModel.Facility,
+                OpenTime = new TimeOnly(0, 0), // Begin tijd op 00:00
+                CloseTime = new TimeOnly(23, 59) // Eind tijd op 23:59
+            }).ToList();
+        
         _context.Facilities.Add(viewModel.Facility);
+        
+        _context.AddRange(openingHours);
+        
         await _context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
