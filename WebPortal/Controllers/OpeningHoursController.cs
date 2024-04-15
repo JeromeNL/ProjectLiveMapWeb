@@ -51,6 +51,7 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
     {
         var specialHours = context.SpecialOpeningHours
             .Where(oh => oh.FacilityId == facilityId)
+            .Where(oh => oh.Date >= DateOnly.FromDateTime(DateTime.Today))
             .ToList();
 
         var FacilityObject = await context.Facilities.FirstOrDefaultAsync(e => e.Id == facilityId);
