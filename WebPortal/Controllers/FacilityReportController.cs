@@ -22,6 +22,7 @@ public class FacilityReportController : Controller
             .Include(report => report.ProposedFacility.Facility)
             .Include(report => report.ProposedFacility)
             .Include(report => report.ProposedFacility.Category)
+            .Include(report => report.ProposedFacility.Facility.Category)
             .OrderBy(report => report.CreatedAt).ToListAsync();
             
         return View(pendingReports);
