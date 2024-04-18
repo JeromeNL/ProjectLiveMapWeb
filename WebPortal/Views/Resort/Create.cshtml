@@ -1,8 +1,7 @@
-@using System.Globalization
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model DataAccess.Models.HolidayResort
 @{
-    ViewData["Title"] = "Park details - " + Model.Name;
+    ViewData["Title"] = "Park aanmaken";
     Layout = "_Layout";
 }
 
@@ -11,28 +10,26 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
     </svg>
 </a>
-<h2 class="text-xl font-bold">Parkdetails - @Model.Name</h2>
+<h2 class="text-xl font-bold">Nieuw park</h2>
 
-<form method="post" asp-action="Update" class="space-y-4">
-   <input type="hidden" name="holidayResort.Id" value="@Model.Id"/>
-    
+<form method="post" asp-action="Create" class="space-y-4">
     <div class="px-6 py-4">
         <label for="holidayResortName" class="block font-bold text-gray-700">Parknaam:</label>
-        <input id="holidayResortName" type="text" class="form-input rounded-md" name="holidayResort.Name" value="@Model.Name"/>
+        <input id="holidayResortName" type="text" class="form-input rounded-md" name="holidayResort.Name" placeholder="Naam"/>
     </div>
 
     <div class="px-6 py-4">
         <label for="holidayResortNELat" class="block font-bold text-gray-700">Coördinaat Rechtsboven Latitude:</label>
-        <input id="holidayResortNELat" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLatitude" value="@Model.NorthEastLatitude"/>
+        <input id="holidayResortNELat" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLatitude" placeholder="Bijv. 5,3948232"/>
         <label for="holidayResortNELong" class="block font-medium text-gray-700">Coördinaat Rechtsboven Longitude:</label>
-        <input id="holidayResortNELong" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLongitude" value="@Model.NorthEastLongitude"/>
+        <input id="holidayResortNELong" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLongitude" placeholder="Bijv. 52,3948232"/>
     </div>
 
     <div class="px-6 py-4">
         <label for="holidayResortSWLat" class="block font-bold text-gray-700">Coördinaat Linksonder Latitude:</label>
-        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLatitude" value="@Model.SouthWestLatitude"/>
+        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLatitude" placeholder="Bijv. 5,3948232"/>
         <label for="holidayResortSWLong" class="block font-bold text-gray-700">Coördinaat Linksonder Longitude:</label>
-        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLongitude" value="@Model.SouthWestLongitude"/>
+        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLongitude" placeholder="Bijv. 52,3948232"/>
     </div>
 
     <div class="px-6 py-4">
