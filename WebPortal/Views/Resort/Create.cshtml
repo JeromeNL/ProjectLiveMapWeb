@@ -15,27 +15,34 @@
 <form method="post" asp-action="Create" class="space-y-4">
     <div class="px-6 py-4">
         <label for="holidayResortName" class="block font-bold text-gray-700">Parknaam:</label>
-        <input id="holidayResortName" type="text" class="form-input rounded-md" name="holidayResort.Name" placeholder="Naam"/>
+        <input id="holidayResortName" type="text" class="form-input rounded-md" asp-for="Name" placeholder="Naam"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="px-6 py-4">
         <label for="holidayResortNELat" class="block font-bold text-gray-700">Coördinaat Rechtsboven Latitude:</label>
-        <input id="holidayResortNELat" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLatitude" placeholder="Bijv. 5,3948232"/>
+        <input id="holidayResortNELat" type="text" class="form-input rounded-md" asp-for="NorthEastLatitude" placeholder="Bijv. 5,3948232"/>
+        <span asp-validation-for="NorthEastLatitude" class="text-danger"></span>
         
         <label for="holidayResortNELong" class="block font-medium text-gray-700">Coördinaat Rechtsboven Longitude:</label>
-        <input id="holidayResortNELong" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLongitude" placeholder="Bijv. 52,3948232"/>
+        <input id="holidayResortNELong" type="text" class="form-input rounded-md" asp-for="NorthEastLongitude" placeholder="Bijv. 52,3948232"/>
+        <span asp-validation-for="NorthEastLongitude" class="text-danger"></span>
     </div>
 
     <div class="px-6 py-4">
         <label for="holidayResortSWLat" class="block font-bold text-gray-700">Coördinaat Linksonder Latitude:</label>
-        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLatitude" placeholder="Bijv. 5,3948232"/>
+        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" asp-for="SouthWestLatitude" placeholder="Bijv. 5,3948232"/>
+        <span asp-validation-for="SouthWestLatitude" class="text-danger"></span>
         
         <label for="holidayResortSWLong" class="block font-bold text-gray-700">Coördinaat Linksonder Longitude:</label>
-        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLongitude" placeholder="Bijv. 52,3948232"/>
+        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" asp-for="SouthWestLongitude" placeholder="Bijv. 52,3948232"/>
+        <span asp-validation-for="SouthWestLongitude" class="text-danger"></span>
     </div>
 
     <div class="px-6 py-4">
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </div>
 </form>
+ <p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
+
 
