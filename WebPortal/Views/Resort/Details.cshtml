@@ -5,36 +5,37 @@
     ViewData["Title"] = "Parkenbeheer";
     Layout = "_Layout";
 }
-  <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
-            <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-            </svg>
-        </a>
+
+<a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
+    <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+    </svg>
+</a>
 <h2 class="text-xl font-bold">Parkdetails - @Model.Name</h2>
 
-<form method="post" asp-action="Update">
+<form method="post" asp-action="Update" class="space-y-4">
    <input type="hidden" name="holidayResort.Id" value="@Model.Id"/>
-    <tr>
-        <td class="px-6 py-4">
+    
+    <div class="px-6 py-4">
+        <label for="holidayResortName" class="block font-bold text-gray-700">Parknaam:</label>
+        <input id="holidayResortName" type="text" class="form-input rounded-md" name="holidayResort.Name" value="@Model.Name"/>
+    </div>
 
-        </td>
-        <td class="px-6 py-4">
-            <input type="text" class="form-input rounded-md" name="holidayResort.Name" value="@Model.Name"/>
-        </td>
+    <div class="px-6 py-4">
+        <label for="holidayResortNELat" class="block font-bold text-gray-700">Coördinaat Rechtsboven Latitude:</label>
+        <input id="holidayResortNELat" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLatitude" value="@Model.NorthEastLatitude"/>
+        <label for="holidayResortNELong" class="block font-medium text-gray-700">Coördinaat Rechtsboven Longitude:</label>
+        <input id="holidayResortNELong" type="text" class="form-input rounded-md" name="holidayResort.NorthEastLongitude" value="@Model.NorthEastLongitude"/>
+    </div>
 
-        <td class="px-6 py-4">
-            <input type="text" class="form-input rounded-md" name="holidayResort.NorthEastLatitude" value="@Model.NorthEastLatitude"/>
-            <input type="text" class="form-input rounded-md" name="holidayResort.NorthEastLongitude" value="@Model.NorthEastLongitude"/>
-        </td>
+    <div class="px-6 py-4">
+        <label for="holidayResortSWLat" class="block font-bold text-gray-700">Coördinaat Linksonder Latitude:</label>
+        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLatitude" value="@Model.SouthWestLatitude"/>
+        <label for="holidayResortSWLong" class="block font-bold text-gray-700">Coördinaat Linksonder Longitude:</label>
+        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" name="holidayResort.SouthWestLongitude" value="@Model.SouthWestLongitude"/>
+    </div>
 
-        <td class="px-6 py-4">
-            <input type="text" class="form-input rounded-md" name="holidayResort.SouthWestLatitude" value="@Model.SouthWestLatitude"/>
-            <input type="text" class="form-input rounded-md" name="holidayResort.SouthWestLongitude" value="@Model.SouthWestLongitude"/>
-        </td>
-
-        <td class="px-6 py-4">
-            <button type="submit" class="text-green-500 hover:text-green-700">Opslaan</button>
-        </td>
-    </tr>
+    <div class="px-6 py-4">
+        <button type="submit" class="btn btn-primary">Opslaan</button>
+    </div>
 </form>
-
