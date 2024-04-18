@@ -29,7 +29,11 @@ public class ResortController(LiveMapDbContext context) : Controller
     [HttpPost]
     public IActionResult Create(HolidayResort holidayResort)
     {
-       
+        if (!ModelState.IsValid)
+        {
+            return View(holidayResort);
+        }
+        
         context.HolidayResorts.Add(holidayResort);
         context.SaveChanges();
         return RedirectToAction("Index");
@@ -55,6 +59,10 @@ public class ResortController(LiveMapDbContext context) : Controller
     [HttpPost]
     public async Task<IActionResult> Update(HolidayResort holidayResort)
     {
+        if (!ModelState.IsValid)
+        {
+            return View("Details", holidayResort);
+        }
         context.Update(holidayResort);
         await context.SaveChangesAsync();
         return RedirectToAction("Details", holidayResort.Id);
