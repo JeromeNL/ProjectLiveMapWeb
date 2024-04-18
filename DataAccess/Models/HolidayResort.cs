@@ -15,7 +15,6 @@ public class HolidayResort : ISoftDelete
     [Required]
     public string Name { get; set; }
     
-    
     public double NorthEastLatitude { get; set; }
 
     
@@ -26,4 +25,4 @@ public class HolidayResort : ISoftDelete
 
    
     public double SouthWestLongitude { get; set; }
-}
+} 
