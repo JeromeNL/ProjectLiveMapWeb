@@ -1,0 +1,72 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<DataAccess.Models.HolidayResort>
+@{
+    ViewData["Title"] = "Parkenbeheer";
+    Layout = "_Layout";
+    
+}
+
+<h2 class="text-xl font-bold">Parkenbeheer</h2>
+<table class="w-full min-w-full divide-y divide-gray-200 mb-4">
+    <thead class="bg-gray-50">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parknaam</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coördinaat Rechtsboven</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coördinaat Linksonder</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+    </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+    @foreach (var resort in Model)
+    {
+        <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @resort.Id
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @resort.Name
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.NorthEastLatitude) @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.NorthEastLongitude)
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.SouthWestLatitude) @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.SouthWestLongitude)
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <form method="post" asp-action="Delete" asp-route-facilityId="@resort.Id" >
+                    <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
+                </form>
+            </td>
+        </tr>
+    }
+    <form method="post" asp-action="Save">
+        <tr>
+            <td class="px-6 py-4">
+                   
+            </td>
+            <td class="px-6 py-4">
+                <input type="text" class="form-input rounded-md" name="holidayResort.Name" placeholder="Parknaam"/>
+            </td>
+                
+            <td class="px-6 py-4">
+                <input type="text" class="form-input rounded-md" name="holidayResort.NorthEastLatitude" placeholder="Bijv. 52,370216" />
+                <input type="text" class="form-input rounded-md" name="holidayResort.NorthEastLongitude" placeholder="Bijv. 4,895168" />
+            </td>
+                
+            <td class="px-6 py-4">
+                <input type="text" class="form-input rounded-md" name="holidayResort.SouthWestLatitude" placeholder="Bijv. 52,370216"/>
+                <input type="text" class="form-input rounded-md" name="holidayResort.SouthWestLongitude" placeholder="Bijv. 4,895168"/>
+            </td>
+
+            <td class="px-6 py-4">
+                <button type="submit" class="text-green-500 hover:text-green-700" >Toevoegen</button>
+            </td>
+        </tr>
+    </form>
+    </tbody>
+</table>
+ <p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
+
+
