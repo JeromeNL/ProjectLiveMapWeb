@@ -1,0 +1,58 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<DataAccess.Models.HolidayResort>
+@{
+    ViewData["Title"] = "Parkenbeheer";
+    Layout = "_Layout";
+}
+
+
+<div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">Parkenbeheer</h2>
+    <form method="get" asp-action="Create">
+        <button type="submit" class="btn btn-primary">Nieuw park</button>
+    </form>
+</div>
+
+
+<table class="w-full min-w-full divide-y divide-gray-200 mb-4">
+    <thead class="bg-gray-50">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parknaam</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coördinaat Rechtsboven</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coördinaat Linksonder</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        </th>
+    </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+    @foreach (var resort in Model)
+    {
+        <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @resort.Id
+            </td>
+             <td class="px-6 py-4 whitespace-nowrap">
+                <a href="@Url.Action("Details", "Resort", new { resortId = resort.Id })" class="underline">
+                    @resort.Name
+                </a>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.NorthEastLatitude) @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.NorthEastLongitude)
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.SouthWestLatitude) @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.SouthWestLongitude)
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <form method="post" asp-action="Delete" asp-route-resortId="@resort.Id" >
+                    <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+
