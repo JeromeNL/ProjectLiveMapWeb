@@ -25,8 +25,18 @@
             var approveModalId = $"approveModal_{report.Id}";
             var rejectModalId = $"rejectModal_{report.Id}";
             <tr>
-                <td>@report.ProposedFacility.Facility?.Name ?? "Nieuwe faciliteit"</td>
-                <td>@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
+                @if (report.ProposedFacility.FacilityId == null)
+                {
+                    <td>Nieuwe faciliteit</td>
+                    <td></td>
+                }
+                else
+                {
+                    <td>@report.ProposedFacility.Facility?.Name</td>
+                    <td>@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
+                }
+                
+               
                 <td>@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
                 <td>@report.CreatedAt</td>
                 <td>
