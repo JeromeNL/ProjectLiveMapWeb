@@ -4,6 +4,7 @@ using DataAccess.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MobileMapAPI.Models;
 
 namespace MobileMapAPI.Controllers;
 
@@ -39,7 +40,7 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
     }
 
     [HttpPost("upsert")]
-    public async Task<IActionResult> RequestFacilityChange(ProposedFacility data)
+    public async Task<IActionResult> RequestFacilityChange(ProposedFacilityDto data)
     {
         int? existingFacilityId = null;
         if (data.FacilityId != null)
@@ -67,6 +68,7 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
         var facilityReport = new FacilityReport
         {
             Description = data.Description,
+            UserId = data.UserId,
             CreatedAt = DateTime.Now,
             Status = ReportStatus.Pending,
             ProposedFacility = proposedFacilityChange,

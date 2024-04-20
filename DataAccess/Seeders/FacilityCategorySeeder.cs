@@ -36,6 +36,13 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Zwembad",
                 Description = "Voorzieningen die zwemmen mogelijk maken",
                 IconName = "swimming"
+            },
+            new()
+            {
+                Id = 5,
+                Name = "Speeltuin",
+                Description = "Voorzieningen die spelen mogelijk maken",
+                IconName = "sandbox"
             }
         };
     }

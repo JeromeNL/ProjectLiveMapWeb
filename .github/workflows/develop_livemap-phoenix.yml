@@ -31,11 +31,20 @@ jobs:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Build and Publish WebPortal
+        run: |
+          dotnet build WebPortal/WebPortal.csproj --configuration Release
+          dotnet publish WebPortal/WebPortal.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Build and Publish BusinessLogic
+        run: |
+          dotnet build BusinessLogic/BusinessLogic.csproj --configuration Release
+          dotnet publish BusinessLogic/BusinessLogic.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Build and Publish DataAccess
+        run: |
+          dotnet build DataAccess/DataAccess.csproj --configuration Release
+          dotnet publish DataAccess/DataAccess.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
