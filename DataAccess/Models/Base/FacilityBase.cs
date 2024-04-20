@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DataAccess.Interfaces;
+using Newtonsoft.Json;
 
 namespace DataAccess.Models.Base;
 
@@ -15,8 +15,9 @@ public abstract class FacilityBase
 
     [Required(ErrorMessage = "Dit veld is verplicht.")]
     public int CategoryId { get; set; }
-    
+
     [ForeignKey(nameof(CategoryId))]
+    [JsonIgnore]
     public FacilityCategory Category { get; set; }
 
     [Required(ErrorMessage = "Dit veld is verplicht.")]
@@ -24,8 +25,8 @@ public abstract class FacilityBase
 
     [Required(ErrorMessage = "Dit veld is verplicht.")]
     public double Longitude { get; set; }
-    
-    public List<DefaultOpeningHours> DefaultOpeningHours { get; set; }
-    
-    public List<SpecialOpeningHours> SpecialOpeningHours { get; set; }
+
+    [JsonIgnore] public List<DefaultOpeningHours> DefaultOpeningHours { get; set; }
+
+    [JsonIgnore] public List<SpecialOpeningHours> SpecialOpeningHours { get; set; }
 }
