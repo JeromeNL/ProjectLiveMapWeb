@@ -45,6 +45,11 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Shared\FacilityReportModals\_ApproveFacilityReportModal.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\FacilityReportModals\_RejectFacilityReportModal.cshtml" />
+    </ItemGroup>
+
     <Target Name="Tailwind" BeforeTargets="Build">
         <Exec Command="npm run css:build"/>
     </Target>

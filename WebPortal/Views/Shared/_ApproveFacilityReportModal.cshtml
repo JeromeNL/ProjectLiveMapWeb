@@ -1,0 +1,15 @@
+@model DataAccess.Models.FacilityCategory
+
+
+<div id="approveModal_@Model.Id" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Categorie goedkeuren</h3>
+        <p class="py-4">Weet u zeker dat u de categorie '@Model.Name' wilt goedkeuren?</p>
+        <div class="modal-action">
+            <form asp-action="ApproveReport" asp-controller="FacilityReport" method="POST" asp-route-id="@Model.Id">
+                <button type="submit" class="btn btn-success">Goedkeuren</button>
+            </form>
+            <a href="#" class="btn" onclick="document.getElementById('approveModal_@Model.Id').classList.remove('modal-open')">Annuleren</a>
+        </div>
+    </div>
+</div>
