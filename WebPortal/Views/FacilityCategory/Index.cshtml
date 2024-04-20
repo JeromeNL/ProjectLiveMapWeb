@@ -37,20 +37,7 @@
                             class="btn btn-error btn-sm">Verwijder</button>
                 </td>
             </tr>
-
-            <!-- Modal Structure -->
-            <div id="@modalId" class="modal">
-                <div class="modal-box">
-                    <h3 class="font-bold text-lg">Categorie verwijderen</h3>
-                    <p class="py-4">Weet u zeker dat u de categorie '@category.Name' wilt verwijderen?</p>
-                    <div class="modal-action">
-                        <form asp-action="Delete" method="POST" asp-route-id="@category.Id">
-                            <button type="submit" class="btn btn-error">Verwijder</button>
-                        </form>
-                        <a href="#" class="btn" onclick="document.getElementById('@modalId').classList.remove('modal-open')">Annuleren</a>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("_DeleteCategoryModal", category)
         }
         </tbody>
     </table>
