@@ -22,39 +22,31 @@
         <tbody>
         @foreach (var report in Model)
         {
+            var approveModalId = $"approveModal_{report.Id}";
+            var rejectModalId = $"rejectModal_{report.Id}";
             <tr>
-               
-                @{
-                    if (report.ProposedFacility.Facility != null)
-                    {
-                        <td>@report.ProposedFacility.Facility.Name</td>
-                        <td>@($"Naam: {report.ProposedFacility.Facility.Name}, Omschrijving: {report.ProposedFacility.Facility.Description}, Categorie: {report.ProposedFacility.Facility.Category.Name}, Latitude: {report.ProposedFacility.Facility.Latitude}, Longitude: {report.ProposedFacility.Facility.Longitude}")</td>
-                    }
-                    else
-                    {
-                        <td class="font-bold">Nieuwe faciliteit</td>
-                        <td></td>
-                    }
-                }
-                
+                <td>@report.ProposedFacility.Facility?.Name ?? "Nieuwe faciliteit"</td>
+                <td>@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
                 <td>@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
-
                 <td>@report.CreatedAt</td>
                 <td>
                     <button class="btn btn-sm btn-success"
-                            onclick="document.getElementById('@Html.Raw(Index.Approve)_@report.Id').showModal()">
+                            onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
                         @Index.Approve
                     </button>
                     <button class="btn btn-sm btn-error"
-                            onclick="document.getElementById('@Html.Raw(Index.Reject)_@report.Id').showModal()">
+                            onclick="document.getElementById('@rejectModalId').classList.add('modal-open')">
                         @Index.Reject
                     </button>
                 </td>
             </tr>
+            @Html.Partial("_ApproveFacilityReportModal", report)
+            @Html.Partial("_DenyFacilityReportModal", report)
         }
         </tbody>
     </table>
 </div>
+
 
 @section Scripts
 {
@@ -68,5 +60,5 @@
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
             },
       });
-      </script>
+    </script>
 }
