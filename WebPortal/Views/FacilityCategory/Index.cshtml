@@ -34,7 +34,7 @@
                 <td class="flex justify-end items-center space-x-2"> 
                     <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@category.Id">Bewerk</a>
                     <button onclick="document.getElementById('@modalId').classList.add('modal-open')"
-                            class="btn btn-error btn-sm">Verwijder</button>
+                            class="text-red-500 hover:text-red-700 underline">Verwijder</button>
                 </td>
             </tr>
             @Html.Partial("_DeleteCategoryModal", category)
