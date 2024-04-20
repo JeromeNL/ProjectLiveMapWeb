@@ -1,6 +1,7 @@
 using DataAccess;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace WebPortal.Controllers;
@@ -8,9 +9,9 @@ namespace WebPortal.Controllers;
 public class ResortController(LiveMapDbContext context) : Controller
 {
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var resorts = context.HolidayResorts.ToList();
+        var resorts = await context.HolidayResorts.ToListAsync();
         return View(resorts);
     }
 
@@ -27,15 +28,15 @@ public class ResortController(LiveMapDbContext context) : Controller
     }
 
     [HttpPost]
-    public IActionResult Create(HolidayResort holidayResort)
+    public async Task<IActionResult> Create(HolidayResort holidayResort)
     {
         if (!ModelState.IsValid)
         {
             return View(holidayResort);
         }
         
-        context.HolidayResorts.Add(holidayResort);
-        context.SaveChanges();
+        await context.HolidayResorts.AddAsync(holidayResort);
+        await context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
 
@@ -50,10 +51,10 @@ public class ResortController(LiveMapDbContext context) : Controller
     {
         var resort = await context.HolidayResorts.FindAsync(resortId);
         
-        if(resort != null)
-            return View(resort);
+        if(resort == null)
+            return RedirectToAction("Index");
         
-        return RedirectToAction("Index");
+        return View(resort);
     }
 
     [HttpPost]
