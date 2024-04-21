@@ -17,12 +17,13 @@
                 <th>Faciliteit</th>
                 <th>Gebruiker</th>
                 <th>Verstuurd op</th>
-                <th>Verwijder</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             @foreach (var report in Model)
             {
+                var confirmModalId = $"confirmModal_{report.Id}";
                 <tr>
                     <td>@report.Id</td>
                     <td>@report.Title</td>
@@ -32,12 +33,11 @@
                     <td>@report.User.Name</td>
                     <td>@report.CreatedAt</td>
                     <td>
-                        <form asp-action="Delete" method="post">
-                            <input type="hidden" name="id" value="@report.Id"/>
-                            <input class="btn btn-sm btn-error" type="submit" value="Verwijder"/>
-                        </form>
+                        <input class="btn btn-sm btn-error" type="submit" value="Sluiten"
+                               onclick="document.getElementById('@confirmModalId').classList.add('modal-open')"/>
                     </td>
                 </tr>
+                @Html.Partial("_ConfirmCloseServiceReport", report)
             }
             </tbody>
         </table>
