@@ -6,7 +6,6 @@
     Layout = "_Layout";
     var errorMessage = TempData["Error"] as string;
 }
-<h1 class="text-4xl">@Model.IsAlwaysOpen</h1>
 <div class="flex flex-row">
     <div class="basis-1/2">
         <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
@@ -50,7 +49,6 @@
                    @(Model.IsAlwaysOpen ? "checked='checked'" : "") />
         </div>
         @Html.Partial("_ConfirmEnableAlwaysOpenModal", @Model)
-        
 
         <div class="">
             <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
