@@ -1,0 +1,31 @@
+@model WebPortal.Models.FacilityViewModel
+
+<div  id="confirmModal_@Model.Facility.Id" class="modal">
+    <div class="modal-box">
+       
+        @if (!@Model.IsAlwaysOpen)
+        {
+            <h3 class="font-bold text-lg">'Altijd open' inschakelen - @Model.Facility.Name</h3>
+            <p class="py-2">Weet u zeker dat u de openingstijden van faciliteit <b>@Model.Facility.Name</b> naar <b> 'altijd open'</b> wilt veranderen? </p>
+            <p class="py-2 text-red-600 font-medium">Let op: Alle openingstijden van de gehele week worden omgezet naar de tijden 00.00 tot 23.59</p>
+        }
+        else
+        {
+            <h3 class="font-bold text-lg">'Handmatige openingstijden' inschakelen - @Model.Facility.Name</h3>
+            <p class="py-2">Weet u zeker dat u de openingstijden van faciliteit <b>@Model.Facility.Name</b> naar <b> 'handmatig'</b> wilt veranderen? </p>
+            <p class="py-2 text-red-600 font-medium">Let op: Alle openingstijden van de gehele week worden omgezet naar de standaard tijden 09.00 tot 18.00</p>
+        }
+        
+        <div class="modal-action">
+            <form asp-action="SwitchIsAlwaysOpen" asp-controller="Facility" method="post">
+                <input type="hidden" name="id" value="@Model.Facility.Id" />
+                <button class="btn btn-primary" type="submit">Bevestigen</button>
+            </form>
+            <form asp-action="Show" asp-controller="Facility" method="post">
+                <input type="hidden" name="id" value="@Model.Facility.Id" />
+               <button onclick="document.getElementById('confirmModal_@Model.Facility.Id').classList.remove('modal-open')" class="btn">Annuleren</button>
+            </form>
+           
+        </div>
+    </div>
+</div>

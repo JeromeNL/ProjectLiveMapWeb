@@ -42,15 +42,15 @@
                 @errorMessage
             </div>
         }
-       <div class="flex items-center space-x-2 my-4">
-           <p class="font-bold">Altijd geopend</p> 
-           <form asp-action="SwitchIsAlwaysOpen" asp-controller="Facility" method="post">
-               <input type="checkbox" asp-for="IsAlwaysOpen" class="toggle" onchange="this.form.submit();" />
-               <input type="hidden" name="id" value="@Model.Facility.Id" />
-               <button hidden type="submit">Update Facility</button>
-           </form>
-
-       </div>
+        <div class="flex items-center space-x-2 my-4">
+            <p class="font-bold">Altijd geopend</p> 
+            <input type="checkbox"
+                   onclick="document.getElementById('confirmModal_@Model.Facility.Id').classList.add('modal-open')"
+                   class="toggle"
+                   @(Model.IsAlwaysOpen ? "checked='checked'" : "") />
+        </div>
+        @Html.Partial("_ConfirmEnableAlwaysOpenModal", @Model)
+        
 
         <div class="">
             <form method="post" asp-controller="OpeningHours" asp-action="SaveOpeningHours" class="d-flex flex-column h-100">
