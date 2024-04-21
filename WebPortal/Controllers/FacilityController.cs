@@ -120,7 +120,7 @@ public class FacilityController : Controller
         {
             foreach (var hour in facility.DefaultOpeningHours)
             {
-                hour.OpenTime = TimeOnly.Parse("00:09:00.0000000");
+                hour.OpenTime = TimeOnly.Parse("09:00:00.0000000");
                 hour.CloseTime = TimeOnly.Parse("18:00:00.0000000");
             }
         }
