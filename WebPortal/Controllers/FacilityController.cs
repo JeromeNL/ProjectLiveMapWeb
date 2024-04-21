@@ -104,6 +104,42 @@ public class FacilityController : Controller
         return true;
     }
 
+    public async Task<IActionResult> SwitchIsAlwaysOpen(int id)
+    {
+        var facility = await _context.Facilities
+            .Include(f => f.DefaultOpeningHours) 
+            .Include(f => f.Category)
+            .FirstOrDefaultAsync(f => f.Id == id);
+
+        if (facility == null)
+        {
+            RedirectToAction("Index");
+        }
+        
+        if (IsAlwaysOpen(facility))
+        {
+            foreach (var hour in facility.DefaultOpeningHours)
+            {
+                hour.OpenTime = TimeOnly.Parse("00:09:00.0000000");
+                hour.CloseTime = TimeOnly.Parse("18:00:00.0000000");
+            }
+        }
+        else
+        {
+            foreach (var hour in facility.DefaultOpeningHours)
+            {
+                hour.OpenTime = TimeOnly.Parse("00:00:00.0000000");
+                hour.CloseTime = TimeOnly.Parse("23:59:00.0000000");
+            }
+        }
+        
+        _context.Facilities.Update(facility);
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Show", new { id = facility.Id });
+
+    }
+
     [HttpGet]
     public IActionResult GetFacilitiesJson()
     {
