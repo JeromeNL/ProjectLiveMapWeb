@@ -4,6 +4,7 @@
     ViewBag.Title = "Overzicht van categorieën";
     Layout = "_Layout";
 }
+
 <a asp-action="Create" class="btn btn-sm btn-primary">Categorie aanmaken</a>
 
 <h1 class="text-2xl font-semibold">Overzicht van categorieën</h1>
@@ -11,32 +12,32 @@
 {
     <p class="text-red-600">@ViewBag.message</p>
 }
+
 <div class="overflow-x-auto mt-2">
-    <table id="datatable" class="table table-zebra">
+    <table id="datatable" class="table table-zebra w-full">
         <thead>
         <tr>
             <th>Naam</th>
             <th>Omschrijving</th>
             <th>Icoontje</th>
-            <th>Acties</th>
+            <th class="text-right pr-4 flex justify-end">Acties</th> 
         </tr>
         </thead>
         <tbody>
         @foreach (var category in Model)
         {
+            var modalId = $"deleteModal_{category.Id}";
             <tr>
                 <td>@category.Name</td>
                 <td>@category.Description</td>
-                <td>
-                    <i class="ti ti-@category.IconName text-3xl"></i>
-                </td>
-                <td>
-                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@category.Id">Bewerken</a>
-                    <form asp-action="Delete" method="POST" asp-route-id="@category.Id">
-                        <button class="btn btn-sm btn-error" type="submit">Verwijderen</button>
-                    </form>
+                <td><i class="ti ti-@category.IconName text-3xl"></i></td>
+                <td class="flex justify-end items-center space-x-2"> 
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@category.Id">Bewerk</a>
+                    <button onclick="document.getElementById('@modalId').classList.add('modal-open')"
+                            class="text-red-500 hover:text-red-700 underline">Verwijder</button>
                 </td>
             </tr>
+            @Html.Partial("_DeleteCategoryModal", category)
         }
         </tbody>
     </table>
@@ -49,7 +50,7 @@
            searchable: true,
             sortable: true,
             perPage: 5,
-            order: [4, 'asc'],
+            order: [3, 'asc'], // Let op de index hier, afhankelijk van het aantal kolommen
             language: {
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
             },
