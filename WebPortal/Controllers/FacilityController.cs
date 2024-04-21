@@ -84,10 +84,24 @@ public class FacilityController : Controller
         var viewModel = new FacilityViewModel
         {
             Facility = facility,
-            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() 
+            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() ,
+            IsAlwaysOpen = IsAlwaysOpen(facility)
         };
     
         return View(viewModel);
+    }
+
+    public Boolean IsAlwaysOpen(Facility facility)
+    {
+        foreach (var hour in facility.DefaultOpeningHours)
+        {
+            if (hour.OpenTime != TimeOnly.Parse("00:00:00.0000000") || hour.CloseTime != TimeOnly.Parse("23:59:00.0000000"))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     [HttpGet]
