@@ -27,7 +27,9 @@ public class LiveMapDbContext : DbContext
     public DbSet<ServiceReportCategory> ServiceReportCategories { get; set; }
     
     public DbSet<FacilityCategory> FacilityCategories { get; set; }
-
+    
+    public DbSet<HolidayResort> HolidayResorts { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -53,6 +55,9 @@ public class LiveMapDbContext : DbContext
             .HasQueryFilter(x => x.DeletedAt == null);
 
         modelBuilder.Entity<ServiceReport>()
+            .HasQueryFilter(x => x.DeletedAt == null);
+        
+        modelBuilder.Entity<HolidayResort>()
             .HasQueryFilter(x => x.DeletedAt == null);
     }
 }
