@@ -49,7 +49,6 @@ public class ResortController(LiveMapDbContext context) : Controller
     public async Task<IActionResult> Details(int resortId)
     {
         var resort = await context.HolidayResorts
-            .Include(r => r.HolidayResortCoordinates)
             .FirstOrDefaultAsync(r => r.Id == resortId);
 
         if (resort == null)

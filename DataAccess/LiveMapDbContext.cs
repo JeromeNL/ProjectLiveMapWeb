@@ -30,8 +30,6 @@ public class LiveMapDbContext : DbContext
 
     public DbSet<HolidayResort> HolidayResorts { get; set; }
 
-    public DbSet<HolidayResortCoordinate> HolidayResortCoordinates { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

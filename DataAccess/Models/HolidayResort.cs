@@ -16,5 +16,6 @@ public class HolidayResort : ISoftDelete
     [Required(ErrorMessage = "Het naam veld is verplicht")]
     public string Name { get; set; }
 
-    public ICollection<HolidayResortCoordinate>? HolidayResortCoordinates { get; }
+    [Required(ErrorMessage = "Een selectie op de map is verplicht")]
+    public string Coordinates { get; set; }
 }
