@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using DataAccess.Interfaces;
 
 namespace DataAccess.Models;
@@ -8,6 +9,7 @@ public class ServiceReport : ISoftDelete
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [JsonIgnore]
     public int Id { get; set; }
 
     [Required] [MaxLength(100)] public string Title { get; set; }
