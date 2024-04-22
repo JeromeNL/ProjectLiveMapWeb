@@ -4,17 +4,13 @@ using Xunit;
 
 namespace MobileMapAPI.Tests;
 
-public class FacilitiesControllerTests(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public class FacilitiesControllerTests(WebApplicationFactory<Program> factory) : ApiTest(factory)
 {
-    private readonly HttpClient _client = factory.CreateClient();
-
-
     [Fact]
     public async Task GetAllFacilities_ReturnsSuccessAndFacilities()
     {
         // Act
-        var response = await _client.GetAsync("/facilities");
+        var response = await Client.GetAsync("/facilities");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -27,7 +23,7 @@ public class FacilitiesControllerTests(WebApplicationFactory<Program> factory)
     public async Task GetAllCategories_ReturnsSuccessAndCategories()
     {
         // Act
-        var response = await _client.GetAsync("/facilities/categories");
+        var response = await Client.GetAsync("/facilities/categories");
 
         // Assert
         response.EnsureSuccessStatusCode();
