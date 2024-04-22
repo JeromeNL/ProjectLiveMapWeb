@@ -19,7 +19,8 @@ public class FacilityReportSeeder(List<ProposedFacility> proposedFacilities): IS
                 Status = ReportStatus.Pending,
                 Description = "Seed",
                 CreatedAt = DateTime.Now,
-                UserId = 1
+                UserId = 1,
+                HolidayResortId = 1,
             };
             facilityReports.Add(facilityReport);   
         }
