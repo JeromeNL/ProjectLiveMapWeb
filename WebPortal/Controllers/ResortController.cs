@@ -3,7 +3,6 @@ using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace WebPortal.Controllers;
 
 public class ResortController(LiveMapDbContext context) : Controller
@@ -19,10 +18,10 @@ public class ResortController(LiveMapDbContext context) : Controller
     public async Task<IActionResult> Delete(int resortId)
     {
         var resort = await context.HolidayResorts.FindAsync(resortId);
-        
-        if(resort != null)
+
+        if (resort != null)
             context.HolidayResorts.Remove(resort);
-        
+
         await context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
@@ -34,7 +33,7 @@ public class ResortController(LiveMapDbContext context) : Controller
         {
             return View(holidayResort);
         }
-        
+
         await context.HolidayResorts.AddAsync(holidayResort);
         await context.SaveChangesAsync();
         return RedirectToAction("Index");
@@ -46,14 +45,16 @@ public class ResortController(LiveMapDbContext context) : Controller
         return View();
     }
 
-   [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> Details(int resortId)
     {
-        var resort = await context.HolidayResorts.FindAsync(resortId);
-        
-        if(resort == null)
+        var resort = await context.HolidayResorts
+            .Include(r => r.HolidayResortCoordinates)
+            .FirstOrDefaultAsync(r => r.Id == resortId);
+
+        if (resort == null)
             return RedirectToAction("Index");
-        
+
         return View(resort);
     }
 
@@ -64,9 +65,9 @@ public class ResortController(LiveMapDbContext context) : Controller
         {
             return View("Details", holidayResort);
         }
+
         context.Update(holidayResort);
         await context.SaveChangesAsync();
         return RedirectToAction("Details", holidayResort.Id);
     }
 }
-

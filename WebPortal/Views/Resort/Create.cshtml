@@ -1,4 +1,3 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model DataAccess.Models.HolidayResort
 @{
     ViewData["Title"] = "Park aanmaken";
@@ -7,7 +6,7 @@
 
 <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
     <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
     </svg>
 </a>
 <h2 class="text-xl font-bold">Nieuw park</h2>
@@ -19,6 +18,7 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
+    @*
     <div class="px-6 py-4">
         <label for="holidayResortNELat" class="block font-bold text-gray-700">Coördinaat Rechtsboven Latitude:</label>
         <input id="holidayResortNELat" type="text" class="form-input rounded-md" asp-for="NorthEastLatitude" placeholder="Bijv. 5,3948232"/>
@@ -38,11 +38,12 @@
         <input id="holidayResortSWLong" type="text" class="form-input rounded-md" asp-for="SouthWestLongitude" placeholder="Bijv. 52,3948232"/>
         <span asp-validation-for="SouthWestLongitude" class="text-danger"></span>
     </div>
+    *@
 
     <div class="px-6 py-4">
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </div>
 </form>
- <p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
+<p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
 
 

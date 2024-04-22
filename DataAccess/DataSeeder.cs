@@ -18,7 +18,8 @@ public static class DataSeeder
         var serviceReports = new ServiceReportSeeder().Seed();
         var serviceReportsCategories = new ServiceReportCategorySeeder().Seed();
         var holidayResorts = new HolidayResortsSeeder().Seed();
-        
+        var holidayResortsCoordinates = new HolidayResortCoordinateSeeder().Seed();
+
         modelBuilder.Entity<Facility>().HasData(facilities);
         modelBuilder.Entity<ProposedFacility>().HasData(proposedFacilities);
         modelBuilder.Entity<FacilityReport>().HasData(facilityReports);
@@ -29,5 +30,6 @@ public static class DataSeeder
         modelBuilder.Entity<ServiceReport>().HasData(serviceReports);
         modelBuilder.Entity<ServiceReportCategory>().HasData(serviceReportsCategories);
         modelBuilder.Entity<HolidayResort>().HasData(holidayResorts);
+        modelBuilder.Entity<HolidayResortCoordinate>().HasData(holidayResortsCoordinates);
     }
 }

@@ -1,5 +1,3 @@
-@using System.Globalization
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model DataAccess.Models.HolidayResort
 @{
     ViewData["Title"] = "Park details - " + Model.Name;
@@ -8,41 +6,84 @@
 
 <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
     <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
     </svg>
 </a>
 <h2 class="text-xl font-bold">Parkdetails - @Model.Name</h2>
 
 <form method="post" asp-action="Update" class="space-y-4">
     <input type="hidden" asp-for="Id"/>
-    
+
     <div class="px-6 py-4">
         <label for="holidayResortName" class="block font-bold text-gray-700">Parknaam:</label>
         <input id="holidayResortName" type="text" class="form-input rounded-md" asp-for="Name"/>
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-
     <div class="px-6 py-4">
-        <label for="holidayResortNELat" class="block font-bold text-gray-700">Coördinaat Rechtsboven Latitude:</label>
-        <input id="holidayResortNELat" type="text" class="form-input rounded-md" asp-for="NorthEastLatitude"/>
-        <span asp-validation-for="NorthEastLatitude" class="text-danger"></span>
-        <label for="holidayResortNELong" class="block font-bold text-gray-700">Coördinaat Rechtsboven Longitude:</label>
-        <input id="holidayResortNELong" type="text" class="form-input rounded-md" asp-for="NorthEastLongitude"/>
-        <span asp-validation-for="NorthEastLongitude" class="text-danger"></span>
-    </div>
-
-    <div class="px-6 py-4">
-        <label for="holidayResortSWLat" class="block font-bold text-gray-700">Coördinaat Linksonder Latitude:</label>
-        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" asp-for="SouthWestLatitude"/>
-        <span asp-validation-for="SouthWestLatitude" class="text-danger"></span>
-        <label for="holidayResortSWLong" class="block font-bold text-gray-700">Coördinaat Linksonder Longitude:</label>
-        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" asp-for="SouthWestLongitude"/>
-        <span asp-validation-for="SouthWestLongitude" class="text-danger"></span>
-    </div>
-
-    <div class="px-6 py-4">
-        <button type="submit" class="btn btn-primary">Opslaan</button>
+        <button type="submit" class="btn btn-primary">Naam opslaan</button>
     </div>
 </form>
- <p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
+<div class="flex flex-row">
+    <div class="flex flex-col w-1/2">
+        @foreach (var point in Model.HolidayResortCoordinates)
+        {
+            <p class="font-bold">Punt: @point.Order</p>
+            <div class="flex flex-row justify-around">
+                <div class="flex flex-col">
+                    <label>Longitude</label>
+                    <input type="number" name="Coordinates[@point.Order].Longitude" value="@point.Longitude"/>
+                </div>
+                <div class="flex flex-col">
+                    <label>Latitude</label>
+                    <input type="number" name="Coordinates[@point.Order].Latitude" value="@point.Latitude"/>
+                </div>
+            </div>
+        }
+        <button class="btn btn-success" onclick="document.getElementById('coordinateModel_@Model.Id').classList.add('modal-open')">
+            +
+        </button>
+        @Html.Partial("_AddHolidayResortCoordinateModal", Model)
+        <p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
+    </div>
+    <div>
+        <div id="map" class="h-[20vh] w-[20vw]"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        let markerLocation = L.latLng(51.65028080463477, 5.0484079052199275);
+        let map = L.map('map', {
+            center: markerLocation,
+            zoom: 16,
+            attributionControl: false,
+            minZoom: 16,
+            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
+        });
+        L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
+        
+        let icon = L.divIcon({
+            html: `<i class="ti ti-chef-hat text-lg"></i>`,
+            className: 'facility-icon',
+            iconSize: [35, 35],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, -15]
+        });
+
+        let marker = L.marker(markerLocation, {
+            title: 'test',
+            icon: icon
+        });
+        marker.addTo(map);
+         
+        // Add event listener for map clicking
+        map.on('click', onMapClick);
+        
+        function onMapClick(e) {
+            window.location.href = '/Facility/create?latitude=' + encodeURIComponent(e.latlng.lat) + '&longitude=' + encodeURIComponent(e.latlng.lng);
+        }
+    </script>
+}
+
 
