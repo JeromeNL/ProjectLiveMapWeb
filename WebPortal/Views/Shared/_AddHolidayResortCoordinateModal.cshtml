@@ -18,28 +18,5 @@
             </form>
             <button onclick="document.getElementById('coordinateModel_@Model.Id').classList.remove('modal-open')" class="btn">Annuleren</button>
         </div>
-        <div id="map" class="h-[20vh] w-[20vw]"></div>
     </div>
 </div>
-
-@section Scripts
-{
-    <script>
-        let map = L.map('map', {
-            center: [51.65028080463477, 5.0484079052199275],
-            zoom: 16,
-            attributionControl: false,
-            minZoom: 16,
-            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
-        });
-        L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")')
-        .addTo(map);
-        
-        // Add event listener for map clicking
-        map.on('click', onMapClick);
-        
-        function onMapClick(e) {
-            console.log("clicked")
-        }
-    </script>
-}
