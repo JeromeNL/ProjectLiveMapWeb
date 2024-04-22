@@ -1,0 +1,19 @@
+﻿@model List<DataAccess.Models.HolidayResort>
+
+@{
+    ViewBag.Title = "Parkselectie";
+    Layout = "_Layout";
+}
+
+<h1 class="text-2xl font-semibold">Parkselectie</h1>
+<p>Selecteer hieronder het park waarvan je de informatie wilt bekijken/aanpassen</p>
+<form method="POST" asp-action="SaveCurrentResort">
+    <select class="select select-bordered w-full max-w-xs" name="resortId">
+        @foreach(var resort in Model)
+        {
+            <option value="@resort.Id">@resort.Name</option>
+        }
+    </select>
+    <br/>
+    <input type="submit" class="btn btn-primary mt-3" value="Opslaan"/>
+</form>

@@ -1,19 +1,42 @@
 using System.Diagnostics;
 using DataAccess;
-using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-public class HomeController(LiveMapDbContext context) : Controller
+public class HomeController(LiveMapDbContext context) : LivemapController
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        if (HttpContext.Session.GetInt32("resortId") == null || HttpContext.Session.GetInt32("resortId") == 0)
+        {
+            return RedirectToAction(nameof(SelectCurrentResort));
+        }
+        
+        var resort = await context.HolidayResorts.FindAsync(ResortId);
+
+        return View(resort);
+    }
+
+    public IActionResult SelectCurrentResort()
+    {
+        var resorts = context.HolidayResorts.ToList();
+        return View(resorts);
+    }
+
+    public IActionResult SaveCurrentResort(int resortId)
+    {
+        HttpContext.Session.SetInt32("resortId", resortId);
+        return RedirectToAction(nameof(Index));
     }
     
+    public IActionResult ClearCurrentResort()
+    {
+        HttpContext.Session.SetInt32("resortId", 0);
+        return RedirectToAction(nameof(SelectCurrentResort));
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
