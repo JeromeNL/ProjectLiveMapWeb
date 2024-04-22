@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DataAccess.Interfaces;
+using System.Text.Json.Serialization;
 using DataAccess.Models.Enums;
 
 namespace DataAccess.Models;
@@ -31,4 +31,10 @@ public class FacilityReport
 
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }
+    
+    public int HolidayResortId { get; set; }
+    
+    [ForeignKey(nameof(HolidayResortId))]
+    [JsonIgnore]
+    public HolidayResort HolidayResort { get; set; }
 }

@@ -11,4 +11,10 @@ public class ServiceReportCategory
     
     [Required(ErrorMessage = "Het naam veld is verplicht")]
     public string Name { get; set; }
+    
+    public int HolidayResortId { get; set; }
+    
+    [ForeignKey(nameof(HolidayResortId))]
+    [JsonIgnore]
+    public HolidayResort HolidayResort { get; set; }
 }
