@@ -7,19 +7,15 @@ using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-public class FacilityController : Controller
+public class FacilityController(LiveMapDbContext context) : LivemapController
 {
-    private readonly LiveMapDbContext _context;
-
-    public FacilityController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     // GET
     public IActionResult Index()
     {
-        var facilities = _context.Facilities.Include(f => f.Category).ToList();
+        var facilities = context.Facilities
+            .Where(f => f.HolidayResortId == ResortId)
+            .Include(f => f.Category)
+            .ToList();
         return View(facilities);
     }
 
@@ -29,11 +25,11 @@ public class FacilityController : Controller
         if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
         {
             ViewBag.message = "het geklikte punt ligt niet binnen het park";
-            var facilities = _context.Facilities.ToList();
+            var facilities = context.Facilities.ToList();
             return View("Index", facilities);
         }
 
-        var facilityCategories = await _context.FacilityCategories.ToListAsync();
+        var facilityCategories = await context.FacilityCategories.ToListAsync();
         var viewModel = new FacilityCreateViewModel
         {
             Facility = new Facility(),
@@ -50,7 +46,7 @@ public class FacilityController : Controller
         ModelState.Remove("Facility.Category");
         if (!ModelState.IsValid)
         {
-            viewModel.FacilityCategories = await _context.FacilityCategories.ToListAsync();
+            viewModel.FacilityCategories = await context.FacilityCategories.ToListAsync();
             viewModel.Latitude = viewModel.Facility.Latitude;
             viewModel.Longitude = viewModel.Facility.Longitude;
         }
@@ -63,18 +59,18 @@ public class FacilityController : Controller
                 CloseTime = new TimeOnly(23, 59) 
             }).ToList();
         
-        _context.Facilities.Add(viewModel.Facility);
+        context.Facilities.Add(viewModel.Facility);
         
-        _context.AddRange(openingHours);
+        context.AddRange(openingHours);
         
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
     
     public async Task<IActionResult> Show(int id)
     {
        
-        var facility = await _context.Facilities
+        var facility = await context.Facilities
             .Include(f => f.DefaultOpeningHours) 
             .Include(f => f.Category)
             .FirstOrDefaultAsync(f => f.Id == id);
@@ -90,25 +86,18 @@ public class FacilityController : Controller
         return View(viewModel);
     }
 
-    [HttpGet]
-    public IActionResult GetFacilitiesJson()
-    {
-        var facilities = _context.Facilities.ToList();
-        return Json(facilities);
-    }
-
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var facility = await _context.Facilities.FindAsync(id);
+        var facility = await context.Facilities.FindAsync(id);
     
         if (facility == null)
         {
             return Json($"Geen faciliteit gevonden met ID {id}.");
         }
         
-        _context.Facilities.Remove(facility);
-        await _context.SaveChangesAsync();
+        context.Facilities.Remove(facility);
+        await context.SaveChangesAsync();
         
         return RedirectToAction("Index");
     }
