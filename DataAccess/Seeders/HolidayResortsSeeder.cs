@@ -9,9 +9,18 @@ public class HolidayResortsSeeder: ISeeder<HolidayResort>
     {
         return new List<HolidayResort>
         {
+            new()
+            {
+                Id = 1,
+                Name = "Efteling",
+                NorthEastLatitude = 51.65409301291617,
+                NorthEastLongitude = 5.055245412377415,
+                SouthWestLatitude = 51.64662722820029,
+                SouthWestLongitude = 5.044088892700313
+            },
            new()
            {
-               Id = 1,
+               Id = 2,
                Name = "Hof van Saksen",
                NorthEastLatitude = 52.970413,
                NorthEastLongitude = 6.680389,
@@ -20,7 +29,7 @@ public class HolidayResortsSeeder: ISeeder<HolidayResort>
            },
            new()
            {
-               Id = 2,
+               Id = 3,
                Name = "Vierwaldstättersee",
                NorthEastLatitude = 46.982750, 
                NorthEastLongitude = 8.617061,
