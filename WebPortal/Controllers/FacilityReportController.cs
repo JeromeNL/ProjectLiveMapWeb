@@ -6,18 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebPortal.Controllers;
 
-public class FacilityReportController : Controller
+public class FacilityReportController(LiveMapDbContext context) : LivemapController
 {
-    private readonly LiveMapDbContext _context;
-
-    public FacilityReportController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<IActionResult> Index()
     {
-        var pendingReports = await _context.FacilityReports
+        var pendingReports = await context.FacilityReports
+            .Where(f => f.HolidayResortId == ResortId)
             .Where(report => report.Status == ReportStatus.Pending)
             .Include(report => report.ProposedFacility.Facility)
             .Include(report => report.ProposedFacility)
@@ -30,18 +24,18 @@ public class FacilityReportController : Controller
 
     public async Task<IActionResult> DenyReport(int id)
     {
-        var report = await _context.FacilityReports.FindAsync(id);
+        var report = await context.FacilityReports.FindAsync(id);
         if (report == null) return NotFound();
 
         report.Status = ReportStatus.Denied;
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
     }
 
     public async Task<IActionResult> ApproveReport(int id)
     {
-        var report = await _context.FacilityReports
+        var report = await context.FacilityReports
             .Include(r => r.ProposedFacility)
             .Include(r => r.ProposedFacility.Facility)
             .FirstOrDefaultAsync(r => r.Id == id);
@@ -63,7 +57,7 @@ public class FacilityReportController : Controller
                 CategoryId = report.ProposedFacility.CategoryId,
             };
 
-            await _context.Facilities.AddAsync(newFacility);
+            await context.Facilities.AddAsync(newFacility);
 
         }
         else
@@ -80,7 +74,7 @@ public class FacilityReportController : Controller
             }
         }
         report.Status = ReportStatus.Accepted;
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 }

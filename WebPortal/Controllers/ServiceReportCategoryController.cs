@@ -6,11 +6,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WebPortal.Controllers;
 
-public class ServiceReportCategoryController(LiveMapDbContext context) : Controller
+public class ServiceReportCategoryController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
-        return View(await context.ServiceReportCategories.ToListAsync());
+        var categories = await context.ServiceReportCategories
+            .Where(f => f.HolidayResortId == ResortId)
+            .ToListAsync();
+        return View(categories);
     }
 
     public IActionResult Create()
