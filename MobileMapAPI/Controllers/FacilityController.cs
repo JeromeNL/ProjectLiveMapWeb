@@ -3,7 +3,6 @@ using DataAccess.Models;
 using DataAccess.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using MobileMapAPI.Models;
 
 namespace MobileMapAPI.Controllers;
@@ -26,11 +25,7 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
             .Include(x => x.DefaultOpeningHours)
             .Include(x => x.SpecialOpeningHours.Where(s => s.Date >= monday && s.Date <= sunday))
             .ToListAsync();
-        if (facilities.IsNullOrEmpty())
-        {
-            return NotFound("No facilities were found");
-        }
-
+        
         return Ok(facilities);
     }
 
