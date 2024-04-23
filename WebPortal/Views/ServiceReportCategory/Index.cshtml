@@ -18,6 +18,7 @@
             <tbody>
             @foreach (var category in Model)
             {
+                var approveModalId = $"deleteModal_{category.Id}";
                 <tr>
                     <td>@category.Id</td>
                     <td>@category.Name</td>
@@ -26,12 +27,11 @@
                             <input type="hidden" name="id" value="@category.Id" />
                             <input class="btn btn-sm btn-warning" type="submit" value="Pas aan"/>
                         </form>
-                        <form asp-action="Delete" method="post">
-                            <input type="hidden" name="id" value="@category.Id" />
-                            <input class="btn btn-sm btn-error" type="submit" value="Verwijder"/>
-                        </form>
+                        <input class="btn btn-sm btn-error" type="submit" value="Verwijder"
+                               onclick="document.getElementById('@approveModalId').classList.add('modal-open')"/>
                     </td>
                 </tr>
+                @Html.Partial("_DeleteServiceReportModal", category)
             }
             </tbody>
         </table>   
