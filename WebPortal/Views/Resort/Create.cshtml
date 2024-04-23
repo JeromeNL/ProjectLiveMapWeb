@@ -1,4 +1,3 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model DataAccess.Models.HolidayResort
 @{
     ViewData["Title"] = "Park aanmaken";
@@ -7,42 +6,66 @@
 
 <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
     <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
     </svg>
 </a>
 <h2 class="text-xl font-bold">Nieuw park</h2>
 
 <form method="post" asp-action="Create" class="space-y-4">
-    <div class="px-6 py-4">
-        <label for="holidayResortName" class="block font-bold text-gray-700">Parknaam:</label>
-        <input id="holidayResortName" type="text" class="form-input rounded-md" asp-for="Name" placeholder="Naam"/>
-        <span asp-validation-for="Name" class="text-danger"></span>
+    <div class="flex flex-row">
+        <div class="px-6 py-4 flex flex-col">
+            <label for="holidayResortName" class="block font-bold text-gray-700">Parknaam:</label>
+            <input required id="holidayResortName" type="text" class="form-input rounded-md" asp-for="Name"/>
+            <input id="coord" hidden type="text" class="form-input rounded-md" asp-for="Coordinates"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <span asp-validation-for="Coordinates" class="text-danger"></span>
+        </div>
+        <div id="map" class="h-[40vh] w-[40vw]"></div>
     </div>
-
-    <div class="px-6 py-4">
-        <label for="holidayResortNELat" class="block font-bold text-gray-700">Coördinaat Rechtsboven Latitude:</label>
-        <input id="holidayResortNELat" type="text" class="form-input rounded-md" asp-for="NorthEastLatitude" placeholder="Bijv. 5,3948232"/>
-        <span asp-validation-for="NorthEastLatitude" class="text-danger"></span>
-        
-        <label for="holidayResortNELong" class="block font-medium text-gray-700">Coördinaat Rechtsboven Longitude:</label>
-        <input id="holidayResortNELong" type="text" class="form-input rounded-md" asp-for="NorthEastLongitude" placeholder="Bijv. 52,3948232"/>
-        <span asp-validation-for="NorthEastLongitude" class="text-danger"></span>
-    </div>
-
-    <div class="px-6 py-4">
-        <label for="holidayResortSWLat" class="block font-bold text-gray-700">Coördinaat Linksonder Latitude:</label>
-        <input id="holidayResortSWLat" type="text" class="form-input rounded-md" asp-for="SouthWestLatitude" placeholder="Bijv. 5,3948232"/>
-        <span asp-validation-for="SouthWestLatitude" class="text-danger"></span>
-        
-        <label for="holidayResortSWLong" class="block font-bold text-gray-700">Coördinaat Linksonder Longitude:</label>
-        <input id="holidayResortSWLong" type="text" class="form-input rounded-md" asp-for="SouthWestLongitude" placeholder="Bijv. 52,3948232"/>
-        <span asp-validation-for="SouthWestLongitude" class="text-danger"></span>
-    </div>
-
     <div class="px-6 py-4">
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </div>
 </form>
- <p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
+
+@section Scripts
+{
+    <script>
+        let map = L.map('map', {
+            center: [52.237367, 5.654817],
+            zoom: 7,
+        });
+        L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
+        
+        const coords = document.getElementById("coord")
+        
+        // add Leaflet-Geoman controls with some options to the map  
+        map.pm.addControls({  
+          position: 'topleft',  
+          drawCircleMarker: false,
+          drawMarker: false,
+          drawPolyline: false,
+          drawRectangle: false,
+          drawCircle: false,
+          drawText: false,
+          rotateMode: false,
+          editMode: false,
+          dragMode: false,
+          cutPolygon: false,
+        }); 
+        
+        map.on('pm:create', (e) => {
+            map.pm.addControls({  
+                drawPolygon: false,
+            }); 
+            coords.value = JSON.stringify(e.layer._latlngs[0])
+        })
+        map.on('pm:remove', (e) => {
+            map.pm.addControls({
+                drawPolygon: true,
+            })
+            coords.value = ""
+        })
+    </script>
+}
 
 
