@@ -83,7 +83,10 @@
 
 @section Scripts
 {
+    <script src="@Url.Content("~/js/MapMarker.js")"></script>
     <script>
+        let pinIcon = PinIcon('#FFAB33', '@Model.Facility.Category.IconName')
+        
         let markerLocation = L.latLng(@Model.Facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.Facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
         let map = L.map('map', {
             center: markerLocation,
@@ -94,11 +97,11 @@
         }).addTo(map);
 
         let icon = L.divIcon({
-            html: `<i class="ti ti-@Model.Facility.Category.IconName text-lg"></i>`,
-            className: 'facility-icon',
-            iconSize: [35, 35],
-            iconAnchor: [15, 15],
-            popupAnchor: [0, -15]
+          html: pinIcon,
+              className: 'facility-icon',
+              iconSize: [27, 35],
+              iconAnchor: [27 / 2, 35],
+              popupAnchor: [0, -35]
         });
 
         let marker = L.marker(markerLocation, {
