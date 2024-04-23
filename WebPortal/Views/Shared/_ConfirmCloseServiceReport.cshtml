@@ -1,0 +1,14 @@
+@model DataAccess.Models.ServiceReport
+
+<div id="confirmModal_@Model.Id" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Bevestig sluiten</h3>
+        <p class="py-4">Weet u zeker dat u de melding voor '@Model.Facility.Name' wilt sluiten?</p>
+        <div class="modal-action">
+            <form asp-action="Delete" asp-controller="ServiceReport" method="POST" asp-route-id="@Model.Id">
+                <button type="submit" class="btn btn-error">Sluiten</button>
+            </form>
+            <button onclick="document.getElementById('confirmModal_@Model.Id').classList.remove('modal-open')" class="btn">Annuleren</button>
+        </div>
+    </div>
+</div>

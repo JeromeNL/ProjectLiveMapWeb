@@ -5,7 +5,7 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Models;
 
-public class ServiceReport: ISoftDelete
+public class ServiceReport : ISoftDelete
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,6 +24,7 @@ public class ServiceReport: ISoftDelete
     
     [Required]
     public int ServiceReportCategoryId { get; set; }
+    
     [ForeignKey(nameof(ServiceReportCategoryId))]
     public ServiceReportCategory? ServiceReportCategory { get; set; }
     

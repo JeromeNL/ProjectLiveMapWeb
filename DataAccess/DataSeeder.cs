@@ -18,7 +18,7 @@ public static class DataSeeder
         var serviceReports = new ServiceReportSeeder().Seed();
         var serviceReportsCategories = new ServiceReportCategorySeeder().Seed();
         var holidayResorts = new HolidayResortsSeeder().Seed();
-        
+
         modelBuilder.Entity<Facility>().HasData(facilities);
         modelBuilder.Entity<ProposedFacility>().HasData(proposedFacilities);
         modelBuilder.Entity<FacilityReport>().HasData(facilityReports);
