@@ -78,6 +78,6 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
         await context.FacilityReports.AddAsync(facilityReport);
         await context.SaveChangesAsync();
 
-        return Ok($"Your report has been saved in the database.");
+        return Ok("Your report has been saved in the database.");
     }
 }
