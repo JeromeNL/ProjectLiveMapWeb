@@ -7,12 +7,16 @@
 {
     <span class="text-red-600">@ViewBag.message</span>
 }
+
+@Html.Partial("_MessagesToast")
+
 <div class="flex justify-center align-middle">
     <div id="map" class="h-[80vh] w-[90vw]"></div>
 </div>
 
 @section Scripts
 {
+    <script src="@Url.Content("~/js/MapMarker.js")"></script>
     <script>
         let map = L.map('map', {
             center: [51.65028080463477, 5.0484079052199275],
@@ -25,26 +29,26 @@
         .addTo(map);
         
         let markers = [];
-        
+     
         @foreach (var facility in Model)
         {
             <text> 
             {
+                let pinIcon = PinIcon('#FFAB33', '@facility.Category.IconName')
                 let icon = L.divIcon({
-                    html: `<i class="ti ti-@facility.Category.IconName text-2xl text-black"></i>`,
+                    html: pinIcon,
                     className: 'facility-icon',
-                    iconSize: [35, 35],
-                    iconAnchor: [15, 15],
-                    popupAnchor: [-7, -10]
+                    iconSize: [27, 35],
+                    iconAnchor: [27 / 2, 35],
+                    popupAnchor: [0, -35]
                 });
                 let markerLocation = L.latLng(@facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 let marker = L.marker(markerLocation, {
                     title: '@facility.Name',
                     icon: icon
                 });
-                let popupContent = `<b>@facility.Name</b><br />@facility.Description<br><a href="/facility/show/@facility.Id">Details</a><br><button onclick="deleteFacility(@facility.Id)">Verwijder</button>`;
+                let popupContent = `<b>@facility.Name</b><br />@facility.Description<br><a class="mt-2" href="/facility/show/@facility.Id">Details</a>`;
 
-                
                 marker.addTo(map).bindPopup(popupContent);
                 markers.push(marker);
               }
@@ -53,56 +57,6 @@
         
         // Add event listener for map clicking
         map.on('click', onMapClick);
-        
-        // Resize icons when zooming
-        map.on('zoomend', function() {
-            let zoomLevel = map.getZoom();
-            let iconSize = calculateIconSize(zoomLevel);
-
-            // Update icon size for all markers
-            markers.forEach(marker => {
-                let icon = marker.options.icon;
-                icon.options.iconSize = iconSize;
-                icon.options.iconAnchor = [iconSize[0] / 2, iconSize[1] / 2];
-                icon.options.popupAnchor = [0, -iconSize[1] / 2];
-                marker.setIcon(icon);
-            });
-        });
-        
-        
-        function deleteFacility(facilityId) {
-            if (confirm("Weet je zeker dat je deze faciliteit wilt verwijderen?")) {
-                fetch('/facility/delete/' + facilityId, {
-                    method: 'POST',
-                })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.reload(); 
-                    } else {
-                        alert("Er is een fout opgetreden");
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-        }
-       
-        
-        function calculateIconSize(zoomLevel) {
-            let maxZoom = 19;
-            let minZoom = 10;
-            let maxSize = 35;
-            let minSize = 10;
-        
-            if (zoomLevel >= maxZoom) {
-                return [maxSize, maxSize];
-            } else if (zoomLevel <= minZoom) {
-                return [minSize, minSize];
-            } else {
-                let size = minSize + ((maxSize - minSize) * Math.pow((zoomLevel - minZoom) / (maxZoom - minZoom), 4));
-                return [size, size];
-            }
-        }
-
         
         function onMapClick(e) {
             window.location.href = '/Facility/create?latitude=' + encodeURIComponent(e.latlng.lat) + '&longitude=' + encodeURIComponent(e.latlng.lng);

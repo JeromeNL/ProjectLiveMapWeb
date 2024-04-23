@@ -5,7 +5,10 @@
     ViewBag.Title = "Faciliteit bekijken";
     Layout = "_Layout";
     var errorMessage = TempData["Error"] as string;
+    var approveModalId = $"deleteModal_{Model.Facility.Id}";
 }
+@Html.Partial("_MessagesToast")
+
 <div class="flex flex-row">
     <div class="basis-1/2">
         <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
@@ -15,10 +18,8 @@
         </a>
         <div class="flex items-center space-x-4">
             <h2 class="text-2xl font-semibold">@Model.Facility.Name - @Model.Facility.Id</h2>
-            <form id="deleteform" method="post" asp-action="Delete" asp-route-id="@Model.Facility.Id" onsubmit="return confirmDeletion()">
-                <input type="hidden" name="_method" value="DELETE">
-                <button type="submit" class="underline">Verwijder</button>
-            </form>
+            <button type="submit" class="underline"  
+                    onclick="document.getElementById('@approveModalId').classList.add('modal-open')">Verwijder</button>
         </div>
         <p>@Model.Facility.Description</p>
         <p>Categorie: @Model.Facility.Category.Name</p>
@@ -27,6 +28,7 @@
         <p>Huidige locatie:</p>
         <div id="map" class="h-[20vh] w-[20vw]"></div>
     </div>
+     @Html.Partial("_DeleteFacilityModal", @Model.Facility)
     
     <div class="basis-1/2">
         <div class="inline-block w-auto px-5 py-5"></div>
@@ -96,7 +98,10 @@
 
 @section Scripts
 {
+    <script src="@Url.Content("~/js/MapMarker.js")"></script>
     <script>
+        let pinIcon = PinIcon('#FFAB33', '@Model.Facility.Category.IconName')
+        
         let markerLocation = L.latLng(@Model.Facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.Facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
         let map = L.map('map', {
             center: markerLocation,
@@ -107,11 +112,11 @@
         }).addTo(map);
 
         let icon = L.divIcon({
-            html: `<i class="ti ti-@Model.Facility.Category.IconName text-lg"></i>`,
-            className: 'facility-icon',
-            iconSize: [35, 35],
-            iconAnchor: [15, 15],
-            popupAnchor: [0, -15]
+          html: pinIcon,
+              className: 'facility-icon',
+              iconSize: [27, 35],
+              iconAnchor: [27 / 2, 35],
+              popupAnchor: [0, -35]
         });
 
         let marker = L.marker(markerLocation, {
@@ -120,9 +125,7 @@
         });
         marker.addTo(map).bindPopup(popupContent);
         
-        function confirmDeletion() {
-            return confirm('Weet u zeker dat u deze faciliteit wilt verwijderen?');
-        }
+       
     </script>
 }
 

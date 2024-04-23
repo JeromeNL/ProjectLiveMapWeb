@@ -5,6 +5,7 @@
     Layout = "_Layout";
     var errorMessage = TempData["Error"] as string;
 }
+@Html.Partial("_MessagesToast")
 <a asp-controller="Facility" asp-action="Show" asp-route-id="@Model.Facility.Id" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
             <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
@@ -31,6 +32,7 @@
         <tbody class="bg-white divide-y divide-gray-200">
         @foreach (var hour in Model.SpecialOpeningHoursList)
         {
+            var confirmModalId = $"deleteModal_{hour.Date}";
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(hour.Date.DayOfWeek) @hour.Date.ToString("dd-MM-yyyy")</td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -40,12 +42,15 @@
                     <input readonly type="time" class="form-input rounded-md" name="SpecialOpeningHoursList[@hour].CloseTime" value="@hour.CloseTime.ToString("HH\\:mm")"/>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <form method="post" asp-action="DeleteSpecialOpeningHour" asp-route-facilityId="@hour.Facility.Id" asp-route-date="@hour.Date.ToString("yyyy-MM-dd")">
-                        <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
-                    </form>
+                    <button type="submit" class="text-red-500 hover:text-red-700"
+                            onclick="document.getElementById('@confirmModalId').classList.add('modal-open')">
+                        Verwijder
+                    </button>
                 </td>
             </tr>
+            @Html.Partial("_DeleteSpecialOpeningHoursModal", hour)
         }
+         
         <form method="post" asp-controller="OpeningHours" asp-action="SaveSpecialOpeningHours">
             <input type="hidden" name="FacilityId" value="@Model.Facility.Id"/>
             <tr>

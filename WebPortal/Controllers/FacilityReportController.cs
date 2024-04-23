@@ -35,7 +35,7 @@ public class FacilityReportController : Controller
 
         report.Status = ReportStatus.Denied;
         await _context.SaveChangesAsync();
-
+        TempData["InfoMessage"] =  "Melding " + report.Id + " is afgekeurd.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -81,6 +81,7 @@ public class FacilityReportController : Controller
         }
         report.Status = ReportStatus.Accepted;
         await _context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Melding " + report.Id + " is goedgekeurd.";
         return RedirectToAction(nameof(Index));
     }
 }

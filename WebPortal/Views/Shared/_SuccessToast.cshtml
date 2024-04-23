@@ -1,0 +1,21 @@
+@model string
+
+<div id="toast" class="toast">
+    <div class="alert alert-success">
+        <span>@Model</span>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        let toastElement = document.getElementById('toast');
+        setTimeout(function() {
+            toastElement.style.opacity = '0';
+            toastElement.style.transition = 'opacity 0.5s';
+            
+            setTimeout(function() {
+                toastElement.style.display = 'none';
+            }, 500); 
+        }, 3000); 
+    };
+</script>
