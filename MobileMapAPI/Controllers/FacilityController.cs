@@ -21,6 +21,7 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
 
         var facilities = await context.Facilities
             .Include(f => f.Category)
+            .Include(f => f.ServiceReports)
             .Include(x => x.DefaultOpeningHours)
             .Include(x => x.SpecialOpeningHours.Where(s => s.Date >= monday && s.Date <= sunday))
             .ToListAsync();
