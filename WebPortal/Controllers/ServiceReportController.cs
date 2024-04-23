@@ -23,6 +23,7 @@ public class ServiceReportController(LiveMapDbContext context) : Controller
 
         context.ServiceReports.Remove(report);
         await context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Service melding " + report.Id + " is gesloten." ;
         return RedirectToAction("Index");
     }
 }

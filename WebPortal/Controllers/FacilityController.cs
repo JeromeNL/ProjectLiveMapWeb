@@ -68,6 +68,7 @@ public class FacilityController : Controller
         _context.AddRange(openingHours);
         
         await _context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Faciliteit " + viewModel.Facility.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
     
@@ -107,6 +108,7 @@ public class FacilityController : Controller
             return Json($"Geen faciliteit gevonden met ID {id}.");
         }
         
+        TempData["InfoMessage"] = "Faciliteit " + facility.Name + " is verwijderd.";
         _context.Facilities.Remove(facility);
         await _context.SaveChangesAsync();
         

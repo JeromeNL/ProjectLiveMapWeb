@@ -1,5 +1,6 @@
 ﻿@model List<DataAccess.Models.ServiceReportCategory>
 <div>
+    @Html.Partial("_MessagesToast")
     <h1 class="text-2xl font-semibold">Overzicht van service melding categorieën</h1>
     <a class="btn btn-success mt-2" asp-controller="ServiceReportCategory" asp-action="Create">Nieuwe categorie toevoegen</a>
     @if (ViewBag.message != null)
@@ -24,7 +25,7 @@
                     <td>@category.Name</td>
                     <td>
                         <form asp-action="Edit" method="get">
-                            <input type="hidden" name="id" value="@category.Id" />
+                            <input type="hidden" name="id" value="@category.Id"/>
                             <input class="btn btn-sm btn-warning" type="submit" value="Pas aan"/>
                         </form>
                         <input class="btn btn-sm btn-error" type="submit" value="Verwijder"
@@ -34,7 +35,7 @@
                 @Html.Partial("_DeleteServiceReportModal", category)
             }
             </tbody>
-        </table>   
+        </table>
     </div>
 </div>
 @section Scripts
