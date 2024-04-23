@@ -85,23 +85,10 @@ public class FacilityController : Controller
         {
             Facility = facility,
             OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() ,
-            IsAlwaysOpen = IsAlwaysOpen(facility)
+            IsAlwaysOpen = facility.IsAlwaysOpen()
         };
     
         return View(viewModel);
-    }
-
-    public Boolean IsAlwaysOpen(Facility facility)
-    {
-        foreach (var hour in facility.DefaultOpeningHours)
-        {
-            if (hour.OpenTime != TimeOnly.Parse("00:00:00.0000000") || hour.CloseTime != TimeOnly.Parse("23:59:00.0000000"))
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public async Task<IActionResult> SwitchIsAlwaysOpen(int id)
@@ -116,21 +103,13 @@ public class FacilityController : Controller
             RedirectToAction("Index");
         }
         
-        if (IsAlwaysOpen(facility))
+        if (facility.IsAlwaysOpen())
         {
-            foreach (var hour in facility.DefaultOpeningHours)
-            {
-                hour.OpenTime = TimeOnly.Parse("09:00:00.0000000");
-                hour.CloseTime = TimeOnly.Parse("18:00:00.0000000");
-            }
+            facility.SetToRegularOpeningHours();
         }
         else
         {
-            foreach (var hour in facility.DefaultOpeningHours)
-            {
-                hour.OpenTime = TimeOnly.Parse("00:00:00.0000000");
-                hour.CloseTime = TimeOnly.Parse("23:59:00.0000000");
-            }
+            facility.SetAlwaysOpen();
         }
         
         _context.Facilities.Update(facility);
