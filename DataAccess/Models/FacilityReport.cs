@@ -32,9 +32,10 @@ public class FacilityReport
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }
     
+    [Required]
     public int HolidayResortId { get; set; }
     
     [ForeignKey(nameof(HolidayResortId))]
     [JsonIgnore]
-    public HolidayResort HolidayResort { get; set; }
+    public HolidayResort? HolidayResort { get; set; }
 }

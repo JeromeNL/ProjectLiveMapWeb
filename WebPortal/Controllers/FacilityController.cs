@@ -59,6 +59,8 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
                 CloseTime = new TimeOnly(23, 59) 
             }).ToList();
         
+        viewModel.Facility.HolidayResortId = ResortId;
+        
         context.Facilities.Add(viewModel.Facility);
         
         context.AddRange(openingHours);

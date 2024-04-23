@@ -19,11 +19,12 @@ public abstract class FacilityBase
     [ForeignKey(nameof(CategoryId))]
     public FacilityCategory Category { get; set; }
     
+    [Required]
     public int HolidayResortId { get; set; }
     
     [ForeignKey(nameof(HolidayResortId))]
     [JsonIgnore]
-    public HolidayResort HolidayResort { get; set; }
+    public HolidayResort? HolidayResort { get; set; }
 
     [Required(ErrorMessage = "Dit veld is verplicht.")]
     public double Latitude { get; set; }

@@ -20,11 +20,12 @@ public class FacilityCategory : ISoftDelete
     [Required]
     public string IconName { get; set; }
     
+    [Required]
     public int HolidayResortId { get; set; }
     
     [ForeignKey(nameof(HolidayResortId))]
     [JsonIgnore]
-    public HolidayResort HolidayResort { get; set; }
+    public HolidayResort? HolidayResort { get; set; }
 
     public DateTimeOffset? DeletedAt { get; set; }
 }
