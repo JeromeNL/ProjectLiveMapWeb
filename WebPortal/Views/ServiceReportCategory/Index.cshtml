@@ -28,8 +28,8 @@
                             <input type="hidden" name="id" value="@category.Id"/>
                             <input class="btn btn-sm btn-warning" type="submit" value="Pas aan"/>
                         </form>
-                        <input class="btn btn-sm btn-error" type="submit" value="Verwijder"
-                               onclick="document.getElementById('@approveModalId').classList.add('modal-open')"/>
+                    <button class="btn btn-sm btn-error" type="submit" value="Verwijder"
+                                onclick="document.getElementById('@approveModalId').classList.add('modal-open')"></button>
                     </td>
                 </tr>
                 @Html.Partial("_DeleteServiceReportModal", category)
