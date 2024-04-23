@@ -33,28 +33,29 @@
 @section Scripts
 {
     <script>
-        let map = L.map('map', {
-            center: [51.65028080463477, 5.0484079052199275],
-            zoom: 15,
-            minZoom: 15,
-            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
-        });
-        L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
-        
         const coords = document.getElementById("coord")
         
         if (coords.value != ""){
             var jsonData = JSON.parse(coords.value)
 
-            console.log("value: " + jsonData)
             var latLngs = jsonData.map(function(item) {
                 return [item.lat, item.lng];
             });
-            console.log("latlngs: " + latLngs)
-    
-            // Create a polygon and add it to the map
-            var polygon = L.polygon(latLngs).addTo(map);
         }
+        
+        console.log(calculateCenterPoint(latLngs))
+        
+        let map = L.map('map', {
+            //center: [51.65028080463477, 5.0484079052199275],
+            center: calculateCenterPoint(latLngs),
+            zoom: 15,
+        });
+        L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
+        
+        if (latLngs != null){
+            var polygon = L.polygon(latLngs).addTo(map);
+        } 
+        
         // add Leaflet-Geoman controls with some options to the map  
         map.pm.addControls({  
           position: 'topleft',  
@@ -83,5 +84,24 @@
             })
             coords.value = ""
         })
+        
+        function calculateCenterPoint(locations) {
+            // Initialize sum variables
+            let totalLat = 0;
+            let totalLng = 0;
+        
+            // Iterate through each location
+            locations.forEach(location => {
+                // Add latitude and longitude to sums
+                totalLat += location[0];
+                totalLng += location[1];
+            });
+        
+            // Calculate average latitude and longitude
+            const avgLat = totalLat / locations.length;
+            const avgLng = totalLng / locations.length;
+        
+            return [avgLat, avgLng];
+        }
     </script>
 }

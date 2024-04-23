@@ -26,16 +26,13 @@
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </div>
 </form>
-<p class="italic">TIP: Gebruik voor ieder coördinaat een komma in plaats van een punt.</p>
 
 @section Scripts
 {
     <script>
         let map = L.map('map', {
-            center: [51.65028080463477, 5.0484079052199275],
-            zoom: 15,
-            minZoom: 15,
-            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
+            center: [52.237367, 5.654817],
+            zoom: 7,
         });
         L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
         
