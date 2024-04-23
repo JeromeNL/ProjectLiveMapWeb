@@ -5,6 +5,7 @@
     ViewBag.Title = "Faciliteit bekijken";
     Layout = "_Layout";
     var errorMessage = TempData["Error"] as string;
+    var approveModalId = $"deleteModal_{Model.Facility.Id}";
 }
 
 <div class="flex flex-row">
@@ -16,10 +17,8 @@
         </a>
         <div class="flex items-center space-x-4">
             <h2 class="text-2xl font-semibold">@Model.Facility.Name - @Model.Facility.Id</h2>
-            <form id="deleteform" method="post" asp-action="Delete" asp-route-id="@Model.Facility.Id" onsubmit="return confirmDeletion()">
-                <input type="hidden" name="_method" value="DELETE">
-                <button type="submit" class="underline">Verwijder</button>
-            </form>
+            <button type="submit" class="underline"  
+                    onclick="document.getElementById('@approveModalId').classList.add('modal-open')">Verwijder</button>
         </div>
         <p>@Model.Facility.Description</p>
         <p>Categorie: @Model.Facility.Category.Name</p>
@@ -28,6 +27,7 @@
         <p>Huidige locatie:</p>
         <div id="map" class="h-[20vh] w-[20vw]"></div>
     </div>
+     @Html.Partial("_DeleteFacilityModal", @Model.Facility)
     
     <div class="basis-1/2">
         <div class="inline-block w-auto px-5 py-5"></div>
@@ -107,9 +107,7 @@
         });
         marker.addTo(map).bindPopup(popupContent);
         
-        function confirmDeletion() {
-            return confirm('Weet u zeker dat u deze faciliteit wilt verwijderen?');
-        }
+       
     </script>
 }
 
