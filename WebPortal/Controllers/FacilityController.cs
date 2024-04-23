@@ -84,10 +84,39 @@ public class FacilityController : Controller
         var viewModel = new FacilityViewModel
         {
             Facility = facility,
-            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() 
+            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() ,
+            IsAlwaysOpen = facility.IsAlwaysOpen()
         };
     
         return View(viewModel);
+    }
+
+    public async Task<IActionResult> SwitchIsAlwaysOpen(int id)
+    {
+        var facility = await _context.Facilities
+            .Include(f => f.DefaultOpeningHours) 
+            .Include(f => f.Category)
+            .FirstOrDefaultAsync(f => f.Id == id);
+
+        if (facility == null)
+        {
+            RedirectToAction("Index");
+        }
+        
+        if (facility.IsAlwaysOpen())
+        {
+            facility.SetToRegularOpeningHours();
+        }
+        else
+        {
+            facility.SetAlwaysOpen();
+        }
+        
+        _context.Facilities.Update(facility);
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Show", new { id = facility.Id });
+
     }
 
     [HttpGet]
