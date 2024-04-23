@@ -1,0 +1,16 @@
+@model DataAccess.Models.SpecialOpeningHours
+
+<!-- Modal Structure -->
+<div id="deleteModal_@Model.Date" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Faciliteit verwijderen</h3>
+        <p class="py-4">Weet u zeker dat u de speciale openingstijd voor @Model.Date wilt verwijderen?</p>
+        <div class="modal-action">
+            <form asp-action="DeleteSpecialOpeningHour" asp-controller="OpeningHours" method="POST" asp-route-facilityId="@Model.Facility.Id" asp-route-date="@Model.Date.ToString("yyyy-MM-dd")">
+                <button type="submit" class="btn btn-error">Verwijder</button>
+            </form>
+            <a href="#" class="btn" onclick="document.getElementById('deleteModal_@Model.Date').classList.remove('modal-open')">Annuleren</a>
+        </div>
+    </div>
+</div>
+
