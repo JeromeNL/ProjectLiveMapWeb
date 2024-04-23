@@ -81,7 +81,7 @@ public class FacilityReportController : Controller
         }
         report.Status = ReportStatus.Accepted;
         await _context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Melding " + report.Id + " is goedgekeurd.";
+        TempData["SuccessMessage"] = "Melding " + report.Id + " is goedgekeurd.";
         return RedirectToAction(nameof(Index));
     }
 }

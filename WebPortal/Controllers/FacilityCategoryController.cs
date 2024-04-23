@@ -26,7 +26,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : Controller
 
         await context.FacilityCategories.AddAsync(facilityCategory);
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Categorie " + facilityCategory.Name + " is aangemaakt.";
+        TempData["SuccessMessage"] = "Categorie " + facilityCategory.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
 
@@ -43,7 +43,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : Controller
         if (!ModelState.IsValid) return View(facilityCategory);
         context.FacilityCategories.Update(facilityCategory);
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Categorie " + facilityCategory.Name + " is bijgewerkt.";
+        TempData["SuccessMessage"] = "Categorie " + facilityCategory.Name + " is bijgewerkt.";
         return RedirectToAction("Index");
     }
 

@@ -49,7 +49,7 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             if (isValid)
             {
                 await context.SaveChangesAsync();
-                TempData["InfoMessage"] = "De standaard openingstijden zijn bijgewerkt.";
+                TempData["SuccessMessage"] = "De standaard openingstijden zijn bijgewerkt.";
                 return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
             }
         }
@@ -106,7 +106,7 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             await context.SaveChangesAsync();
         }
 
-        TempData["InfoMessage"] = "Speciale openingstijden voor " + newOpeningHour.Date + " zijn toegevoegd.";
+        TempData["SuccessMessage"] = "Speciale openingstijden voor " + newOpeningHour.Date + " zijn toegevoegd.";
         return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
     }
     

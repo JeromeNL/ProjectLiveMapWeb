@@ -68,7 +68,7 @@ public class FacilityController : Controller
         _context.AddRange(openingHours);
         
         await _context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Faciliteit " + viewModel.Facility.Name + " is aangemaakt.";
+        TempData["SuccessMessage"] = "Faciliteit " + viewModel.Facility.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
     

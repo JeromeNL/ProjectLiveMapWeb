@@ -38,7 +38,7 @@ public class ResortController(LiveMapDbContext context) : Controller
         
         await context.HolidayResorts.AddAsync(holidayResort);
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Park " + holidayResort.Name + " is aangemaakt.";
+        TempData["SuccessMessage"] = "Park " + holidayResort.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
 
@@ -68,7 +68,7 @@ public class ResortController(LiveMapDbContext context) : Controller
         }
         context.Update(holidayResort);
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Park " + holidayResort.Name + " is bijgewerkt.";
+        TempData["SuccessMessage"] = "Park " + holidayResort.Name + " is bijgewerkt.";
         return RedirectToAction("Details", holidayResort.Id);
     }
 }

@@ -27,7 +27,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
         }
         await context.ServiceReportCategories.AddAsync(category);
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Meldingscategorie " + category.Name + " is toegevoegd." ;
+        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is toegevoegd." ;
         return RedirectToAction("Index");
     }
     
@@ -50,7 +50,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Control
 
         existingCategory.Name = category.Name;
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Meldingscategorie " + category.Name + " is bijgewerkt." ;
+        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is bijgewerkt." ;
         return RedirectToAction("Index");
     }
     
