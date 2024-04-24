@@ -48,4 +48,29 @@ public class HolidayResort : ISoftDelete
             Lat = sumY / (6f * area)
         };
     }
+
+    public bool IsPointInside(double latitude, double longitude)
+    {
+        var parsedCoordinates = JsonConvert.DeserializeObject<List<Coordinate>>(Coordinates);
+        var numIntersections = 0;
+        const double tolerance = 1e-6;
+        for (var i = 0; i < parsedCoordinates.Count; i++)
+        {
+            var x1 = parsedCoordinates[i].Lng;
+            var y1 = parsedCoordinates[i].Lat;
+            var x2 = parsedCoordinates[(i + 1) % parsedCoordinates.Count].Lng;
+            var y2 = parsedCoordinates[(i + 1) % parsedCoordinates.Count].Lat;
+
+            if (Math.Abs(latitude - x1) < tolerance && Math.Abs(longitude - y1) < tolerance)
+                return true;
+
+            if (((y1 <= longitude && longitude < y2) || (y2 <= longitude && longitude < y1)) &&
+                (latitude < (x2 - x1) * (longitude - y1) / (y2 - y1) + x1))
+            {
+                numIntersections++;
+            }
+        }
+
+        return numIntersections % 2 == 1;
+    } 
 }

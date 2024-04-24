@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 

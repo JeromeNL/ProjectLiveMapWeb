@@ -1,8 +1,8 @@
-﻿using BusinessLogic;
-using DataAccess;
+﻿using DataAccess;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.Base;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
@@ -30,14 +30,20 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
     [HttpGet]
     public async Task<IActionResult> Create(double latitude, double longitude)
     {
-        if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
+        var resort = await context.HolidayResorts.FindAsync(ResortId);
+        
+        if (resort == null)
+        {
+            return NotFound();
+        }
+        
+        if (!resort.IsPointInside(latitude, longitude))
         {
             ViewBag.message = "het geklikte punt ligt niet binnen het park";
             var facilities = context.Facilities
                 .Where(f => f.HolidayResortId == ResortId)
                 .Include(f => f.Category)
                 .ToList();
-            var resort = await context.HolidayResorts.FindAsync(ResortId);
             var indexViewModel = new FacilityIndexViewModel
             {
                 Facilities = facilities,

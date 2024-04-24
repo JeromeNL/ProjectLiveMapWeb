@@ -12,7 +12,7 @@ public static class ValidationLogic
             (51.649581304758911, 5.0386373727005704),
         };
     
-    public static bool IsPointInsidePolygon(double latitude, double longitude)
+    public static bool IsPointInsidePolygon(this string coords, double latitude, double longitude)
     {
         int numIntersections = 0;
         double tolerance = 1e-6;

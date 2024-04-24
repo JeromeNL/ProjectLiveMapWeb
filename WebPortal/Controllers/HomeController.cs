@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using WebPortal.Controllers.Base;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
