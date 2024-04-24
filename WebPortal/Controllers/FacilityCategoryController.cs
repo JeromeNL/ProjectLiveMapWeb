@@ -3,19 +3,23 @@ using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
-public class FacilityCategoryController(LiveMapDbContext context) : Controller
+public class FacilityCategoryController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
-        var facilityCategories = await context.FacilityCategories.ToListAsync();
+        var facilityCategories = await context.FacilityCategories
+            .Where(category => category.HolidayResortId == ResortId)
+            .ToListAsync();
         return View(facilityCategories);
     }
 
     public IActionResult Create()
     {
+        ViewBag.ResortId = ResortId;
         return View();
     }
 
@@ -33,6 +37,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : Controller
     public async Task<IActionResult> Edit(int id)
     {
         var facilityCategory = await context.FacilityCategories.FindAsync(id);
+        ViewBag.ResortId = ResortId;
         if (facilityCategory == null) return NotFound();
         return View(facilityCategory);
     }

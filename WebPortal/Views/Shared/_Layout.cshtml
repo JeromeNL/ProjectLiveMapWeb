@@ -25,7 +25,7 @@
 <header>
     <nav class="bg-white p-6">
         <div class="container mx-auto flex items-center justify-between">
-            <a href="#" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
+            <a asp-controller="Home" asp-action="Index" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
             <div class="flex items-center">
                 <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
                 <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteiten</a>
@@ -34,6 +34,7 @@
                 <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
                 <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
             </div>
+            <a asp-controller="Home" asp-action="ClearCurrentResort">Park aanpassen</a>
         </div>
     </nav>
 </header>

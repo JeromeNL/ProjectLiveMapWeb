@@ -14,35 +14,40 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Id = 1,
                 Name = "Restaurant",
                 Description = "Voorzieningen die eten en drinken mogelijk maken",
-                IconName = "chef-hat"
+                IconName = "chef-hat",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 2,
                 Name = "Sport",
                 Description = "Voorzieningen die sport mogelijk maken",
-                IconName = "ball-tennis"
+                IconName = "ball-tennis",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 3,
                 Name = "Supermarkt",
                 Description = "Voorzieningen die boodschappen mogelijk maken",
-                IconName = "shopping-cart"
+                IconName = "shopping-cart",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 4,
                 Name = "Zwembad",
                 Description = "Voorzieningen die zwemmen mogelijk maken",
-                IconName = "swimming"
+                IconName = "swimming",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 5,
                 Name = "Speeltuin",
                 Description = "Voorzieningen die spelen mogelijk maken",
-                IconName = "sandbox"
+                IconName = "sandbox",
+                HolidayResortId = 1,
             }
         };
     }

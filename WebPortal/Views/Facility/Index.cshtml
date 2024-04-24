@@ -1,4 +1,4 @@
-﻿@model List<DataAccess.Models.Facility>
+﻿@model FacilityIndexViewModel
 @{
     ViewBag.Title = "Faciliteiten";
     Layout = "_Layout";
@@ -19,18 +19,18 @@
     <script src="@Url.Content("~/js/MapMarker.js")"></script>
     <script>
         let map = L.map('map', {
-            center: [51.65028080463477, 5.0484079052199275],
+            center: @Model.Resort.GetCoordinatesOfCenterPoint().ToString(),
             zoom: 16,
             attributionControl: false,
             minZoom: 16,
-            maxBounds: [[51.65409301291617, 5.055245412377415], [51.64602718326105, 5.041388287563508]]
+            maxBounds: @Html.Raw(Model.Resort.Coordinates)
         });
         L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")')
         .addTo(map);
         
         let markers = [];
-     
-        @foreach (var facility in Model)
+        
+        @foreach (var facility in Model.Facilities)
         {
             <text> 
             {

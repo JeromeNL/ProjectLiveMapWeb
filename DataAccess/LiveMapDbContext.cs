@@ -59,5 +59,12 @@ public class LiveMapDbContext : DbContext
 
         modelBuilder.Entity<HolidayResort>()
             .HasQueryFilter(x => x.DeletedAt == null);
+
+        // This disables the cascade delete behavior globally
+        // Normally this would be a no-go, but we're using soft delete, so a delete actually never triggers an SQL delete
+        foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+        {
+            relationship.DeleteBehavior = DeleteBehavior.Restrict;
+        }
     }
 }

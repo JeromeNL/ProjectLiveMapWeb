@@ -1,14 +1,16 @@
 ﻿using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
-public class ServiceReportController(LiveMapDbContext context) : Controller
+public class ServiceReportController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
         var reports = await context.ServiceReports
+            .Where(f => f.HolidayResortId == ResortId)
             .Include(r => r.ServiceReportCategory)
             .Include(r => r.Facility)
             .Include(r => r.User)

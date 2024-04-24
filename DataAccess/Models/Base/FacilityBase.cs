@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DataAccess.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace DataAccess.Models.Base;
 
@@ -18,6 +18,13 @@ public abstract class FacilityBase
     
     [ForeignKey(nameof(CategoryId))]
     public FacilityCategory Category { get; set; }
+    
+    [Required]
+    public int HolidayResortId { get; set; }
+    
+    [ForeignKey(nameof(HolidayResortId))]
+    [JsonIgnore]
+    public HolidayResort? HolidayResort { get; set; }
 
     [Required(ErrorMessage = "Dit veld is verplicht.")]
     public double Latitude { get; set; }
