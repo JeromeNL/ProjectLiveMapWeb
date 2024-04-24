@@ -29,7 +29,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
 
         report.Status = ReportStatus.Denied;
         await context.SaveChangesAsync();
-
+        TempData["InfoMessage"] = "Melding " + report.Id + " is afgekeurd.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -75,6 +75,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
         }
         report.Status = ReportStatus.Accepted;
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Melding " + report.Id + " is goedgekeurd.";
         return RedirectToAction(nameof(Index));
     }
 }

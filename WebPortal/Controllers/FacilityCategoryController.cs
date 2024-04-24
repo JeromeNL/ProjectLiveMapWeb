@@ -29,6 +29,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : LivemapContr
 
         await context.FacilityCategories.AddAsync(facilityCategory);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Categorie " + facilityCategory.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
 
@@ -46,6 +47,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : LivemapContr
         if (!ModelState.IsValid) return View(facilityCategory);
         context.FacilityCategories.Update(facilityCategory);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Categorie " + facilityCategory.Name + " is bijgewerkt.";
         return RedirectToAction("Index");
     }
 
@@ -66,6 +68,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : LivemapContr
 
         context.FacilityCategories.Remove(facilityCategory);
         await context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Categorie " + facilityCategory.Name + " is verwijderd.";
         return RedirectToAction("Index");
     }
 }

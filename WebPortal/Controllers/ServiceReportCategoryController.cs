@@ -25,10 +25,6 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
     [HttpPost]
     public async Task<IActionResult> Add(ServiceReportCategory category)
     {
-        // All modelstate errors
-        var modelState = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-        modelState.ForEach(Console.WriteLine);
-        
         if (!ModelState.IsValid)
         {
             return View("Create", category);
@@ -36,6 +32,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
 
         await context.ServiceReportCategories.AddAsync(category);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is toegevoegd." ;
         return RedirectToAction("Index");
     }
 
@@ -61,7 +58,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
 
         existingCategory.Name = category.Name;
         await context.SaveChangesAsync();
-
+        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is bijgewerkt." ;
         return RedirectToAction("Index");
     }
 
@@ -81,6 +78,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
 
         context.ServiceReportCategories.Remove(category);
         await context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Meldingscategorie " + category.Name + " is verwijderd." ;
         return RedirectToAction("Index");
     }
 }

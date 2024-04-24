@@ -1,9 +1,11 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<DataAccess.Models.HolidayResort>
 @{
     ViewData["Title"] = "Parkenbeheer";
     Layout = "_Layout";
 }
-
+@Html.Partial("_MessagesToast")
 
 <div class="flex justify-between items-center mb-4">
     <h2 class="text-xl font-bold">Parkenbeheer</h2>
@@ -25,6 +27,7 @@
     <tbody class="bg-white divide-y divide-gray-200">
     @foreach (var resort in Model)
     {
+        var approveModalId = $"deleteModal_{resort.Id}";
         <tr>
             <td class="px-6 py-4 whitespace-nowrap">
                 @resort.Id
@@ -35,11 +38,13 @@
                 </a>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-                <form method="post" asp-action="Delete" asp-route-resortId="@resort.Id">
-                    <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
-                </form>
+                <button type="submit" class="text-red-500 hover:text-red-700"
+                        onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                    Verwijder
+                </button>
             </td>
         </tr>
+        @Html.Partial("_DeleteHolidayResortModal", resort)
     }
     </tbody>
 </table>

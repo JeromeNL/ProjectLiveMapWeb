@@ -5,7 +5,7 @@
     ViewBag.Title = Index.Title;
     Layout = "_Layout";
 }
-
+@Html.Partial("_MessagesToast")
 <h1 class="text-2xl font-semibold">@Index.Title</h1>
 
 <div class="overflow-x-auto mt-2">
@@ -21,38 +21,38 @@
         </thead>
         <tbody>
             @foreach (var report in Model)
-            {
-                var approveModalId = $"approveModal_{report.Id}";
-                var rejectModalId = $"rejectModal_{report.Id}";
-                <tr>
-                    @if (report.ProposedFacility.FacilityId == null)
-                    {
-                        <td class="h-20">Nieuwe faciliteit</td>
-                        <td class="h-16"></td>
-                    }
-                    else
-                    {
-                        <td class="h-20">@report.ProposedFacility.Facility?.Name</td>
-                        <td class="h-20">@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
-                    }
-        
-                    <td class="h-20">@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
-                    <td class="h-20">@report.CreatedAt</td>
-                    <td class="flex space-x-2 h-20">
-                        <button class="btn btn-sm btn-success"
-                                onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
-                            @Index.Approve
-                        </button>
-                        <button class="btn btn-sm btn-error"
-                                onclick="document.getElementById('@rejectModalId').classList.add('modal-open')">
-                            @Index.Reject
-                        </button>
-                        
-                    </td>
-                </tr>
-                @Html.Partial("_ApproveFacilityReportModal", report)
-                @Html.Partial("_DenyFacilityReportModal", report)
-            }
+                {
+                    var approveModalId = $"approveModal_{report.Id}";
+                    var rejectModalId = $"rejectModal_{report.Id}";
+                    <tr>
+                        @if (report.ProposedFacility.FacilityId == null)
+                        {
+                            <td class="h-20">Nieuwe faciliteit</td>
+                            <td class="h-16"></td>
+                        }
+                        else
+                        {
+                            <td class="h-20">@report.ProposedFacility.Facility?.Name</td>
+                            <td class="h-20">@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
+                        }
+            
+                        <td class="h-20">@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
+                        <td class="h-20">@report.CreatedAt</td>
+                        <td class="flex space-x-2 h-20">
+                            <button class="btn btn-sm btn-success"
+                                    onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                                @Index.Approve
+                            </button>
+                            <button class="btn btn-sm btn-error"
+                                    onclick="document.getElementById('@rejectModalId').classList.add('modal-open')">
+                                @Index.Reject
+                            </button>
+                            
+                        </td>
+                    </tr>
+                    @Html.Partial("_ApproveFacilityReportModal", report)
+                    @Html.Partial("_DenyFacilityReportModal", report)
+                }
         </tbody>
 
     </table>
