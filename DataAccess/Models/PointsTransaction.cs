@@ -9,6 +9,10 @@ public class PointsTransaction
 
     [Required] [Range(-10, 10)] public int Amount { get; set; }
 
+    [Required] public int HolidayResortId { get; set; }
+
+    [ForeignKey(nameof(HolidayResortId))] public HolidayResort HolidayResort { get; set; }
+
     [Required] public int UserId { get; set; }
 
     [ForeignKey(nameof(UserId))] public User User { get; set; }

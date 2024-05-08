@@ -36,7 +36,9 @@ public class ServiceReportController(LiveMapDbContext context) : LivemapControll
             ServiceReportId = id,
             ServiceReport = report,
             UserId = report.UserId,
-            User = report.User
+            User = report.User,
+            HolidayResortId = report.HolidayResortId,
+            HolidayResort = report.HolidayResort
         };
 
         await context.PointsTransactions.AddAsync(transaction);
