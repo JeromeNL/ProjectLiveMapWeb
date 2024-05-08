@@ -6,8 +6,8 @@
         <p class="py-4">Weet u zeker dat u de melding voor '@Model.ProposedFacility.Name' wilt goedkeuren?</p>
         <div class="modal-action">
             <form asp-action="ApproveReport" asp-controller="FacilityReport" method="POST" asp-route-id="@Model.Id">
-                <label>Aantal punten toewijzen</label>
-                <input name="points" type="number" min="0" max="100"/>
+                <label for="points">Aantal punten toewijzen</label>
+                <input required id="points" name="points" type="number" min="0" max="100"/>
                 <button type="submit" class="btn btn-success">Goedkeuren</button>
             </form>
             <button onclick="document.getElementById('approveModal_@Model.Id').classList.remove('modal-open')" class="btn">Annuleren</button>
