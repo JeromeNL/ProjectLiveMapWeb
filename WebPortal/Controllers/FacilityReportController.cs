@@ -56,6 +56,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
                 Longitude = report.ProposedFacility.Longitude,
                 Latitude = report.ProposedFacility.Latitude,
                 CategoryId = report.ProposedFacility.CategoryId,
+                HolidayResortId = report.HolidayResortId
             };
 
             await context.Facilities.AddAsync(newFacility);
