@@ -11,4 +11,9 @@ public class User
     [Required]
     [MaxLength(100)]
     public string Name { get; set; }
+    
+    [NotMapped]
+    public int RewardPoints => PointsTransactions.Sum(t => t.Amount);
+    
+    public IEnumerable<PointsTransaction> PointsTransactions { get; } = new List<PointsTransaction>();
 }
