@@ -100,7 +100,7 @@
 {
     <script src="@Url.Content("~/js/MapMarker.js")"></script>
     <script>
-        let pinIcon = PinIcon('#FFAB33', '@Model.Facility.Category.IconName')
+        let pinIcon = PinIcon('@Model.Facility.Category.HexCode', '@Model.Facility.Category.IconName')
         
         let markerLocation = L.latLng(@Model.Facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.Facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
         let map = L.map('map', {
