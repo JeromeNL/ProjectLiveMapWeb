@@ -50,7 +50,61 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Id = 5,
                 Name = "Speeltuin",
                 Description = "Voorzieningen die spelen mogelijk maken",
-                IconName = "sandbox",
+                IconName = "monkeybar",
+                HexCode = "#0000FF",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                Id = 6,
+                Name = "Attractie",
+                Description = "Een attractie in het park",
+                IconName = "rollercoaster",
+                HexCode = "#0000FF",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                Id = 7,
+                Name = "Sanitaire voorziening",
+                Description = "Een sanitaire voorziening zoals een WC of douche",
+                IconName = "badge-wc",
+                HexCode = "#0000FF",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                Id = 8,
+                Name = "Accomodatie",
+                Description = "Een accomodatie zoals een hotel.",
+                IconName = "building-skyscraper",
+                HexCode = "#0000FF",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                Id = 9,
+                Name = "Parkeerplaats",
+                Description = "Een parkeerplaats die toegankelijk is voor gasten.",
+                IconName = "parking",
+                HexCode = "#0000FF",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                Id = 10,
+                Name = "Afvalcontainers",
+                Description = "Verschillende afvalcontainers voor het scheiden van afval",
+                IconName = "recycle",
+                HexCode = "#0000FF",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                Id = 11,
+                Name = "AED",
+                Description = "Op deze plaats hangt een AED",
+                IconName = "heartbeat",
                 HexCode = "#0000FF",
                 HolidayResortId = 1,
             }
