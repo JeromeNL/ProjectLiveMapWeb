@@ -6,3 +6,7 @@
 {
     @Html.Partial("_InfoToast", TempData["InfoMessage"].ToString())
 }
+@if (TempData["ErrorMessage"] != null)
+{
+    @Html.Partial("_ErrorToast", TempData["ErrorMessage"].ToString())
+}

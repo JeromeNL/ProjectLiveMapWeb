@@ -21,6 +21,9 @@ public class FacilityCategory : ISoftDelete
     public string IconName { get; set; }
     
     [Required]
+    public string HexCode { get; set; }
+    
+    [Required]
     public int HolidayResortId { get; set; }
     
     [ForeignKey(nameof(HolidayResortId))]
