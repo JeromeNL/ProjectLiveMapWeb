@@ -15,7 +15,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Restaurant",
                 Description = "Voorzieningen die eten en drinken mogelijk maken",
                 IconName = "chef-hat",
-                HexCode = "#D70040",
+                HexCode = "#7F3FBF",
                 HolidayResortId = 1,
             },
             new()
@@ -24,7 +24,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Speeltuin",
                 Description = "Voorzieningen die spelen mogelijk maken",
                 IconName = "monkeybar",
-                HexCode = "#DA70D6",
+                HexCode = "#FE8B15",
                 HolidayResortId = 1,
             },
             new()
@@ -33,7 +33,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Attractie",
                 Description = "Een attractie in het park",
                 IconName = "rollercoaster",
-                HexCode = "#40E0D0",
+                HexCode = "#FFC611",
                 HolidayResortId = 1,
             },
             new()
@@ -42,7 +42,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Sanitaire voorziening",
                 Description = "Een sanitaire voorziening zoals een WC of douche",
                 IconName = "badge-wc",
-                HexCode = "#E2725B",
+                HexCode = "#0047AB",
                 HolidayResortId = 1,
             },
             new()
@@ -51,7 +51,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Accomodatie",
                 Description = "Een accomodatie zoals een hotel.",
                 IconName = "building-skyscraper",
-                HexCode = "#BFFF00",
+                HexCode = "#FA4748",
                 HolidayResortId = 1,
             },
             new()
@@ -60,7 +60,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Parkeerplaats",
                 Description = "Een parkeerplaats die toegankelijk is voor gasten.",
                 IconName = "parking",
-                HexCode = "#D3D3D3",
+                HexCode = "#808080",
                 HolidayResortId = 1,
             },
             new()
@@ -69,7 +69,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Afvalcontainers",
                 Description = "Verschillende afvalcontainers voor het scheiden van afval",
                 IconName = "recycle",
-                HexCode = "#FFB6C1",
+                HexCode = "#6FAB2C",
                 HolidayResortId = 1,
             },
             new()
@@ -78,7 +78,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "AED",
                 Description = "Op deze plaats hangt een AED",
                 IconName = "heartbeat",
-                HexCode = "#CCCCFF",
+                HexCode = "#8B0000",
                 HolidayResortId = 1,
             },
             new()
@@ -87,7 +87,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Overig",
                 Description = "Overige plaatsen zoals ingangen",
                 IconName = "map-pin",
-                HexCode = "#2E8B57",
+                HexCode = "#32CD32",
                 HolidayResortId = 1,
             },
             
@@ -97,7 +97,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Sport",
                 Description = "Voorzieningen die sport mogelijk maken",
                 IconName = "ball-tennis",
-                HexCode = "#D70040",
+                HexCode = "#30D5C8",
                 HolidayResortId = 1,
             },
             
@@ -107,7 +107,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Supermarkt",
                 Description = "Voorzieningen die boodschappen mogelijk maken",
                 IconName = "shopping-cart",
-                HexCode = "#50C878",
+                HexCode = "#F472B6",
                 HolidayResortId = 1,
             },
             new()
@@ -116,9 +116,11 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Zwembad",
                 Description = "Voorzieningen die zwemmen mogelijk maken",
                 IconName = "swimming",
-                HexCode = "#FFBF00",
+                HexCode = "#027FE8",
                 HolidayResortId = 1,
             },
+            
+            
             
             // For landal
              new()
@@ -127,7 +129,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Restaurant",
                 Description = "Voorzieningen die eten en drinken mogelijk maken",
                 IconName = "chef-hat",
-                HexCode = "#D70040",
+                HexCode = "#7F3FBF",
                 HolidayResortId = 2,
             },
             new()
@@ -136,7 +138,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Speeltuin",
                 Description = "Voorzieningen die spelen mogelijk maken",
                 IconName = "monkeybar",
-                HexCode = "#DA70D6",
+                HexCode = "#FE8B15",
                 HolidayResortId = 2,
             },
             new()
@@ -145,7 +147,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Attractie",
                 Description = "Een attractie in het park",
                 IconName = "rollercoaster",
-                HexCode = "#40E0D0",
+                HexCode = "#FFC611",
                 HolidayResortId = 2,
             },
             new()
@@ -154,7 +156,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Sanitaire voorziening",
                 Description = "Een sanitaire voorziening zoals een WC of douche",
                 IconName = "badge-wc",
-                HexCode = "#E2725B",
+                HexCode = "#0047AB",
                 HolidayResortId = 2,
             },
             new()
@@ -163,7 +165,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Accomodatie",
                 Description = "Een accomodatie zoals een hotel.",
                 IconName = "building-skyscraper",
-                HexCode = "#BFFF00",
+                HexCode = "#FA4748",
                 HolidayResortId = 2,
             },
             new()
@@ -172,7 +174,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Parkeerplaats",
                 Description = "Een parkeerplaats die toegankelijk is voor gasten.",
                 IconName = "parking",
-                HexCode = "#D3D3D3",
+                HexCode = "#808080",
                 HolidayResortId = 2,
             },
             new()
@@ -181,7 +183,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Afvalcontainers",
                 Description = "Verschillende afvalcontainers voor het scheiden van afval",
                 IconName = "recycle",
-                HexCode = "#FFB6C1",
+                HexCode = "#6FAB2C",
                 HolidayResortId = 2,
             },
             new()
@@ -190,7 +192,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "AED",
                 Description = "Op deze plaats hangt een AED",
                 IconName = "heartbeat",
-                HexCode = "#CCCCFF",
+                HexCode = "#8B0000",
                 HolidayResortId = 2,
             },
             new()
@@ -199,7 +201,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Overig",
                 Description = "Overige plaatsen zoals ingangen",
                 IconName = "map-pin",
-                HexCode = "#2E8B57",
+                HexCode = "#32CD32",
                 HolidayResortId = 2,
             },
             
@@ -209,7 +211,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Sport",
                 Description = "Voorzieningen die sport mogelijk maken",
                 IconName = "ball-tennis",
-                HexCode = "#D70040",
+                HexCode = "#30D5C8",
                 HolidayResortId = 2,
             },
             
@@ -219,7 +221,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Supermarkt",
                 Description = "Voorzieningen die boodschappen mogelijk maken",
                 IconName = "shopping-cart",
-                HexCode = "#50C878",
+                HexCode = "#F472B6",
                 HolidayResortId = 2,
             },
             new()
@@ -228,7 +230,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Name = "Zwembad",
                 Description = "Voorzieningen die zwemmen mogelijk maken",
                 IconName = "swimming",
-                HexCode = "#FFBF00",
+                HexCode = "#027FE8",
                 HolidayResortId = 2,
             }
         };
