@@ -26,13 +26,20 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
 
     public async Task<IActionResult> Add(int userId, string description, int price)
     {
-        //TODO: check if user has enough points
         var id = Guid.NewGuid();
         var user = await Context.Users.FindAsync(userId);
         var resort = await Context.HolidayResorts.FindAsync(ResortId);
-        // var pointsOfUser = await Context.PointsTransactions.Select(t => t.Amount).Sum();
+        var pointsOfUser = await Context.PointsTransactions.Select(t => t.Amount).SumAsync();
+
+        if (pointsOfUser < price)
+        {
+            TempData["ErrorMessage"] = $"{user.Name} heeft niet genoeg punten om deze voucher te kopen";
+            return RedirectToAction("Index");
+        }
+
         if (user == null && resort == null)
         {
+            TempData["ErrorMessage"] = "Gekozen gebruiker bestaat niet voor dit vakantiepark";
             return RedirectToAction("Index");
         }
 
