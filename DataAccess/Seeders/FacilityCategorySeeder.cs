@@ -118,6 +118,118 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 IconName = "swimming",
                 HexCode = "#FFBF00",
                 HolidayResortId = 1,
+            },
+            
+            // For landal
+             new()
+            {
+                Id = 101,
+                Name = "Restaurant",
+                Description = "Voorzieningen die eten en drinken mogelijk maken",
+                IconName = "chef-hat",
+                HexCode = "#D70040",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 102,
+                Name = "Speeltuin",
+                Description = "Voorzieningen die spelen mogelijk maken",
+                IconName = "monkeybar",
+                HexCode = "#DA70D6",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 103,
+                Name = "Attractie",
+                Description = "Een attractie in het park",
+                IconName = "rollercoaster",
+                HexCode = "#40E0D0",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 104,
+                Name = "Sanitaire voorziening",
+                Description = "Een sanitaire voorziening zoals een WC of douche",
+                IconName = "badge-wc",
+                HexCode = "#E2725B",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 105,
+                Name = "Accomodatie",
+                Description = "Een accomodatie zoals een hotel.",
+                IconName = "building-skyscraper",
+                HexCode = "#BFFF00",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 106,
+                Name = "Parkeerplaats",
+                Description = "Een parkeerplaats die toegankelijk is voor gasten.",
+                IconName = "parking",
+                HexCode = "#D3D3D3",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 107,
+                Name = "Afvalcontainers",
+                Description = "Verschillende afvalcontainers voor het scheiden van afval",
+                IconName = "recycle",
+                HexCode = "#FFB6C1",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 108,
+                Name = "AED",
+                Description = "Op deze plaats hangt een AED",
+                IconName = "heartbeat",
+                HexCode = "#CCCCFF",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 109,
+                Name = "Overig",
+                Description = "Overige plaatsen zoals ingangen",
+                IconName = "map-pin",
+                HexCode = "#2E8B57",
+                HolidayResortId = 2,
+            },
+            
+            new()
+            {
+                Id = 110,
+                Name = "Sport",
+                Description = "Voorzieningen die sport mogelijk maken",
+                IconName = "ball-tennis",
+                HexCode = "#D70040",
+                HolidayResortId = 2,
+            },
+            
+            new()
+            {
+                Id = 111,
+                Name = "Supermarkt",
+                Description = "Voorzieningen die boodschappen mogelijk maken",
+                IconName = "shopping-cart",
+                HexCode = "#50C878",
+                HolidayResortId = 2,
+            },
+            new()
+            {
+                Id = 112,
+                Name = "Zwembad",
+                Description = "Voorzieningen die zwemmen mogelijk maken",
+                IconName = "swimming",
+                HexCode = "#FFBF00",
+                HolidayResortId = 2,
             }
         };
     }
