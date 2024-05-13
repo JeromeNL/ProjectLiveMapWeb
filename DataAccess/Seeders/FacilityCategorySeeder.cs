@@ -9,7 +9,6 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
     {
         return new List<FacilityCategory>
         {
-            // Categories for Efteling
             new()
             {
                 Id = 1,
@@ -99,7 +98,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Description = "Voorzieningen die sport mogelijk maken",
                 IconName = "ball-tennis",
                 HexCode = "#D70040",
-                HolidayResortId = 2,
+                HolidayResortId = 1,
             },
             
             new()
@@ -109,7 +108,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Description = "Voorzieningen die boodschappen mogelijk maken",
                 IconName = "shopping-cart",
                 HexCode = "#50C878",
-                HolidayResortId = 2,
+                HolidayResortId = 1,
             },
             new()
             {
@@ -118,7 +117,7 @@ public class FacilityCategorySeeder : ISeeder<FacilityCategory>
                 Description = "Voorzieningen die zwemmen mogelijk maken",
                 IconName = "swimming",
                 HexCode = "#FFBF00",
-                HolidayResortId = 2,
+                HolidayResortId = 1,
             }
         };
     }
