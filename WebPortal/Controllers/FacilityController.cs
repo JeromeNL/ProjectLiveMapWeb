@@ -39,18 +39,8 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
         
         if (!resort.IsPointInside(latitude, longitude))
         {
-            ViewBag.message = "het geklikte punt ligt niet binnen het park";
-            var facilities = context.Facilities
-                .Where(f => f.HolidayResortId == ResortId)
-                .Include(f => f.Category)
-                .ToList();
-            var indexViewModel = new FacilityIndexViewModel
-            {
-                Facilities = facilities,
-                Resort = resort
-            };
-
-            return View("Index", indexViewModel);
+            TempData["ErrorMessage"] = "Klik binnen het park om een faciliteit toe te voegen.";
+            return RedirectToAction(nameof(Index));
         }
 
         var facilityCategories = await context.FacilityCategories

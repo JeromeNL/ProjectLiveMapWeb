@@ -19,7 +19,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
             .Include(report => report.ProposedFacility.Category)
             .Include(report => report.ProposedFacility.Facility.Category)
             .OrderBy(report => report.CreatedAt).ToListAsync();
-            
+
         return View(pendingReports);
     }
 
@@ -34,7 +34,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> ApproveReport(int id)
+    public async Task<IActionResult> ApproveReport(int id, int points)
     {
         var report = await context.FacilityReports
             .Include(r => r.ProposedFacility)
@@ -56,10 +56,10 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
                 Longitude = report.ProposedFacility.Longitude,
                 Latitude = report.ProposedFacility.Latitude,
                 CategoryId = report.ProposedFacility.CategoryId,
+                HolidayResortId = report.HolidayResortId
             };
 
             await context.Facilities.AddAsync(newFacility);
-
         }
         else
         {
@@ -71,12 +71,28 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
                 facility.CategoryId = proposedFacilityChange.CategoryId;
                 facility.Latitude = proposedFacilityChange.Latitude;
                 facility.Longitude = proposedFacilityChange.Longitude;
-                
             }
         }
+
         report.Status = ReportStatus.Accepted;
-        await context.SaveChangesAsync();
         TempData["SuccessMessage"] = "Melding " + report.Id + " is goedgekeurd.";
+
+        var transaction = new PointsTransaction()
+        {
+            Amount = points,
+            FacilityReportId = id,
+            FacilityReport = report,
+            ServiceReportId = null,
+            ServiceReport = null,
+            UserId = report.UserId,
+            User = report.User,
+            HolidayResortId = report.HolidayResortId,
+            HolidayResort = report.HolidayResort
+        };
+
+        await context.PointsTransactions.AddAsync(transaction);
+        await context.SaveChangesAsync();
+
         return RedirectToAction(nameof(Index));
     }
 }
