@@ -13,7 +13,7 @@ public class User
     public string Name { get; set; }
     
     [NotMapped]
-    public int RewardPoints => PointsTransactions.Sum(t => t.Amount);
+    public int TotalPoints => PointsTransactions.Sum(t => t.Amount);
     
     public IEnumerable<PointsTransaction> PointsTransactions { get; } = new List<PointsTransaction>();
 }

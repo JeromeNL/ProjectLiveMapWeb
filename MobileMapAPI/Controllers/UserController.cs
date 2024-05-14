@@ -53,6 +53,6 @@ public class UserController(LiveMapDbContext context) : ControllerBase
             return NotFound("User not found");
         }
 
-        return Ok(user.RewardPoints);
+        return Ok(user.TotalPoints);
     }
 }
