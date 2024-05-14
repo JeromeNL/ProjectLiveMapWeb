@@ -43,7 +43,10 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
             return RedirectToAction(nameof(Index));
         }
 
-        var facilityCategories = await context.FacilityCategories.ToListAsync();
+        var facilityCategories = await context.FacilityCategories
+            .Where(f => f.HolidayResortId == ResortId)
+            .ToListAsync();
+        
         var viewModel = new FacilityCreateViewModel
         {
             Facility = new Facility(),
