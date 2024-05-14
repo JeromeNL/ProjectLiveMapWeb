@@ -44,9 +44,40 @@ public class UserController(LiveMapDbContext context) : ControllerBase
     [HttpGet("{userId:int}/points/awarded")]
     public async Task<IActionResult> GetAwardedPointsOverview(int userId)
     {
-        var transactions = await context.PointsTransactions
-            .Where(transaction => transaction.UserId == userId).ToListAsync();
+        var user = await context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
         
+        var transactions = await context.PointsTransactions
+            .Where(transaction => transaction.UserId == userId)
+            .Where(transaction =>  transaction.Amount > 0)
+            .Include(transaction => transaction.FacilityReport)
+            .Include(transaction => transaction.ServiceReport)
+            .ToListAsync();
+        
+        return Ok(transactions);
+    }
+
+    [HttpGet("{userId:int}/points/deducted")]
+    public async Task<IActionResult> GetDeductedPointsOverview(int userId)
+    {
+        var user = await context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        } 
+        
+        var transactions = await context.PointsTransactions
+            .Where(transaction => transaction.UserId == userId)
+            .Where(transaction => transaction.Amount < 0)
+            .Include(transaction => transaction.FacilityReport)
+            .Include(transaction => transaction.ServiceReport)
+            .ToListAsync();
+
         return Ok(transactions);
     }
 }
