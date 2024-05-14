@@ -1,12 +1,12 @@
 ﻿@model List<DataAccess.Models.PointsTransaction>
 
 <div>
-    <h1 class="text-2xl font-semibold">Overzich Vouchers</h1>
+    <h1 class="text-2xl font-semibold">Overzicht Vouchers</h1>
     @if (ViewBag.message != null)
     {
         <p class="text-red-600">@ViewBag.message</p>
     }
-    <a class="btn btn-success mt-2" asp-controller="Voucher" asp-action="Create">Nieuwe voucher aanmaken</a>
+    <a class="btn btn-success mt-2" asp-controller="Voucher" asp-action="Create">Nieuwe voucher</a>
     <div class="overflow-x-auto mt-2">
         <table id="datatable" class="table gap-y-5">
             <thead>
@@ -32,7 +32,14 @@
                     <td>@transaction.User.Name</td>
                     <td>@voucher.Description</td>
                     <td>@price</td>
-                    <td>@voucher.Redeemed</td>
+                    @if (voucher.Redeemed)
+                    {
+                        <td>Opgevraagd</td>
+                    }
+                    else
+                    {
+                        <td>Niet opgevraagd</td>
+                    }
                 </tr>
             }
             </tbody>
