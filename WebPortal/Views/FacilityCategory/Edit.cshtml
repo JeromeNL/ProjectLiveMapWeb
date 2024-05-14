@@ -12,6 +12,10 @@
 
     <label>Omschrijving</label>
     <input type="text" class="input input-bordered" asp-for="Description" value="@Model.Description" required>
+    
+     <label>Kleur</label>
+    <input type="color" class="input input-bordered" asp-for="HexCode" value="@Model.HexCode" required>
+    <span asp-validation-for="HexCode" class="text-red-600"></span>
 
     <label>Naam icoontje</label>
     <p class="text-slate-400 text-sm">

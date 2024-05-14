@@ -25,5 +25,6 @@ public class PointsTransaction
 
     [ForeignKey(nameof(ServiceReportId))] public ServiceReport? ServiceReport { get; set; }
 
-    //TODO: Add voucher id in US 104
+    public Guid? VoucherId { get; set; }
+    [ForeignKey(nameof(VoucherId))] public Voucher? Voucher { get; set; }
 }

@@ -23,6 +23,7 @@ public class HolidayResort : ISoftDelete
     public Coordinate GetCoordinatesOfCenterPoint()
     {
         var parsedCoordinates = JsonConvert.DeserializeObject<List<Coordinate>>(Coordinates);
+        if (parsedCoordinates == null) return new Coordinate {Lat = 0, Lng = 0};
         var vertexCount = parsedCoordinates.Count;
 
         double sumX = 0;
@@ -51,21 +52,22 @@ public class HolidayResort : ISoftDelete
 
     public bool IsPointInside(double latitude, double longitude)
     {
-        var parsedCoordinates = JsonConvert.DeserializeObject<List<Coordinate>>(Coordinates);
-        var vertexCount = parsedCoordinates.Count;
-        var inside = false;
-
-        // Ray casting algorithm
-        for (int i = 0, j = vertexCount - 1; i < vertexCount; j = i++)
+        var polygon = JsonConvert.DeserializeObject<List<Coordinate>>(Coordinates);
+        if (polygon == null) return false;
+        
+        var count = 0;
+        for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
         {
-            if (((parsedCoordinates[i].Lat > latitude) != (parsedCoordinates[j].Lat > latitude)) &&
-                (longitude < (parsedCoordinates[j].Lng - parsedCoordinates[i].Lng) * (latitude - parsedCoordinates[i].Lat) /
-                    (parsedCoordinates[j].Lat - parsedCoordinates[i].Lat) + parsedCoordinates[i].Lng))
+            if (((polygon[i].Lat <= latitude && latitude < polygon[j].Lat) ||
+                 (polygon[j].Lat <= latitude && latitude < polygon[i].Lat)) &&
+                (longitude < (polygon[j].Lng - polygon[i].Lng) * (latitude - polygon[i].Lat) /
+                    (polygon[j].Lat - polygon[i].Lat) +
+                    polygon[i].Lng))
             {
-                inside = !inside;
+                count++;
             }
         }
 
-        return inside;
+        return count % 2 == 1;
     } 
 }
