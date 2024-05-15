@@ -26,27 +26,35 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
 
     public async Task<IActionResult> Add(int userId, string description, int price)
     {
+        const string key = "ErrorMessage";
+        string returnTo = nameof(Index);
         var id = Guid.NewGuid();
         var user = await Context.Users.FindAsync(userId);
-        var resort = await Context.HolidayResorts.FindAsync(ResortId);
-        var pointsOfUser = await Context.PointsTransactions.Select(t => t.Amount).SumAsync();
-        const string returnTo = nameof(Index);
+        if (user == null)
+        {
+            TempData[key] = "Gekozen gebruiker bestaat niet voor dit vakantiepark";
+            return RedirectToAction(returnTo);
+        }
 
+        var resort = await Context.HolidayResorts.FindAsync(ResortId);
+        if (resort == null)
+        {
+            TempData[key] = "Gekozen gebruiker bestaat niet voor dit vakantiepark";
+            return RedirectToAction(returnTo);
+        }
+
+        returnTo = nameof(Create);
+        var pointsOfUser = await Context.PointsTransactions.Where(p => p.UserId == userId).Select(t => t.Amount)
+            .SumAsync();
         if (price <= 0)
         {
-            TempData["ErrorMessage"] = "De opgegeven prijs is 0 of lager, vul een hogere prijs in";
+            TempData[key] = "De opgegeven prijs is 0 of lager, vul een hogere prijs in";
             return RedirectToAction(returnTo);
         }
 
         if (pointsOfUser < price)
         {
-            TempData["ErrorMessage"] = $"{user.Name} heeft niet genoeg punten om deze voucher te kopen";
-            return RedirectToAction(returnTo);
-        }
-
-        if (user == null && resort == null)
-        {
-            TempData["ErrorMessage"] = "Gekozen gebruiker bestaat niet voor dit vakantiepark";
+            TempData[key] = $"{user.Name} heeft niet genoeg punten om deze voucher te kopen";
             return RedirectToAction(returnTo);
         }
 
@@ -59,10 +67,6 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
         var transaction = new PointsTransaction()
         {
             Amount = price * -1,
-            FacilityReportId = null,
-            FacilityReport = null,
-            ServiceReportId = null,
-            ServiceReport = null,
             UserId = userId,
             User = user,
             HolidayResortId = ResortId,

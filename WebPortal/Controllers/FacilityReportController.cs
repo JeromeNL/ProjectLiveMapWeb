@@ -82,14 +82,10 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
             Amount = points,
             FacilityReportId = id,
             FacilityReport = report,
-            ServiceReportId = null,
-            ServiceReport = null,
             UserId = report.UserId,
             User = report.User,
             HolidayResortId = report.HolidayResortId,
             HolidayResort = report.HolidayResort,
-            VoucherId = null,
-            Voucher = null
         };
 
         await context.PointsTransactions.AddAsync(transaction);

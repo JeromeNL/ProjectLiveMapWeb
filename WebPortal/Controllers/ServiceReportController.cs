@@ -31,16 +31,12 @@ public class ServiceReportController(LiveMapDbContext context) : LivemapControll
         var transaction = new PointsTransaction()
         {
             Amount = points,
-            FacilityReportId = null,
-            FacilityReport = null,
             ServiceReportId = id,
             ServiceReport = report,
             UserId = report.UserId,
             User = report.User,
             HolidayResortId = report.HolidayResortId,
             HolidayResort = report.HolidayResort,
-            VoucherId = null,
-            Voucher = null
         };
 
         await context.PointsTransactions.AddAsync(transaction);
