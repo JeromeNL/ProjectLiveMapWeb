@@ -1,0 +1,60 @@
+﻿@model List<DataAccess.Models.PointsTransaction>
+
+<div>
+    <h1 class="text-2xl font-semibold">Overzicht Vouchers</h1>
+    @if (ViewBag.message != null)
+    {
+        <p class="text-red-600">@ViewBag.message</p>
+    }
+    <a class="btn btn-success mt-2" asp-controller="Voucher" asp-action="Create">Nieuwe voucher</a>
+    <div class="overflow-x-auto mt-2">
+        <table id="datatable" class="table gap-y-5">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Gebruiker</th>
+                <th>Beschrijving</th>
+                <th>Prijs</th>
+                <th>Opgevraagd</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var transaction in Model)
+            {
+                var voucher = transaction.Voucher;
+                var price = transaction.Amount * -1;
+                <tr>
+                    <td>@voucher.Id</td>
+                    <td>@transaction.User.Name</td>
+                    <td>@voucher.Description</td>
+                    <td>@price</td>
+                    @if (voucher.Redeemed)
+                    {
+                        <td>Verzilverd</td>
+                    }
+                    else
+                    {
+                        <td>Niet Verzilverd</td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.Partial("_MessagesToast")
+
+@section Scripts
+{
+    <script>
+      new DataTable('#datatable', {
+           searchable: true,
+            sortable: true,
+            perPage: 5,
+            order: [4, 'asc'],
+            language: {
+                    url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
+            },
+      });
+      </script>
+}
