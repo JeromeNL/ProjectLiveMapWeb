@@ -12,8 +12,12 @@ public class User
     [MaxLength(100)]
     public string Name { get; set; }
     
-    [NotMapped]
-    public int TotalPoints => PointsTransactions.Sum(t => t.Amount);
-    
     public IEnumerable<PointsTransaction> PointsTransactions { get; } = new List<PointsTransaction>();
+    
+    public int GetTotalPoints(int resortId)
+    {
+        return PointsTransactions
+            .Where(pt => pt.HolidayResortId == resortId)
+            .Sum(pt => pt.Amount);
+    }
 }

@@ -42,7 +42,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
     }
 
     [HttpGet("{userId:int}/points/total")]
-    public async Task<IActionResult> GetTotalPoints(int userId)
+    public async Task<IActionResult> GetTotalPoints(int userId, int resortId)
     {
         var user = await context.Users
             .Include(u => u.PointsTransactions)
@@ -53,6 +53,6 @@ public class UserController(LiveMapDbContext context) : ControllerBase
             return NotFound("User not found");
         }
 
-        return Ok(user.TotalPoints);
+        return Ok(user.GetTotalPoints(resortId));
     }
 }
