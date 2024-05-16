@@ -55,4 +55,46 @@ public class UserController(LiveMapDbContext context) : ControllerBase
 
         return Ok(user.GetTotalPoints(resortId));
     }
+
+    [HttpGet("{userId:int}/points/awarded")]
+    public async Task<IActionResult> GetAwardedPointsOverview(int userId, int resortId)
+    {
+        var user = await context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+        
+        var transactions = await context.PointsTransactions
+            .Where(transaction => transaction.UserId == userId)
+            .Where(transaction => transaction.HolidayResortId == resortId)
+            .Where(transaction =>  transaction.Amount > 0)
+            .Include(transaction => transaction.FacilityReport)
+            .Include(transaction => transaction.ServiceReport)
+            .ToListAsync();
+        
+        return Ok(transactions);
+    }
+
+    [HttpGet("{userId:int}/points/deducted")]
+    public async Task<IActionResult> GetDeductedPointsOverview(int userId, int resortId)
+    {
+        var user = await context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        } 
+        
+        var transactions = await context.PointsTransactions
+            .Where(transaction => transaction.UserId == userId)
+            .Where(transaction => transaction.HolidayResortId == resortId)
+            .Where(transaction => transaction.Amount < 0)
+            .Include(transaction => transaction.FacilityReport)
+            .Include(transaction => transaction.ServiceReport)
+            .ToListAsync();
+
+        return Ok(transactions);
+    }
 }
