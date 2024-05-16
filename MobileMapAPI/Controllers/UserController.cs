@@ -42,7 +42,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
     }
 
     [HttpGet("{userId:int}/points/awarded")]
-    public async Task<IActionResult> GetAwardedPointsOverview(int userId)
+    public async Task<IActionResult> GetAwardedPointsOverview(int userId, int resortId)
     {
         var user = await context.Users.FindAsync(userId);
 
@@ -53,6 +53,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
         
         var transactions = await context.PointsTransactions
             .Where(transaction => transaction.UserId == userId)
+            .Where(transaction => transaction.HolidayResortId == resortId)
             .Where(transaction =>  transaction.Amount > 0)
             .Include(transaction => transaction.FacilityReport)
             .Include(transaction => transaction.ServiceReport)
@@ -62,7 +63,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
     }
 
     [HttpGet("{userId:int}/points/deducted")]
-    public async Task<IActionResult> GetDeductedPointsOverview(int userId)
+    public async Task<IActionResult> GetDeductedPointsOverview(int userId, int resortId)
     {
         var user = await context.Users.FindAsync(userId);
 
@@ -73,6 +74,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
         
         var transactions = await context.PointsTransactions
             .Where(transaction => transaction.UserId == userId)
+            .Where(transaction => transaction.HolidayResortId == resortId)
             .Where(transaction => transaction.Amount < 0)
             .Include(transaction => transaction.FacilityReport)
             .Include(transaction => transaction.ServiceReport)
