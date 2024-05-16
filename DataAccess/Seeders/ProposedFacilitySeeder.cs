@@ -27,7 +27,7 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
         // new proposed facility
         var newProposedFacility = new ProposedFacility
         {
-            Id = 4,
+            Id = 30,
             Name = "Zwemzee",
             CategoryId = 1,
             Description = "De nieuwe zwemzee",

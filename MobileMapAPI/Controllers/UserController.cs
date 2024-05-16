@@ -41,6 +41,21 @@ public class UserController(LiveMapDbContext context) : ControllerBase
         return Ok(facilityReports);
     }
 
+    [HttpGet("{userId:int}/points/total")]
+    public async Task<IActionResult> GetTotalPoints(int userId, int resortId)
+    {
+        var user = await context.Users
+            .Include(u => u.PointsTransactions)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+        
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        return Ok(user.GetTotalPoints(resortId));
+    }
+
     [HttpGet("{userId:int}/points/awarded")]
     public async Task<IActionResult> GetAwardedPointsOverview(int userId, int resortId)
     {
