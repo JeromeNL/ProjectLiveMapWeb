@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using DataAccess;
-using DataAccess.Models;
-using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MobileMapAPI.Controllers;
@@ -41,5 +39,20 @@ public class UserController(LiveMapDbContext context) : ControllerBase
             .Include(report => report.User)
             .Where(report => report.UserId == userId).ToListAsync();
         return Ok(facilityReports);
+    }
+
+    [HttpGet("{userId:int}/points/total")]
+    public async Task<IActionResult> GetTotalPoints(int userId, int resortId)
+    {
+        var user = await context.Users
+            .Include(u => u.PointsTransactions)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+        
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        return Ok(user.GetTotalPoints(resortId));
     }
 }

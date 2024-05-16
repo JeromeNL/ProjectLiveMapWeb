@@ -11,4 +11,13 @@ public class User
     [Required]
     [MaxLength(100)]
     public string Name { get; set; }
+    
+    public IEnumerable<PointsTransaction> PointsTransactions { get; } = new List<PointsTransaction>();
+    
+    public int GetTotalPoints(int resortId)
+    {
+        return PointsTransactions
+            .Where(pt => pt.HolidayResortId == resortId)
+            .Sum(pt => pt.Amount);
+    }
 }
