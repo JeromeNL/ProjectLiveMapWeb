@@ -71,6 +71,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
             .Where(transaction => transaction.HolidayResortId == resortId)
             .Include(transaction => transaction.FacilityReport)
             .Include(transaction => transaction.ServiceReport)
+            .Include(transaction => transaction.Voucher)
             .ToListAsync();
         
         return Ok(transactions);
