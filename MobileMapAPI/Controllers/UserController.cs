@@ -56,8 +56,8 @@ public class UserController(LiveMapDbContext context) : ControllerBase
         return Ok(user.GetTotalPoints(resortId));
     }
 
-    [HttpGet("{userId:int}/points")]
-    public async Task<IActionResult> GetPointsOverview(int userId, int resortId)
+    [HttpGet("{userId:int}/points/transactions")]
+    public async Task<IActionResult> GetPointsTransactionsOverview(int userId, int resortId)
     {
         var user = await context.Users.FindAsync(userId);
 
