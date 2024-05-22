@@ -3,11 +3,11 @@ using DataAccess.Seeders.Abstract;
 
 namespace DataAccess.Seeders;
 
-public class UserSeeder: ISeeder<User>
+public class UserSeeder: ISeeder<ApplicationUser>
 {
-    public List<User> Seed()
+    public List<ApplicationUser> Seed()
     {
-        return new List<User>
+        return new List<ApplicationUser>
         {
             new()
             {

@@ -15,7 +15,7 @@ public class PointsTransaction
 
     [Required] public int UserId { get; set; }
 
-    [ForeignKey(nameof(UserId))] public User User { get; set; }
+    [ForeignKey(nameof(UserId))] public ApplicationUser ApplicationUser { get; set; }
 
     public int? FacilityReportId { get; set; }
 

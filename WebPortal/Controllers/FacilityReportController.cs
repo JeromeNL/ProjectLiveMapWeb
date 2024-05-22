@@ -83,7 +83,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
             FacilityReportId = id,
             FacilityReport = report,
             UserId = report.UserId,
-            User = report.User,
+            ApplicationUser = report.ApplicationUser,
             HolidayResortId = report.HolidayResortId,
             HolidayResort = report.HolidayResort,
         };

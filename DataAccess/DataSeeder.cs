@@ -22,7 +22,7 @@ public static class DataSeeder
         modelBuilder.Entity<Facility>().HasData(facilities);
         modelBuilder.Entity<ProposedFacility>().HasData(proposedFacilities);
         modelBuilder.Entity<FacilityReport>().HasData(facilityReports);
-        modelBuilder.Entity<User>().HasData(users);
+        modelBuilder.Entity<ApplicationUser>().HasData(users);
         modelBuilder.Entity<DefaultOpeningHours>().HasData(defaultOpeningHours);
         modelBuilder.Entity<SpecialOpeningHours>().HasData(specialOpeningHours);
         modelBuilder.Entity<FacilityCategory>().HasData(facilityCategories);

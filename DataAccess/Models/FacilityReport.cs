@@ -30,7 +30,7 @@ public class FacilityReport
     public int UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
+    public ApplicationUser ApplicationUser { get; set; }
     
     [Required]
     public int HolidayResortId { get; set; }

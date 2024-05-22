@@ -15,7 +15,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
 
         if (user == null)
         {
-            return NotFound("User not found");
+            return NotFound("ApplicationUser not found");
         }
 
         return Ok(user);
@@ -36,7 +36,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
     {
         var facilityReports = await context.FacilityReports
             .Include(report => report.ProposedFacility)
-            .Include(report => report.User)
+            .Include(report => report.ApplicationUser)
             .Where(report => report.UserId == userId).ToListAsync();
         return Ok(facilityReports);
     }
@@ -50,7 +50,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
         
         if (user == null)
         {
-            return NotFound("User not found");
+            return NotFound("ApplicationUser not found");
         }
 
         return Ok(user.GetTotalPoints(resortId));
@@ -63,7 +63,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
 
         if (user == null)
         {
-            return NotFound("User not found");
+            return NotFound("ApplicationUser not found");
         }
         
         var transactions = await context.PointsTransactions
@@ -84,7 +84,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
 
         if (user == null)
         {
-            return NotFound("User not found");
+            return NotFound("ApplicationUser not found");
         } 
         
         var transactions = await context.PointsTransactions

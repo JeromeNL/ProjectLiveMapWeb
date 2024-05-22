@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Models;
 
-public class User
+public class ApplicationUser
 {
     [Key] 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

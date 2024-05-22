@@ -11,7 +11,7 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
     public async Task<IActionResult> Index()
     {
         var transactions = await Context.PointsTransactions
-            .Include(t => t.User)
+            .Include(t => t.ApplicationUser)
             .Include(t => t.Voucher)
             .Where(t => t.Voucher != null)
             .ToListAsync();
@@ -68,7 +68,7 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
         {
             Amount = price * -1,
             UserId = userId,
-            User = user,
+            ApplicationUser = user,
             HolidayResortId = ResortId,
             HolidayResort = resort,
             VoucherId = id,
