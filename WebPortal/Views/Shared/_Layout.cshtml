@@ -35,7 +35,17 @@
                 <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
                 <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
             </div>
-            <a asp-controller="Home" asp-action="ClearCurrentResort">Park aanpassen</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <details class="dropdown">
+                    <summary>@User.Identity.Name</summary>
+                    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                        <li>
+                            <a asp-controller="Auth" asp-action="Logout">Uitloggen</a>
+                        </li>
+                    </ul>
+                </details>
+            }
         </div>
     </nav>
 </header>

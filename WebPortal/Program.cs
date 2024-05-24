@@ -1,6 +1,7 @@
 using System.Globalization;
 using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddEntityFrameworkStores<LiveMapDbContext>()
     .AddDefaultTokenProviders();
 
+// Default setup: User must be logged in to access all web pages.
+builder.Services.AddAuthorizationBuilder()
+    .SetFallbackPolicy(new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        // TODO: Add prohibited roles (visitor)
+        .Build());
+
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(
     options =>
@@ -52,6 +60,18 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedUICultures = supportedCultures;
     });
 
+// cookie setup
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+
+    options.LoginPath = "/auth/login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,6 +81,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
