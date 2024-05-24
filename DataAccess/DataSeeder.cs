@@ -1,5 +1,6 @@
 ﻿using DataAccess.Models;
 using DataAccess.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
@@ -18,6 +19,7 @@ public static class DataSeeder
         var serviceReports = new ServiceReportSeeder(users).Seed();
         var serviceReportsCategories = new ServiceReportCategorySeeder().Seed();
         var holidayResorts = new HolidayResortsSeeder().Seed();
+        var roles = new RoleSeeder().Seed();
 
         modelBuilder.Entity<Facility>().HasData(facilities);
         modelBuilder.Entity<ProposedFacility>().HasData(proposedFacilities);
@@ -29,5 +31,6 @@ public static class DataSeeder
         modelBuilder.Entity<ServiceReport>().HasData(serviceReports);
         modelBuilder.Entity<ServiceReportCategory>().HasData(serviceReportsCategories);
         modelBuilder.Entity<HolidayResort>().HasData(holidayResorts);
+        modelBuilder.Entity<IdentityRole>().HasData(roles);
     }
 }
