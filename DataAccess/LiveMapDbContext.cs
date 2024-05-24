@@ -1,10 +1,11 @@
 using DataAccess.Models;
 using DataAccess.Models.Enums;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
 
-public class LiveMapDbContext : DbContext
+public class LiveMapDbContext : IdentityDbContext<ApplicationUser>
 {
     public LiveMapDbContext(DbContextOptions<LiveMapDbContext> options) : base(options)
     {
@@ -12,8 +13,6 @@ public class LiveMapDbContext : DbContext
 
     public DbSet<Facility> Facilities { get; set; }
     public DbSet<FacilityReport> FacilityReports { get; set; }
-
-    public DbSet<ApplicationUser> Users { get; set; }
 
     public DbSet<ProposedFacility> ProposedFacilities { get; set; }
 

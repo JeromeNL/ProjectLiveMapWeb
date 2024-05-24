@@ -4,5 +4,5 @@ namespace MobileMapAPI.Models;
 
 public class ProposedFacilityDto : ProposedFacility
 {
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 }

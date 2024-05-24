@@ -25,7 +25,7 @@
                 var price = transaction.Amount * -1;
                 <tr>
                     <td>@voucher.Id</td>
-                    <td>@transaction.ApplicationUser.Name</td>
+                    <td>@transaction.ApplicationUser.UserName</td>
                     <td>@voucher.Description</td>
                     <td>@price</td>
                     @if (voucher.Redeemed)

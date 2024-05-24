@@ -24,11 +24,10 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
         return View(users);
     }
 
-    public async Task<IActionResult> Add(int userId, string description, int price)
+    public async Task<IActionResult> Add(string userId, string description, int price)
     {
         const string key = "ErrorMessage";
         string returnTo = nameof(Index);
-        var id = Guid.NewGuid();
         var user = await Context.Users.FindAsync(userId);
         if (user == null)
         {
@@ -54,10 +53,11 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
 
         if (pointsOfUser < price)
         {
-            TempData[key] = $"{user.Name} heeft niet genoeg punten om deze voucher te kopen";
+            TempData[key] = $"{user.UserName} heeft niet genoeg punten om deze voucher te kopen";
             return RedirectToAction(returnTo);
         }
 
+        var id = Guid.NewGuid();
         var voucher = new Voucher()
         {
             Id = id,

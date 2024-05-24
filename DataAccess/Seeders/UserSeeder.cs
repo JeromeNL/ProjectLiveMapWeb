@@ -11,33 +11,27 @@ public class UserSeeder: ISeeder<ApplicationUser>
         {
             new()
             {
-                Id = 1,
-                Name = "Almior"
+                UserName = "Almior"
             },
             new()
             {
-                Id = 2,
-                Name = "Joram"
+                UserName = "Joram"
             },
             new()
             {
-                Id = 3,
-                Name = "Thieme"
+                UserName = "Thieme"
             },
             new()
             {
-                Id = 4,
-                Name = "Mauro"
+                UserName = "Mauro"
             },
             new()
             {
-                Id = 5,
-                Name = "Imke"
+                UserName = "Imke"
             },
             new()
             {
-                Id = 6,
-                Name = "Lamine"
+                UserName = "Lamine"
             },
         };
     }

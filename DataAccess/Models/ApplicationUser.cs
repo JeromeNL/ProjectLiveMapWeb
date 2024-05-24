@@ -1,17 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess.Models;
 
-public class ApplicationUser
+public class ApplicationUser : IdentityUser
 {
-    [Key] 
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
-    [Required]
-    [MaxLength(100)]
-    public string Name { get; set; }
-    
     public IEnumerable<PointsTransaction> PointsTransactions { get; } = new List<PointsTransaction>();
     
     public int GetTotalPoints(int resortId)

@@ -8,14 +8,14 @@ public static class DataSeeder
 {
     public static void InitializeSeedData(this ModelBuilder modelBuilder)
     {
+        var users = new UserSeeder().Seed();
         var facilities = new FacilitySeeder().Seed();
         var proposedFacilities = new ProposedFacilitySeeder(facilities).Seed();
-        var facilityReports = new FacilityReportSeeder(proposedFacilities).Seed();
-        var users = new UserSeeder().Seed();
+        var facilityReports = new FacilityReportSeeder(users, proposedFacilities).Seed();
         var defaultOpeningHours = new DefaultOpeningHoursSeeder().Seed();
         var specialOpeningHours = new SpecialOpeningHoursSeeder().Seed();
         var facilityCategories = new FacilityCategorySeeder().Seed();
-        var serviceReports = new ServiceReportSeeder().Seed();
+        var serviceReports = new ServiceReportSeeder(users).Seed();
         var serviceReportsCategories = new ServiceReportCategorySeeder().Seed();
         var holidayResorts = new HolidayResortsSeeder().Seed();
 

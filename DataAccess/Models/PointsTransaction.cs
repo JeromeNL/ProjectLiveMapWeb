@@ -13,7 +13,7 @@ public class PointsTransaction
 
     [ForeignKey(nameof(HolidayResortId))] public HolidayResort HolidayResort { get; set; }
 
-    [Required] public int UserId { get; set; }
+    [Required] public string UserId { get; set; }
 
     [ForeignKey(nameof(UserId))] public ApplicationUser ApplicationUser { get; set; }
 

@@ -12,7 +12,7 @@
             <option selected disabled hidden value="">Kies een gebruiker</option>
             @foreach (var user in Model)
             {
-                <option value="@user.Id">@user.Name</option>
+                <option value="@user.Id">@user.UserName</option>
             }
         </select>
         <label for="description">Beschrijving</label>

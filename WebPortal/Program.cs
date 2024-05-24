@@ -1,5 +1,7 @@
 using System.Globalization;
 using DataAccess;
+using DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +34,13 @@ builder.Services.AddSession(options =>
 builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB"))
         .AddInterceptors(new SoftDeleteInterceptor()));
+
+// Identity
+builder.Services.AddDefaultIdentity<ApplicationUser>()
+    .AddRoles<IdentityRole>()
+    .AddRoleManager<RoleManager<IdentityRole>>()
+    .AddEntityFrameworkStores<LiveMapDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(

@@ -1,9 +1,10 @@
 ﻿using DataAccess.Models;
+using DataAccess.Models.Extensions;
 using DataAccess.Seeders.Abstract;
 
 namespace DataAccess.Seeders;
 
-public class ServiceReportSeeder : ISeeder<ServiceReport>
+public class ServiceReportSeeder(IEnumerable<ApplicationUser> users) : ISeeder<ServiceReport>
 {
     private readonly Random _random = new();
 
@@ -19,7 +20,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 1
             },
             new()
@@ -30,7 +31,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 5,
                 ServiceReportCategoryId = 3,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 1
             },
             new()
@@ -41,7 +42,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 5,
                 ServiceReportCategoryId = 1,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 1
             },
             new()
@@ -52,7 +53,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 11,
                 ServiceReportCategoryId = 3,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 1
             },
             new()
@@ -63,7 +64,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 11,
                 ServiceReportCategoryId = 1,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 1
             },
             new()
@@ -74,10 +75,10 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 11,
                 ServiceReportCategoryId = 2,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 1
             },
-            
+
             new()
             {
                 Id = 7,
@@ -86,7 +87,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 12,
                 ServiceReportCategoryId = 3,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 2
             },
             new()
@@ -97,7 +98,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 13,
                 ServiceReportCategoryId = 3,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 2
             },
             new()
@@ -108,7 +109,7 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 15,
                 ServiceReportCategoryId = 4,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 2
             },
             new()
@@ -119,23 +120,23 @@ public class ServiceReportSeeder : ISeeder<ServiceReport>
                 CreatedAt = DateTime.Now,
                 FacilityId = 18,
                 ServiceReportCategoryId = 1,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 2
             },
             new()
             {
                 Id = 11,
                 Title = "AED geeft foutmelding",
-                Description = "De AED geeft een storing aan. Hopelijk kan dit zsm opgelost worden, voordat 'ie nodig is.",
+                Description =
+                    "De AED geeft een storing aan. Hopelijk kan dit zsm opgelost worden, voordat 'ie nodig is.",
                 CreatedAt = DateTime.Now,
                 FacilityId = 20,
                 ServiceReportCategoryId = 6,
-                UserId = GetRandomId(1, 6),
+                UserId = users.PickRandom().Id,
                 HolidayResortId = 2
             },
         };
-        
-}
+    }
 
     // Helper method to generate a random integer within a specified range
     private int GetRandomId(int min, int max)
