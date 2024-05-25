@@ -3,16 +3,22 @@ using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.Controllers.Base;
 using WebPortal.Models;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers;
 
-public class HomeController(LiveMapDbContext context) : LivemapController
+public class HomeController(LiveMapDbContext context, IResortService resortService) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
         if (HttpContext.Session.GetInt32("resortId") == null || HttpContext.Session.GetInt32("resortId") == 0)
         {
-            return RedirectToAction(nameof(SelectCurrentResort));
+            var firstHoliday = await resortService.FirstOrDefaultAsync();
+            if (firstHoliday == null)
+            {
+                return StatusCode(500);
+            }
+            HttpContext.Session.SetInt32("resortId", firstHoliday.Id);
         }
         
         var resort = await context.HolidayResorts.FindAsync(ResortId);
@@ -29,7 +35,7 @@ public class HomeController(LiveMapDbContext context) : LivemapController
     public IActionResult SaveCurrentResort(int resortId)
     {
         HttpContext.Session.SetInt32("resortId", resortId);
-        return RedirectToAction(nameof(Index));
+        return Redirect(Request.Headers["Referer"].ToString());
     }
     
     public IActionResult ClearCurrentResort()

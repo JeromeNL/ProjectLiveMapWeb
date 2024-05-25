@@ -1,0 +1,15 @@
+﻿@using WebPortal.Services
+@inject IResortService ResortService
+<form method="POST" asp-controller="Home" asp-action="SaveCurrentResort">
+    <select class="select select-bordered w-full max-w-xs" name="resortId" onchange="this.form.submit()">
+        @{
+            var resorts = await ResortService.GetResorts();
+            var selectedResort = await ResortService.GetCurrentResort();
+            foreach (var resort in resorts)
+            {
+                var selected = resort.Id == selectedResort?.Id;
+                <option value="@resort.Id">@resort.Name</option>
+            }
+        }
+    </select>
+</form>

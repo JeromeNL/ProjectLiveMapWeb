@@ -2,6 +2,7 @@ using System.Globalization;
 using DataAccess;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,8 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedCultures = supportedCultures;
         options.SupportedUICultures = supportedCultures;
     });
+
+builder.Services.AddScoped<IResortService, ResortService>();
 
 var app = builder.Build();
 

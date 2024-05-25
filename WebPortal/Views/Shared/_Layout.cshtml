@@ -35,7 +35,7 @@
                 <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
                 <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
             </div>
-            <a asp-controller="Home" asp-action="ClearCurrentResort">Park aanpassen</a>
+            <partial name="_ResortSelector"/>
         </div>
     </nav>
 </header>
