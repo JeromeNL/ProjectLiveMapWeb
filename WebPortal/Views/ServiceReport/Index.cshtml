@@ -10,7 +10,6 @@
         <table id="datatable" class="table gap-y-5">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Titel</th>
                 <th>Beschrijving</th>
                 <th>Categorie</th>
@@ -25,7 +24,6 @@
             {
                 var confirmModalId = $"confirmModal_{report.Id}";
                 <tr>
-                    <td>@report.Id</td>
                     <td>@report.Title</td>
                     <td>@report.Description</td>
                     <td>@report.ServiceReportCategory.Name</td>
@@ -52,7 +50,7 @@
            searchable: true,
             sortable: true,
             perPage: 5,
-            order: [4, 'asc'],
+            order: [5, 'asc'],
             language: {
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
             },
