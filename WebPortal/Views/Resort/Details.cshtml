@@ -49,6 +49,7 @@
             //center: [51.65028080463477, 5.0484079052199275],
             center: calculateCenterPoint(latLngs),
             attributionControl: false,
+            minZoom: 14,
             zoom: 15,
         });
         L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
