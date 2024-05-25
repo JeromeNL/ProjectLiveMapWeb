@@ -20,7 +20,7 @@
             <span asp-validation-for="Name" class="text-danger"></span>
             <span asp-validation-for="Coordinates" class="text-danger"></span>
         </div>
-        <div id="map" class="h-[40vh] w-[40vw]"></div>
+        <div id="map" class="h-[40vh] w-[40vw] rounded"></div>
     </div>
     <div class="px-6 py-4">
         <button type="submit" class="btn btn-primary">Opslaan</button>
@@ -32,6 +32,8 @@
     <script>
         let map = L.map('map', {
             center: [52.237367, 5.654817],
+            attributionControl: false,
+            minZoom: 7,
             zoom: 7,
         });
         L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")').addTo(map);
