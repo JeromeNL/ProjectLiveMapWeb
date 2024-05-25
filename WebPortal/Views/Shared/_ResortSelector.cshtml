@@ -4,11 +4,11 @@
     <select class="select select-bordered w-full max-w-xs" name="resortId" onchange="this.form.submit()">
         @{
             var resorts = await ResortService.GetResorts();
-            var selectedResort = await ResortService.GetCurrentResort();
+            var selectedResort = ResortService.GetCurrentResortId();
             foreach (var resort in resorts)
             {
-                var selected = resort.Id == selectedResort?.Id;
-                <option value="@resort.Id">@resort.Name</option>
+                var selected = resort.Id == selectedResort;
+                @Html.Raw($"<option value='{resort.Id}'{(selected ? " selected" : "")}>{resort.Name}</option>");
             }
         }
     </select>

@@ -10,11 +10,15 @@ public interface IResortService
     
     Task<HolidayResort?> FirstOrDefaultAsync();
 
-    Task<HolidayResort?> GetCurrentResort();
+    int? GetCurrentResortId();
+    
+    Task SetCurrentResortId(int resortId);
 }
 
-public class ResortService(LiveMapDbContext context) : IResortService
+public class ResortService(LiveMapDbContext context, IHttpContextAccessor httpContextAccessor) : IResortService
 {
+    private readonly string resortSessionKey = "resortId"; 
+    
     public async Task<List<HolidayResort>> GetResorts()
     {
         return await context.HolidayResorts.ToListAsync();
@@ -25,8 +29,18 @@ public class ResortService(LiveMapDbContext context) : IResortService
         return await context.HolidayResorts.FirstOrDefaultAsync();
     }
     
-    public async Task<HolidayResort?> GetCurrentResort()
+    public int? GetCurrentResortId()
     {
-        return await context.HolidayResorts.FirstOrDefaultAsync();
+        return httpContextAccessor.HttpContext?.Session.GetInt32(resortSessionKey);
+    }
+    
+    public async Task SetCurrentResortId(int resortId)
+    {
+        var resort = await context.HolidayResorts.FindAsync(resortId);
+        if (resort == null)
+        {
+            throw new ArgumentException("Resort not found.");
+        }
+        httpContextAccessor.HttpContext?.Session.SetInt32(resortSessionKey, resortId);
     }
 }

@@ -44,6 +44,7 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedUICultures = supportedCultures;
     });
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IResortService, ResortService>();
 
 var app = builder.Build();
