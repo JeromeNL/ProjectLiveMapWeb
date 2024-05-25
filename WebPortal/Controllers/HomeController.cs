@@ -14,9 +14,9 @@ public class HomeController(LiveMapDbContext context, IResortService resortServi
         return RedirectToAction("Index", "Facility", null);
     }
 
-    public IActionResult SaveCurrentResort(int resortId)
+    public async Task<IActionResult> SaveCurrentResort(int resortId)
     {
-        resortService.SetCurrentResortId(resortId);
+        await resortService.SetCurrentResortId(resortId);
         return Redirect(Request.Headers["Referer"].ToString());
     }
 
