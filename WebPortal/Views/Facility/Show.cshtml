@@ -1,5 +1,4 @@
-﻿@using DataAccess.Models
-@model WebPortal.Models.FacilityViewModel
+﻿@model WebPortal.Models.FacilityViewModel
 
 @{
     ViewBag.Title = "Faciliteit bekijken";
@@ -16,17 +15,16 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
             </svg>
         </a>
-        <div class="flex items-center space-x-4">
-            <h2 class="text-2xl font-semibold">@Model.Facility.Name - @Model.Facility.Id</h2>
-            <button type="submit" class="underline"  
+        <div class="flex items-center space-x-1">
+            <i class="ti ti-@Model.Facility.Category.IconName text-2xl"></i>
+            <h2 class="text-2xl font-semibold pr-1">@Model.Facility.Name</h2>
+            <button type="submit" class="underline"
                     onclick="document.getElementById('@approveModalId').classList.add('modal-open')">Verwijder</button>
         </div>
         <p>@Model.Facility.Description</p>
         <p>Categorie: @Model.Facility.Category.Name</p>
-        <p>Icoontje:</p>
-        <i class="ti ti-@Model.Facility.Category.IconName text-4xl"></i>
-        <p>Huidige locatie:</p>
-        <div id="map" class="h-[20vh] w-[20vw]"></div>
+        <p>Locatie:</p>
+        <div id="map" class="h-[20vh] w-[20vw] rounded"></div>
     </div>
      @Html.Partial("_DeleteFacilityModal", @Model.Facility)
     
@@ -105,6 +103,8 @@
         let markerLocation = L.latLng(@Model.Facility.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.Facility.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture));
         let map = L.map('map', {
             center: markerLocation,
+            attributionControl: false,
+            minZoom: 16,
             zoom: 18
         });
         L.tileLayer('@Html.Raw("https://api.mapbox.com/styles/v1/thieme/clu785gfh00y201qshhlscngq/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoidGhpZW1lIiwiYSI6ImNsdTF6bDI3YTByZGMya24wNzgxM3lnaW8ifQ.es_E8PCEaZhsaYiGsl8q5A")', {
