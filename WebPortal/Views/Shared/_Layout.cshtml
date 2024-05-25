@@ -1,4 +1,9 @@
 ﻿@using Localizer = WebPortal.Resources.Shared._Layout
+@using DataAccess.Models
+@using DataAccess.Models.Extensions
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
 <html lang="nl">
@@ -22,33 +27,36 @@
     <link rel="stylesheet" href="@Html.Raw("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css")"/>
 </head>
 <body class="bg-gray-100">
-<header>
-    <nav class="bg-white p-6">
-        <div class="container mx-auto flex items-center justify-between">
-            <a asp-controller="Home" asp-action="Index" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
-            <div class="flex items-center">
-                <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
-                <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteiten</a>
-                <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
-                <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
-                <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
-                <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
-                <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
+@if (User.Identity != null & RoleExtension.getRolesWithWebPortalAccess().Any(role => User.IsInRole(role)))
+{
+    <header>
+        <nav class="bg-white p-6">
+            <div class="container mx-auto flex items-center justify-between">
+                <a asp-controller="Home" asp-action="Index" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
+                <div class="flex items-center">
+                    <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
+                    <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteiten</a>
+                    <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
+                    <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
+                    <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
+                    <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
+                    <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <details class="dropdown">
+                        <summary>@User.Identity.Name</summary>
+                        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                            <li>
+                                <a asp-controller="Auth" asp-action="Logout">Uitloggen</a>
+                            </li>
+                        </ul>
+                    </details>
+                }
             </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <details class="dropdown">
-                    <summary>@User.Identity.Name</summary>
-                    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                        <li>
-                            <a asp-controller="Auth" asp-action="Logout">Uitloggen</a>
-                        </li>
-                    </ul>
-                </details>
-            }
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
+}
 <div>
     <main role="main" class="container mx-auto p-6">
         @RenderBody()

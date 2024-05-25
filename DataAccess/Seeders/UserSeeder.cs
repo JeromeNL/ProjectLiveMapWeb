@@ -36,6 +36,24 @@ public class UserSeeder: ISeeder<ApplicationUser>
             {
                 UserName = "Lamine"
             },
+            new()
+            {
+                UserName = "SuperAdmin"
+            },
+            new()
+            {
+                UserName = "ResortAdmin",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                UserName = "ResortEmployee",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                UserName = "Visitor"
+            }
         };
 
         foreach (var user in users)

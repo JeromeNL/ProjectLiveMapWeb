@@ -40,4 +40,10 @@ public class AuthController(SignInManager<ApplicationUser> signInManager, UserMa
         await signInManager.SignOutAsync();
         return RedirectToAction("Login");
     }
+    
+    [AllowAnonymous]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
 }

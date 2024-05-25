@@ -1,25 +1,13 @@
 using System.Globalization;
 using DataAccess;
 using DataAccess.Models;
+using DataAccess.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Allow cors from all domains. Hotfix.
-// TODO: remove this and fix in a better way
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-        });
-});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -47,7 +35,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>()
 builder.Services.AddAuthorizationBuilder()
     .SetFallbackPolicy(new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
-        // TODO: Add prohibited roles (visitor)
+        .RequireRole(RoleExtension.getRolesWithWebPortalAccess())
         .Build());
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -68,6 +56,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromDays(1);
 
     options.LoginPath = "/auth/login";
+    options.AccessDeniedPath = "/auth/accessdenied";
     options.SlidingExpiration = true;
 });
 
