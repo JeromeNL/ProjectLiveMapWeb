@@ -1,7 +1,10 @@
 ﻿@model List<DataAccess.Models.ServiceReport>
 <div>
-    <a asp-controller="ServiceReportCategory" asp-action="Index" class="btn btn-sm btn-primary">Service melding categorieën</a>
-    <h1 class="text-2xl font-semibold">Overzicht van service meldingen</h1>
+    <div class="flex flex-row justify-between mb-5">
+        <h1 class="text-2xl font-semibold">Overzicht van service meldingen</h1>
+        <a asp-controller="ServiceReportCategory" asp-action="Index" class="btn btn-sm btn-primary">Service melding categorieën</a>
+    </div>
+    
     @if (ViewBag.message != null)
     {
         <p class="text-red-600">@ViewBag.message</p>
