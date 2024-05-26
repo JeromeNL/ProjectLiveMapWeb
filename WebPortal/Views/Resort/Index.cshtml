@@ -1,4 +1,3 @@
-@using System.Globalization
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<DataAccess.Models.HolidayResort>
 @{
@@ -7,10 +6,10 @@
 }
 @Html.Partial("_MessagesToast")
 
-<div class="flex justify-between items-center mb-4">
+<div class="flex justify-between items-center mb-5">
     <h2 class="text-xl font-bold">Parkenbeheer</h2>
     <form method="get" asp-action="Create">
-        <button type="submit" class="btn btn-primary">Nieuw park</button>
+        <button type="submit" class="btn btn-sm btn-primary">Nieuw park</button>
     </form>
 </div>
 
