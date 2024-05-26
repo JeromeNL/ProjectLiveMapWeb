@@ -21,19 +21,62 @@
     <script src="https://unpkg.com/@Html.Raw("@geoman")-io/leaflet-geoman-free@latest/dist/leaflet-geoman.js"></script>
     <link rel="stylesheet" href="@Html.Raw("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css")"/>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 z-50">
 <header>
-    <nav class="bg-white p-6">
+    <nav class="bg-white p-6 relative z-50">
         <div class="container mx-auto flex items-center justify-between">
             <a asp-controller="Home" asp-action="Index" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
             <div class="flex items-center">
-                <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Kaart</a>
-                <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
-                <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteit meldingen</a>
-                <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
-                <a asp-controller="ServiceReportCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen categorieën</a>
-                <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
-                <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
+                <div class="relative group">
+                    <button class="flex flex-row items-center w-full px-4 py-4 mt-2 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
+                        <span><a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Kaart</a></span>
+                    </button>
+                    <div class="absolute z-50 hidden bg-grey-200 group-hover:block">
+                        <div class="px-2 pt-2 pb-4 bg-white bg-gray-200 shadow-lg rounded-lg">
+                            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 ">
+                                <p>
+                                    <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <button class="flex flex-row items-center w-full px-4 py-4 mt-2 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
+                        <span class="text-gray-800 hover:text-gray-900 mx-4">Meldingen</span>
+                    </button>
+                    <div class="absolute z-50 hidden bg-grey-200 group-hover:block w-56">
+                        <div class="px-2 pt-2 pb-4 bg-white bg-gray-200 shadow-lg rounded-lg">
+                            <div class="grid grid-cols-1 gap-4">
+                                <p>
+                                    <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteitsmeldingen</a>
+                                </p>
+                                <p>
+                                    <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Servicemeldingen</a>
+                                </p>
+                                <p>
+                                    <a asp-controller="ServiceReportCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service categorieën</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="relative group">
+                    <button class="flex flex-row items-center w-full px-4 py-4 mt-2 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
+                        <span><a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a></span>
+                    </button>
+                </div>
+
+                <div class="relative group">
+                    <button class="flex flex-row items-center w-full px-4 py-4 mt-2 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
+                        <span><a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a></span>
+                    </button>
+                </div>
+                
             </div>
             <partial name="_ResortSelector"/>
         </div>
