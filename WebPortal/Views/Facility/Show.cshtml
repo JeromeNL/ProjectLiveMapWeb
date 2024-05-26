@@ -22,7 +22,17 @@
                     onclick="document.getElementById('@approveModalId').classList.add('modal-open')">Verwijder</button>
         </div>
         <p>@Model.Facility.Description</p>
-        <p>Categorie: @Model.Facility.Category.Name</p>
+        <div>
+            <span>
+                Categorie: 
+            </span>
+            <a asp-controller="FacilityCategory" asp-action="Edit" asp-route-id="@Model.Facility.CategoryId">
+                <span class="underline">
+                    @Model.Facility.Category.Name
+                </span>
+                <i class="ti ti-edit"></i>
+            </a>
+        </div>
         <div id="map" class="h-[20vh] w-[20vw] rounded"></div>
     </div>
      @Html.Partial("_DeleteFacilityModal", @Model.Facility)
