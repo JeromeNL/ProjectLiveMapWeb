@@ -2,7 +2,6 @@
 @using DataAccess.Models
 @using DataAccess.Models.Extensions
 @using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
@@ -35,12 +34,18 @@
                 <a asp-controller="Home" asp-action="Index" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
                 <div class="flex items-center">
                     <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
-                    <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteiten</a>
-                    <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
-                    <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
-                    <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
-                    <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
-                    <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
+                    @if (User.IsInRole("ResortAdmin") || User.IsInRole("ResortEmployee"))
+                    {
+                        <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteiten</a>
+                        <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
+                        <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
+                        <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
+                    }
+                    @if (User.IsInRole("ResortAdmin"))
+                    {
+                        <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
+                        <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
+                    }
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
