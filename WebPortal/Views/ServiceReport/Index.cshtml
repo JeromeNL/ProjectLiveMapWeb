@@ -1,8 +1,12 @@
 ﻿@model List<DataAccess.Models.ServiceReport>
+@{
+    ViewData["Title"] = "Servicemeldingen";
+    Layout = "_Layout";
+}
 <div>
     <div class="flex flex-row justify-between mb-5">
-        <h1 class="text-2xl font-semibold">Overzicht van service meldingen</h1>
-        <a asp-controller="ServiceReportCategory" asp-action="Index" class="btn btn-sm btn-primary">Service melding categorieën</a>
+        <h1 class="text-2xl font-semibold">Overzicht van servicemeldingen</h1>
+        <a asp-controller="ServiceReportCategory" asp-action="Index" class="btn btn-sm btn-primary">Servicemeldingscategorieën</a>
     </div>
     
     @if (ViewBag.message != null)
