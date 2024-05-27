@@ -1,6 +1,8 @@
-﻿@model List<DataAccess.Models.ServiceReport>
+﻿@using DataAccess.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<DataAccess.Models.ServiceReport>
 <div>
-    @if (User.IsInRole("ResortAdmin"))
+    @if (User.IsInRole(nameof(Role.ResortAdmin)))
     {
         <a asp-controller="ServiceReportCategory" asp-action="Index" class="btn btn-sm btn-primary">Service melding categorieën</a>
     }
