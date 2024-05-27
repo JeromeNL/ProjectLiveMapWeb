@@ -46,6 +46,10 @@
                         <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
                         <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
                     }
+                    @if (User.IsInRole("ResortAdmin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <a asp-controller="User" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Gebruikers</a>
+                    }
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {

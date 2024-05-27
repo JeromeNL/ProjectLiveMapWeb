@@ -1,0 +1,25 @@
+﻿@model Dictionary<DataAccess.Models.ApplicationUser, string?>
+
+<div>
+    <a class="btn btn-success mt-2" asp-controller="User" asp-action="Create">Nieuwe gebruiker</a>
+    <h1 class="font-semibold text-2xl">Gebruiker aanmaken</h1>
+    <table id="datatable" class="table gap-y-5">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Rol</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Key</td>
+                <td>
+                    @(user.Value ?? "Onbekend")
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
