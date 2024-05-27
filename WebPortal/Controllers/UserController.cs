@@ -37,10 +37,7 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
 
         if (!result.Succeeded)
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+            ModelState.AddModelError("Password", "Wachtwoord moet meer dan 10 tekens bevatten");
 
             return View("Create");
         }
