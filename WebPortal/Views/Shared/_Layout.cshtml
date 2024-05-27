@@ -78,23 +78,41 @@
                 </div>
 
 
-                @if (User.Identity.IsAuthenticated)
-                {
+                @* TODO REPLACE AFTER ROLE BASED AUTH IS ADDED *@
+                
                     <div class="relative group">
                         <button class="flex flex-row items-center w-full px-4 py-4 mt-2 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat">
-                            <span class="text-gray-800 hover:text-gray-900 mx-4">@User.Identity.Name</span>
+                            <span class="text-gray-400 hover:text-gray-500 mx-4">Examplename</span>
                         </button>
                         <div class="absolute z-50 hidden bg-grey-200 group-hover:block w-56">
                             <div class="px-2 pt-2 pb-4 bg-white bg-gray-200 shadow-lg rounded-lg">
                                 <div class="grid grid-cols-1 gap-4">
                                     <p>
-                                        <a asp-controller="Auth" asp-action="Logout" class="text-gray-800 hover:text-gray-900 mx-4">Uitloggen</a>
+                                        <a class="text-gray-800 hover:text-gray-900 mx-4">Uitloggen</a>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                
+                
+                @* @if (User.Identity.IsAuthenticated) *@
+                @* { *@
+                @*     <div class="relative group"> *@
+                @*         <button class="flex flex-row items-center w-full px-4 py-4 mt-2 text-base font-bold text-left uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat"> *@
+                @*             <span class="text-gray-800 hover:text-gray-900 mx-4">@User.Identity.Name</span> *@
+                @*         </button> *@
+                @*         <div class="absolute z-50 hidden bg-grey-200 group-hover:block w-56"> *@
+                @*             <div class="px-2 pt-2 pb-4 bg-white bg-gray-200 shadow-lg rounded-lg"> *@
+                @*                 <div class="grid grid-cols-1 gap-4"> *@
+                @*                     <p> *@
+                @*                         <a asp-controller="Auth" asp-action="Logout" class="text-gray-800 hover:text-gray-900 mx-4">Uitloggen</a> *@
+                @*                     </p> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* } *@
 
             </div>
             <partial name="_ResortSelector"/>
