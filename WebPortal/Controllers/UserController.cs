@@ -60,9 +60,20 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
     private async Task<Dictionary<ApplicationUser, string?>> getUsersWithRole()
     {
         var userRoles = new Dictionary<ApplicationUser, string?>();
-        var users = await userManager.Users
-            .Where(u => u.HolidayResortId == ResortId)
-            .ToListAsync();
+        var u = await userManager.GetUserAsync(User);
+        var roles = await userManager.GetRolesAsync(u);
+        List<ApplicationUser> users;
+        if (roles.FirstOrDefault() == nameof(Role.SuperAdmin))
+        {
+            users = await userManager.Users
+                .ToListAsync();
+        }
+        else
+        {
+            users = await userManager.Users
+                .Where(user => user.HolidayResortId == ResortId)
+                .ToListAsync();
+        }
 
         foreach (var user in users)
         {
