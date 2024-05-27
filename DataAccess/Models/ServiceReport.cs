@@ -25,8 +25,8 @@ public class ServiceReport : ISoftDelete
     [Required] public int FacilityId { get; set; }
     [ForeignKey(nameof(FacilityId))] public Facility? Facility { get; set; }
 
-    [Required] public int UserId { get; set; }
-    [ForeignKey(nameof(UserId))] public User? User { get; set; }
+    [Required] public string UserId { get; set; }
+    [ForeignKey(nameof(UserId))] public ApplicationUser? User { get; set; }
 
     [Required] public int HolidayResortId { get; set; }
 

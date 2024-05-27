@@ -36,7 +36,7 @@ public class ServiceReportController(LiveMapDbContext context) : ControllerBase
 
         if (user == null)
         {
-            return NotFound("Could not find provided User");
+            return NotFound("Could not find provided ApplicationUser");
         }
 
         if (category == null)

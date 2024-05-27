@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
 using WebPortal.Models;
 
@@ -10,11 +11,25 @@ public class HomeController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
-        if (HttpContext.Session.GetInt32("resortId") == null || HttpContext.Session.GetInt32("resortId") == 0)
+        var user = await context.Users.FirstOrDefaultAsync(user =>
+            user.UserName == User.Identity!.Name);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+
+        if ((HttpContext.Session.GetInt32("resortId") == null ||
+            HttpContext.Session.GetInt32("resortId") == 0) && user.HolidayResortId == null)
         {
             return RedirectToAction(nameof(SelectCurrentResort));
         }
         
+        if (user.HolidayResortId != null)
+        {
+            HttpContext.Session.SetInt32("resortId", user.HolidayResortId!.Value);
+        }
+
         var resort = await context.HolidayResorts.FindAsync(ResortId);
 
         return View(resort);
@@ -31,7 +46,7 @@ public class HomeController(LiveMapDbContext context) : LivemapController
         HttpContext.Session.SetInt32("resortId", resortId);
         return RedirectToAction(nameof(Index));
     }
-    
+
     public IActionResult ClearCurrentResort()
     {
         HttpContext.Session.SetInt32("resortId", 0);

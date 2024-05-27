@@ -1,44 +1,67 @@
 using DataAccess.Models;
 using DataAccess.Seeders.Abstract;
+using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess.Seeders;
 
-public class UserSeeder: ISeeder<User>
+public class UserSeeder: ISeeder<ApplicationUser>
 {
-    public List<User> Seed()
+    private const string DefaultPassword = "livemap";
+    
+    public List<ApplicationUser> Seed()
     {
-        return new List<User>
+        var users = new List<ApplicationUser>
         {
             new()
             {
-                Id = 1,
-                Name = "Almior"
+                UserName = "Almior",
             },
             new()
             {
-                Id = 2,
-                Name = "Joram"
+                UserName = "Joram"
             },
             new()
             {
-                Id = 3,
-                Name = "Thieme"
+                UserName = "Thieme"
             },
             new()
             {
-                Id = 4,
-                Name = "Mauro"
+                UserName = "Mauro"
             },
             new()
             {
-                Id = 5,
-                Name = "Imke"
+                UserName = "Imke"
             },
             new()
             {
-                Id = 6,
-                Name = "Lamine"
+                UserName = "Lamine"
             },
+            new()
+            {
+                UserName = "SuperAdmin"
+            },
+            new()
+            {
+                UserName = "ResortAdmin",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                UserName = "ResortEmployee",
+                HolidayResortId = 1,
+            },
+            new()
+            {
+                UserName = "Visitor"
+            }
         };
+
+        foreach (var user in users)
+        {
+            user.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(user, DefaultPassword);
+            user.NormalizedUserName = user.UserName!.ToUpper();
+        }
+
+        return users;
     }
 }
