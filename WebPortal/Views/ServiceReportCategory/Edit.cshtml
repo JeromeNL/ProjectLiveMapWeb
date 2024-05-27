@@ -1,4 +1,8 @@
 ﻿@model DataAccess.Models.ServiceReportCategory
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "_Layout";
+}
 <div>
     <h1 class="text-2xl font-bold">Aanpassen categorie: @Model.Name</h1>
     <a asp-controller="ServiceReportCategory" asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
