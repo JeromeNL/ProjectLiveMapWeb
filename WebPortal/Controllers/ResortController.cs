@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebPortal.Controllers;
 
-[Authorize(Roles = nameof(Role.SuperAdmin))]
+[Authorize(Roles = "ResortAdmin,SuperAdmin")]
 public class ResortController(LiveMapDbContext context, UserManager<ApplicationUser> userManager) : Controller
 {
     [HttpGet]
@@ -46,6 +46,7 @@ public class ResortController(LiveMapDbContext context, UserManager<ApplicationU
         return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "SuperAdmin")]
     [HttpGet]
     public IActionResult Create()
     {

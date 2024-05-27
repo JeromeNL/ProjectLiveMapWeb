@@ -41,7 +41,7 @@
                         <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
                         <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
                     }
-                    @if (User.IsInRole(nameof(Role.ResortAdmin)))
+                    @if (User.IsInRole(nameof(Role.SuperAdmin)) || User.IsInRole(nameof(Role.ResortAdmin)))
                     {
                         <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
                         <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
