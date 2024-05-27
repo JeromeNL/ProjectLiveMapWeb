@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
+[Authorize(Roles = nameof(Role.ResortAdmin))]
 public class ServiceReportCategoryController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
@@ -33,7 +35,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
 
         await context.ServiceReportCategories.AddAsync(category);
         await context.SaveChangesAsync();
-        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is toegevoegd." ;
+        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is toegevoegd.";
         return RedirectToAction("Index");
     }
 
@@ -41,7 +43,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
     {
         var category = await context.ServiceReportCategories.FindAsync(id);
         if (category == null) return RedirectToAction("Index");
-        
+
         return View(category);
     }
 
@@ -59,7 +61,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
 
         existingCategory.Name = category.Name;
         await context.SaveChangesAsync();
-        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is bijgewerkt." ;
+        TempData["SuccessMessage"] = "Meldingscategorie " + category.Name + " is bijgewerkt.";
         return RedirectToAction("Index");
     }
 
@@ -79,7 +81,7 @@ public class ServiceReportCategoryController(LiveMapDbContext context) : Livemap
 
         context.ServiceReportCategories.Remove(category);
         await context.SaveChangesAsync();
-        TempData["InfoMessage"] = "Meldingscategorie " + category.Name + " is verwijderd." ;
+        TempData["InfoMessage"] = "Meldingscategorie " + category.Name + " is verwijderd.";
         return RedirectToAction("Index");
     }
 }

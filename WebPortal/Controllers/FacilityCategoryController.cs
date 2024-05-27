@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
+[Authorize(Roles = nameof(Role.ResortAdmin))]
 public class FacilityCategoryController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
