@@ -1,0 +1,43 @@
+@model List<DataAccess.Models.User>
+
+<div id="select_user_modal" class="modal">
+    <div class="modal-box w-11/12 max-w-5xl">
+        <div class="">
+            <h3 class="font-bold text-lg">Selecteer een bezoeker</h3>
+        </div>
+        <div class="">
+            <table id="datatable" class="table">
+                <thead>
+                <tr>
+                    <th>Gebruikersnaam</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr onclick="document.querySelector('#checkbox_@user.Name').click()">
+                        <td class="w-0.5">
+                            <input id="checkbox_@user.Name"
+                                   name="userId"
+                                   type="radio"
+                                   value="@user.Id"
+                                   required
+                                   onclick="document.querySelector('#render_user_name').innerHTML = '@user.Name'"
+                                   onchange="if (this.checked) document.querySelector('#render_user_name').innerHTML = '@user.Name'">
+                            <label for="checkbox_@user.Name">
+                                @user.Name
+                            </label>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="">
+            <div class="m-2 flex flex-row justify-between">
+                <button type="button" onclick="document.querySelector('#select_user_modal').classList.remove('modal-open')" class="btn btn-success">Selecteer</button>
+                <button type="button" onclick="document.querySelector('#select_user_modal').classList.remove('modal-open')" class="btn">Annuleren</button>
+            </div>
+        </div>
+    </div>
+</div>
