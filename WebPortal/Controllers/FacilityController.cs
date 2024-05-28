@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
@@ -7,6 +8,7 @@ using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
+[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}")]
 public class FacilityController(LiveMapDbContext context) : LivemapController
 {
     // GET
@@ -31,12 +33,12 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
     public async Task<IActionResult> Create(double latitude, double longitude)
     {
         var resort = await context.HolidayResorts.FindAsync(ResortId);
-        
+
         if (resort == null)
         {
             return NotFound();
         }
-        
+
         if (!resort.IsPointInside(latitude, longitude))
         {
             TempData["ErrorMessage"] = "Klik binnen het park om een faciliteit toe te voegen.";
@@ -46,7 +48,7 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
         var facilityCategories = await context.FacilityCategories
             .Where(f => f.HolidayResortId == ResortId)
             .ToListAsync();
-        
+
         var viewModel = new FacilityCreateViewModel
         {
             Facility = new Facility(),
@@ -67,7 +69,7 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
             viewModel.Latitude = viewModel.Facility.Latitude;
             viewModel.Longitude = viewModel.Facility.Longitude;
         }
-        
+
         var openingHours = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
             .Select(day => new DefaultOpeningHours(day)
             {
@@ -99,7 +101,7 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
         var viewModel = new FacilityViewModel
         {
             Facility = facility,
-            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() ,
+            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList(),
             IsAlwaysOpen = facility.IsAlwaysOpen()
         };
 
@@ -109,7 +111,7 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
     public async Task<IActionResult> SwitchIsAlwaysOpen(int id)
     {
         var facility = await context.Facilities
-            .Include(f => f.DefaultOpeningHours) 
+            .Include(f => f.DefaultOpeningHours)
             .Include(f => f.Category)
             .FirstOrDefaultAsync(f => f.Id == id);
 
@@ -117,7 +119,7 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
         {
             RedirectToAction("Index");
         }
-        
+
         if (facility.IsAlwaysOpen())
         {
             facility.SetToRegularOpeningHours();
@@ -126,12 +128,11 @@ public class FacilityController(LiveMapDbContext context) : LivemapController
         {
             facility.SetAlwaysOpen();
         }
-        
+
         context.Facilities.Update(facility);
         await context.SaveChangesAsync();
-        
-        return RedirectToAction("Show", new { id = facility.Id });
 
+        return RedirectToAction("Show", new { id = facility.Id });
     }
 
     [HttpPost]

@@ -27,13 +27,15 @@
                 <tr>
                     <td>@category.Id</td>
                     <td>@category.Name</td>
-                    <td>
-                        <form asp-action="Edit" method="get">
+                    <td class="flex flex-row">
+                        <form asp-action="Edit" method="get" class="mr-2">
                             <input type="hidden" name="id" value="@category.Id"/>
                             <input class="btn btn-sm btn-warning" type="submit" value="Pas aan"/>
                         </form>
-                    <button class="btn btn-sm btn-error" type="submit" value="Verwijder"
-                                onclick="document.getElementById('@approveModalId').classList.add('modal-open')"></button>
+                        <button class="btn btn-sm btn-error" type="submit" value="Verwijder"
+                                onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                            Verwijder
+                        </button>
                     </td>
                 </tr>
                 @Html.Partial("_DeleteServiceReportModal", category)
@@ -42,6 +44,7 @@
         </table>
     </div>
 </div>
+
 @section Scripts
 {
     <script>

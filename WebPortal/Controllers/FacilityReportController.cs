@@ -1,12 +1,14 @@
 ﻿using DataAccess;
 using DataAccess.Models;
 using DataAccess.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
+[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}")]
 public class FacilityReportController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
@@ -83,7 +85,7 @@ public class FacilityReportController(LiveMapDbContext context) : LivemapControl
             FacilityReportId = id,
             FacilityReport = report,
             UserId = report.UserId,
-            User = report.User,
+            ApplicationUser = report.ApplicationUser,
             HolidayResortId = report.HolidayResortId,
             HolidayResort = report.HolidayResort,
         };

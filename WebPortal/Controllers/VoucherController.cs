@@ -1,17 +1,19 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
+[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}")]
 public class VoucherController(LiveMapDbContext Context) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
         var transactions = await Context.PointsTransactions
-            .Include(t => t.User)
+            .Include(t => t.ApplicationUser)
             .Include(t => t.Voucher)
             .Where(t => t.Voucher != null)
             .ToListAsync();
@@ -24,11 +26,10 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
         return View(users);
     }
 
-    public async Task<IActionResult> Add(int userId, string description, int price)
+    public async Task<IActionResult> Add(string userId, string description, int price)
     {
         const string key = "ErrorMessage";
         string returnTo = nameof(Index);
-        var id = Guid.NewGuid();
         var user = await Context.Users.FindAsync(userId);
         if (user == null)
         {
@@ -54,10 +55,11 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
 
         if (pointsOfUser < price)
         {
-            TempData[key] = $"{user.Name} heeft niet genoeg punten om deze voucher te kopen";
+            TempData[key] = $"{user.UserName} heeft niet genoeg punten om deze voucher te kopen";
             return RedirectToAction(returnTo);
         }
 
+        var id = Guid.NewGuid();
         var voucher = new Voucher()
         {
             Id = id,
@@ -68,7 +70,7 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
         {
             Amount = price * -1,
             UserId = userId,
-            User = user,
+            ApplicationUser = user,
             HolidayResortId = ResortId,
             HolidayResort = resort,
             VoucherId = id,

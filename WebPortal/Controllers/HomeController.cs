@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
 using WebPortal.Models;
 using WebPortal.Services;
@@ -9,8 +10,16 @@ namespace WebPortal.Controllers;
 
 public class HomeController(LiveMapDbContext context, IResortService resortService) : LivemapController
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        var user = await context.Users.FirstOrDefaultAsync(user =>
+            user.UserName == User.Identity!.Name);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+        
         return RedirectToAction("Index", "Facility", null);
     }
 

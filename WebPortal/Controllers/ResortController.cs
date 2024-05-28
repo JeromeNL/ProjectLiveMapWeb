@@ -1,15 +1,20 @@
 using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebPortal.Controllers;
 
-public class ResortController(LiveMapDbContext context) : Controller
+[Authorize(Roles = nameof(Role.SuperAdmin))]
+public class ResortController(LiveMapDbContext context, UserManager<ApplicationUser> userManager) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        var user = await userManager.GetUserAsync(User);
+        ViewBag.UserResortId = user.HolidayResortId;
         var resorts = await context.HolidayResorts.ToListAsync();
         return View(resorts);
     }
