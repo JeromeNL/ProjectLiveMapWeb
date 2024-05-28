@@ -1,8 +1,10 @@
 ﻿@model Dictionary<DataAccess.Models.ApplicationUser, string?>
 
 <div>
-    <a class="btn btn-success mt-2" asp-controller="User" asp-action="Create">Nieuwe gebruiker</a>
-    <h1 class="font-semibold text-2xl">Gebruiker aanmaken</h1>
+    <div class="flex flex-row justify-between mb-5">
+        <h1 class="font-semibold text-2xl">Gebruiker aanmaken</h1>
+        <a class="btn btn-sm btn-primary" asp-controller="User" asp-action="Create">Nieuwe gebruiker</a>
+    </div>
     <table id="datatable" class="table gap-y-5">
         <thead>
         <tr>
