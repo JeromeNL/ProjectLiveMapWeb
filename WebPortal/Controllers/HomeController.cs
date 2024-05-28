@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
 using WebPortal.Models;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers;
 
-public class HomeController(LiveMapDbContext context) : LivemapController
+public class HomeController(LiveMapDbContext context, IResortService resortService) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
@@ -18,41 +19,15 @@ public class HomeController(LiveMapDbContext context) : LivemapController
         {
             return RedirectToAction("Login", "Auth");
         }
-
-        if ((HttpContext.Session.GetInt32("resortId") == null ||
-            HttpContext.Session.GetInt32("resortId") == 0) && user.HolidayResortId == null)
-        {
-            return RedirectToAction(nameof(SelectCurrentResort));
-        }
         
-        if (user.HolidayResortId != null)
-        {
-            HttpContext.Session.SetInt32("resortId", user.HolidayResortId!.Value);
-        }
-
-        var resort = await context.HolidayResorts.FindAsync(ResortId);
-
-        return View(resort);
+        return RedirectToAction("Index", "Facility", null);
     }
 
-    public IActionResult SelectCurrentResort()
+    public async Task<IActionResult> SaveCurrentResort(int resortId)
     {
-        var resorts = context.HolidayResorts.ToList();
-        return View(resorts);
+        await resortService.SetCurrentResortId(resortId);
+        return Redirect(Request.Headers["Referer"].ToString());
     }
-
-    public IActionResult SaveCurrentResort(int resortId)
-    {
-        HttpContext.Session.SetInt32("resortId", resortId);
-        return RedirectToAction(nameof(Index));
-    }
-
-    public IActionResult ClearCurrentResort()
-    {
-        HttpContext.Session.SetInt32("resortId", 0);
-        return RedirectToAction(nameof(SelectCurrentResort));
-    }
-
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

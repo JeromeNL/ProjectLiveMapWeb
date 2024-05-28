@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +60,6 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedUICultures = supportedCultures;
     });
 
-// cookie setup
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
@@ -71,6 +71,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IResortService, ResortService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

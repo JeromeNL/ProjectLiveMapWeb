@@ -1,17 +1,24 @@
 ﻿@model List<DataAccess.Models.PointsTransaction>
+@{
+    ViewData["Title"] = "Vouchers";
+    Layout = "_Layout";
+}
 
 <div>
-    <h1 class="text-2xl font-semibold">Overzicht Vouchers</h1>
+    <div class="flex flex-row justify-between mb-5">
+        <h1 class="text-2xl font-semibold">Overzicht Vouchers</h1>
+        <a class="btn btn-sm btn-primary" asp-controller="Voucher" asp-action="Create">Nieuwe voucher</a>
+    </div>
+    
     @if (ViewBag.message != null)
     {
         <p class="text-red-600">@ViewBag.message</p>
     }
-    <a class="btn btn-success mt-2" asp-controller="Voucher" asp-action="Create">Nieuwe voucher</a>
+    
     <div class="overflow-x-auto mt-2">
         <table id="datatable" class="table gap-y-5">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Gebruiker</th>
                 <th>Beschrijving</th>
                 <th>Prijs</th>
@@ -24,7 +31,6 @@
                 var voucher = transaction.Voucher;
                 var price = transaction.Amount * -1;
                 <tr>
-                    <td>@voucher.Id</td>
                     <td>@transaction.ApplicationUser.UserName</td>
                     <td>@voucher.Description</td>
                     <td>@price</td>

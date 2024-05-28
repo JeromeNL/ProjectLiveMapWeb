@@ -2,7 +2,7 @@
 @using Index = WebPortal.Resources.Views.FacilityReport.Index
 
 @{
-    ViewBag.Title = Index.Title;
+    ViewBag.Title = "Faciliteitsmeldingen";
     Layout = "_Layout";
 }
 @Html.Partial("_MessagesToast")
@@ -66,7 +66,7 @@
            searchable: true,
             sortable: true,
             perPage: 5,
-            order: [4, 'asc'],
+            order: [3, 'asc'],
             language: {
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
             },
