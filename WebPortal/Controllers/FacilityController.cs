@@ -8,7 +8,7 @@ using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}")]
+[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}, {nameof(Role.SuperAdmin)}")]
 public class FacilityController(LiveMapDbContext context) : LivemapController
 {
     // GET

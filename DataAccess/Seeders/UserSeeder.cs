@@ -42,6 +42,10 @@ public class UserSeeder: ISeeder<ApplicationUser>
             },
             new()
             {
+                UserName = "iODigital"
+            },
+            new()
+            {
                 UserName = "ResortAdmin",
                 HolidayResortId = 1,
             },

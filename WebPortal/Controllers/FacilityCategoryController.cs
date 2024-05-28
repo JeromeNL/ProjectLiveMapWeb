@@ -8,7 +8,7 @@ using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
-[Authorize(Roles = nameof(Role.ResortAdmin))]
+[Authorize(Roles = $"{nameof(Role.SuperAdmin)},{nameof(Role.ResortAdmin)}")]
 public class FacilityCategoryController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
