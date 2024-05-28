@@ -7,9 +7,12 @@
 
 <div class="flex justify-between items-center mb-4">
     <h2 class="text-xl font-bold">Parkenbeheer</h2>
-    <form method="get" asp-action="Create">
-        <button type="submit" class="btn btn-primary">Nieuw park</button>
-    </form>
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <form method="get" asp-action="Create">
+            <button type="submit" class="btn btn-primary">Nieuw park</button>
+        </form>
+    }
 </div>
 
 
@@ -25,7 +28,7 @@
     <tbody class="bg-white divide-y divide-gray-200">
     @foreach (var resort in Model)
     {
-        if (resort.Id != ViewBag.UserResortId)
+        if (!User.IsInRole("SuperAdmin") && resort.Id != ViewBag.UserResortId)
         {
             continue;
         }

@@ -34,20 +34,20 @@
                 <a asp-controller="Home" asp-action="Index" class="text-xl font-semibold text-gray-900">@Localizer.NavbarTitle</a>
                 <div class="flex items-center">
                     <a asp-controller="Home" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.Home</a>
-                    @if (User.IsInRole(nameof(Role.ResortAdmin)) || User.IsInRole(nameof(Role.ResortEmployee)))
+                    @if (User.IsInRole(nameof(Role.ResortAdmin)) || User.IsInRole(nameof(Role.ResortEmployee)) || User.IsInRole("SuperAdmin"))
                     {
                         <a asp-controller="Facility" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Faciliteiten</a>
                         <a asp-controller="FacilityReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">@Localizer.ApproveReports</a>
                         <a asp-controller="ServiceReport" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Service meldingen</a>
                         <a asp-controller="Voucher" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Vouchers</a>
                     }
-                    @if (User.IsInRole(nameof(Role.ResortAdmin)))
+                    @if (User.IsInRole(nameof(Role.ResortAdmin)) || User.IsInRole("SuperAdmin"))
                     {
                         <a asp-controller="FacilityCategory" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Categorieën</a>
-                        <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
                     }
                     @if (User.IsInRole("ResortAdmin") || User.IsInRole("SuperAdmin"))
                     {
+                        <a asp-controller="Resort" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Parkenbeheer</a>
                         <a asp-controller="User" asp-action="Index" class="text-gray-800 hover:text-gray-900 mx-4">Gebruikers</a>
                     }
                 </div>
