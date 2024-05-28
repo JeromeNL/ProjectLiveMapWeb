@@ -19,19 +19,22 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        return View();
+        var viewmodel = new RegisterViewModel();
+        viewmodel.Resorts = await context.HolidayResorts.ToListAsync();
+        return View(viewmodel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(RegisterViewModel viewModel)
+    public async Task<IActionResult> Add(RegisterViewModel viewModel, int? resortId)
     {
         var user = new ApplicationUser();
         user.UserName = viewModel.UserName;
         user.NormalizedUserName = viewModel.UserName.ToUpper();
-        user.HolidayResortId = ResortId;
-        user.HolidayResort = await context.HolidayResorts.FindAsync(ResortId);
+
+        user.HolidayResortId = resortId ?? ResortId;
+        user.HolidayResort = await context.HolidayResorts.FindAsync(resortId ?? ResortId);
 
         var result = await userManager.CreateAsync(user, viewModel.Password);
 
@@ -39,7 +42,10 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
         {
             ModelState.AddModelError("Password", "Wachtwoord moet meer dan 10 tekens bevatten");
 
-            return View("Create");
+            var model = new RegisterViewModel();
+            model.Resorts = await context.HolidayResorts.ToListAsync();
+
+            return View("Create", model);
         }
 
         var currentUser = await userManager.GetUserAsync(User);

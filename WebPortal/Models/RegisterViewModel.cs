@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DataAccess.Models;
 
 namespace WebPortal.Models;
 
@@ -10,4 +11,6 @@ public class RegisterViewModel
     [Required(ErrorMessage = "Wachtwoord is verplicht")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
+
+    public List<HolidayResort> Resorts { get; set; }
 }
