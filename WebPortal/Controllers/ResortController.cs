@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebPortal.Controllers;
 
-[Authorize(Roles = "ResortAdmin,SuperAdmin")]
+[Authorize(Roles = $"{nameof(Role.SuperAdmin)},{nameof(Role.ResortAdmin)}")]
 public class ResortController(LiveMapDbContext context, UserManager<ApplicationUser> userManager) : Controller
 {
     [HttpGet]
