@@ -28,7 +28,7 @@
     <tbody class="bg-white divide-y divide-gray-200">
     @foreach (var resort in Model)
     {
-        if (resort.Id != ViewBag.UserResortId)
+        if (!User.IsInRole("SuperAdmin") && resort.Id != ViewBag.UserResortId)
         {
             continue;
         }
