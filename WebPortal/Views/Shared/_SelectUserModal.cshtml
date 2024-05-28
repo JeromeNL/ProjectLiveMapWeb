@@ -1,4 +1,4 @@
-@model List<DataAccess.Models.User>
+@model List<DataAccess.Models.ApplicationUser>
 
 <div id="select_user_modal" class="modal">
     <div class="modal-box w-11/12 max-w-5xl">
@@ -15,17 +15,17 @@
                 <tbody>
                 @foreach (var user in Model)
                 {
-                    <tr onclick="document.querySelector('#checkbox_@user.Name').click()">
+                    <tr onclick="document.querySelector('#checkbox_@user.UserName').click()">
                         <td class="w-0.5">
-                            <input id="checkbox_@user.Name"
+                            <input id="checkbox_@user.UserName"
                                    name="userId"
                                    type="radio"
                                    value="@user.Id"
                                    required
-                                   onclick="document.querySelector('#render_user_name').innerHTML = '@user.Name'"
-                                   onchange="if (this.checked) document.querySelector('#render_user_name').innerHTML = '@user.Name'">
-                            <label for="checkbox_@user.Name">
-                                @user.Name
+                                   onclick="document.querySelector('#render_user_name').innerHTML = '@user.UserName'"
+                                   onchange="if (this.checked) document.querySelector('#render_user_name').innerHTML = '@user.UserName'">
+                            <label for="checkbox_@user.UserName">
+                                @user.UserName
                             </label>
                         </td>
                     </tr>

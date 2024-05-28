@@ -80,7 +80,7 @@ public class VoucherController(LiveMapDbContext Context) : LivemapController
         await Context.PointsTransactions.AddAsync(transaction);
         await Context.SaveChangesAsync();
         
-        TempData["SuccessMessage"] = $"Vocher '{voucher.Description}' voor {user.Name} aangemaakt";
+        TempData["SuccessMessage"] = $"Vocher '{voucher.Description}' voor {user.UserName} aangemaakt";
         
         return RedirectToAction("Index");
     }
