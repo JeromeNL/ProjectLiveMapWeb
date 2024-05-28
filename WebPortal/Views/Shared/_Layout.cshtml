@@ -1,7 +1,7 @@
-﻿@using Localizer = WebPortal.Resources.Shared._Layout
-@using DataAccess.Models
+﻿@using DataAccess.Models
 @using DataAccess.Models.Extensions
 @using Microsoft.AspNetCore.Identity
+@using Localizer = WebPortal.Resources.Shared._Layout
 @inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
@@ -10,6 +10,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - WebPortal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -24,7 +25,6 @@
         href="https://unpkg.com/@Html.Raw("@geoman")-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css"/>
     <script src="https://unpkg.com/@Html.Raw("@geoman")-io/leaflet-geoman-free@latest/dist/leaflet-geoman.js"></script>
     <link rel="stylesheet" href="@Html.Raw("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css")"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 z-50">
 @if (User.Identity != null & RoleExtension.getRolesWithWebPortalAccess().Any(role => User.IsInRole(role)))
