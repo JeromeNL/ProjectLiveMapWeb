@@ -1,4 +1,5 @@
-﻿@model RegisterViewModel
+﻿@using DataAccess.Models
+@model RegisterViewModel
 
 <div>
     <h1 class="font-semibold text-2xl">Gebruiker aanmaken</h1>
@@ -20,6 +21,18 @@
                    autocomplete="current-password" aria-required="true"/>
         </label>
         <span asp-validation-for="Password" class="text-red-600"></span><br/>
+
+        <div>
+            @if (User.IsInRole(nameof(Role.SuperAdmin)))
+            {
+                <select class="select select-bordered" name="resortId" id="resortId">
+                    @foreach (var resort in Model.Resorts)
+                    {
+                        <option value="@resort.Id">@resort.Name</option>
+                    }
+                </select>
+            }
+        </div>
         <input class="btn btn-success mt-2" type="submit" value="Opslaan"/>
     </form>
 </div>
