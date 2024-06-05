@@ -15,7 +15,7 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        return View(await getUsersWithRole());
+        return View(await GetUsersWithRole());
     }
 
     [HttpGet]
@@ -60,10 +60,10 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
             await userManager.AddToRoleAsync(user, nameof(Role.ResortEmployee));
         }
 
-        return View("Index", await getUsersWithRole());
+        return View("Index", await GetUsersWithRole());
     }
 
-    private async Task<Dictionary<ApplicationUser, string?>> getUsersWithRole()
+    private async Task<Dictionary<ApplicationUser, string?>> GetUsersWithRole()
     {
         var userRoles = new Dictionary<ApplicationUser, string?>();
         var u = await userManager.GetUserAsync(User);
