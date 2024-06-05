@@ -68,7 +68,8 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
         var userRoles = new Dictionary<ApplicationUser, string?>();
         var u = await userManager.GetUserAsync(User);
         var roles = await userManager.GetRolesAsync(u);
-        List<ApplicationUser> users;
+        List<ApplicationUser> users = new List<ApplicationUser>();
+        
         if (roles.FirstOrDefault() == nameof(Role.SuperAdmin))
         {
             users = await userManager.Users
@@ -76,9 +77,19 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
         }
         else
         {
-            users = await userManager.Users
+            var usersWithResortId = await userManager.Users
                 .Where(user => user.HolidayResortId == ResortId)
                 .ToListAsync();
+            
+
+            foreach (var user in usersWithResortId)
+            {
+                roles = await userManager.GetRolesAsync(user);
+                if (!roles.Contains(nameof(Role.SuperAdmin)))
+                {
+                    users.Add(user);
+                }
+            }
         }
 
         foreach (var user in users)
