@@ -19,19 +19,21 @@ public class ProposedFacilitySeeder(List<Facility> facilities) : ISeeder<Propose
                 Description = facility.Description,
                 Latitude = facility.Latitude,
                 Longitude = facility.Longitude,
-                FacilityId = facility.Id
+                FacilityId = facility.Id,
+                HolidayResortId = 1,
             };
             proposedFacilities.Add(proposedFacility);
         }
         // new proposed facility
         var newProposedFacility = new ProposedFacility
         {
-            Id = 4,
+            Id = 30,
             Name = "Zwemzee",
             CategoryId = 1,
             Description = "De nieuwe zwemzee",
             Latitude = 51.651976894252684,
-            Longitude = 5.053454583354487
+            Longitude = 5.053454583354487,
+            HolidayResortId = 1,
         };
         proposedFacilities.Add(newProposedFacility);
         

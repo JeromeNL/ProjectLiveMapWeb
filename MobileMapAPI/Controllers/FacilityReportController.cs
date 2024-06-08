@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore;
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("facilities/facility-reports")]
+[Route("resorts/{resortId:int}/facilities/facility-reports")]
 public class FacilityReportController(LiveMapDbContext context) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllFacilityReports()
+    public async Task<IActionResult> GetAllFacilityReports(int resortId)
     {
         var facilityReports = await context.FacilityReports
+            .Where(report => report.HolidayResortId == resortId)
             .Include(report => report.ProposedFacility)
-            .Include(report => report.User)
+            .Include(report => report.ApplicationUser)
             .ToListAsync();
         return Ok(facilityReports);
     }
@@ -24,7 +25,7 @@ public class FacilityReportController(LiveMapDbContext context) : ControllerBase
     {
         var facilityReport = await context.FacilityReports
             .Include(report => report.ProposedFacility)
-            .Include(report => report.User)
+            .Include(report => report.ApplicationUser)
             .FirstOrDefaultAsync(report => report.Id == reportId);
 
         if (facilityReport == null)

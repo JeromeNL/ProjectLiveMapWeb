@@ -1,0 +1,12 @@
+@if (TempData["SuccessMessage"] != null)
+{
+    @Html.Partial("_SuccessToast", TempData["SuccessMessage"].ToString())
+}
+@if (TempData["InfoMessage"] != null)
+{
+    @Html.Partial("_InfoToast", TempData["InfoMessage"].ToString())
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    @Html.Partial("_ErrorToast", TempData["ErrorMessage"].ToString())
+}

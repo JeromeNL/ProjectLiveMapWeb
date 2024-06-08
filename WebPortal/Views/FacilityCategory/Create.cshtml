@@ -1,12 +1,12 @@
 ﻿@model DataAccess.Models.FacilityCategory
 
 @{
-    ViewBag.Title = "Categorie aanmaken";
+    ViewBag.Title = "Faciliteitscategorie aanmaken";
     Layout = "_Layout";
 }
 
 <h1 class="text-2xl font-semibold mb-6">Categorie aanmaken</h1>
-<form method="post" class="flex flex-col">
+<form method="post" class="flex flex-col" asp-action="Create">
     <label>Naam</label>
     <input type="text" class="input input-bordered" asp-for="Name" required>
     <span asp-validation-for="Name" class="text-red-600"></span>
@@ -14,6 +14,10 @@
     <label>Omschrijving</label>
     <input type="text" class="input input-bordered" asp-for="Description" required>
     <span asp-validation-for="Description" class="text-red-600"></span>
+    
+    <label>Kleur</label>
+    <input type="color" class="input input-bordered" asp-for="HexCode" required>
+    <span asp-validation-for="HexCode" class="text-red-600"></span>
 
     <label>Naam icoontje</label>
     <p class="text-slate-400 text-sm">
@@ -22,6 +26,8 @@
     </p>
     <input type="text" class="input input-bordered" asp-for="IconName" required>
     <span asp-validation-for="IconName" class="text-red-600"></span>
+    
+    <input type="hidden" asp-for="HolidayResortId" value="@ViewBag.ResortId"/>
 
     <button type="submit" class="btn btn-primary mt-2">Aanmaken</button>
 </form>

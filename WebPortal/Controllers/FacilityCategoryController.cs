@@ -1,21 +1,27 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
-public class FacilityCategoryController(LiveMapDbContext context) : Controller
+[Authorize(Roles = $"{nameof(Role.SuperAdmin)},{nameof(Role.ResortAdmin)}")]
+public class FacilityCategoryController(LiveMapDbContext context) : LivemapController
 {
     public async Task<IActionResult> Index()
     {
-        var facilityCategories = await context.FacilityCategories.ToListAsync();
+        var facilityCategories = await context.FacilityCategories
+            .Where(category => category.HolidayResortId == ResortId)
+            .ToListAsync();
         return View(facilityCategories);
     }
 
     public IActionResult Create()
     {
+        ViewBag.ResortId = ResortId;
         return View();
     }
 
@@ -26,12 +32,14 @@ public class FacilityCategoryController(LiveMapDbContext context) : Controller
 
         await context.FacilityCategories.AddAsync(facilityCategory);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Categorie " + facilityCategory.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
 
     public async Task<IActionResult> Edit(int id)
     {
         var facilityCategory = await context.FacilityCategories.FindAsync(id);
+        ViewBag.ResortId = ResortId;
         if (facilityCategory == null) return NotFound();
         return View(facilityCategory);
     }
@@ -42,6 +50,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : Controller
         if (!ModelState.IsValid) return View(facilityCategory);
         context.FacilityCategories.Update(facilityCategory);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Categorie " + facilityCategory.Name + " is bijgewerkt.";
         return RedirectToAction("Index");
     }
 
@@ -62,6 +71,7 @@ public class FacilityCategoryController(LiveMapDbContext context) : Controller
 
         context.FacilityCategories.Remove(facilityCategory);
         await context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Categorie " + facilityCategory.Name + " is verwijderd.";
         return RedirectToAction("Index");
     }
 }

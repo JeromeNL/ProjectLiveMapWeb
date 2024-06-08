@@ -1,7 +1,12 @@
 using System.Globalization;
 using DataAccess;
+using DataAccess.Models;
+using DataAccess.Models.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Services;
 
 public class Program
 {
@@ -12,9 +17,42 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
+        builder.Services.AddDistributedMemoryCache();
+
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromDays(7);
+            options.Cookie.IsEssential = true;
+        });
+
         builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB"))
                 .AddInterceptors(new SoftDeleteInterceptor()));
+
+        // Identity
+        builder.Services.AddDefaultIdentity<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddEntityFrameworkStores<LiveMapDbContext>()
+            .AddDefaultTokenProviders();
+
+        builder.Services.Configure<IdentityOptions>(options =>
+        {
+            // Password settings.
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 10;
+            options.Password.RequiredUniqueChars = 0;
+        });
+
+        // Default setup: User must be logged in to access all web pages.
+        builder.Services.AddAuthorizationBuilder()
+            .SetFallbackPolicy(new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .RequireRole(RoleExtension.getRolesWithWebPortalAccess())
+                .Build());
 
         builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
         builder.Services.Configure<RequestLocalizationOptions>(
@@ -26,6 +64,19 @@ public class Program
                 options.SupportedUICultures = supportedCultures;
             });
 
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            // Cookie settings
+            options.Cookie.HttpOnly = true;
+            options.ExpireTimeSpan = TimeSpan.FromDays(1);
+
+            options.LoginPath = "/auth/login";
+            options.AccessDeniedPath = "/auth/accessdenied";
+            options.SlidingExpiration = true;
+        });
+
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<IResortService, ResortService>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -42,6 +93,8 @@ public class Program
         app.UseRouting();
 
         app.UseAuthorization();
+
+        app.UseSession();
 
         app.MapControllerRoute(
             name: "default",

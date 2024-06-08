@@ -1,0 +1,42 @@
+﻿@model Dictionary<DataAccess.Models.ApplicationUser, string?>
+
+<div>
+    <div class="flex flex-row justify-between mb-5">
+        <h1 class="font-semibold text-2xl">Gebruiker aanmaken</h1>
+        <a class="btn btn-sm btn-primary" asp-controller="User" asp-action="Create">Nieuwe gebruiker</a>
+    </div>
+    <table id="datatable" class="table gap-y-5">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Rol</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Key</td>
+                <td>
+                    @(user.Value ?? "Onbekend")
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>
+    new DataTable('#datatable', {
+        searchable: true,
+        sortable: true,
+        perPage: 5,
+        order: [4, 'asc'],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
+        },
+    });
+    </script>
+}

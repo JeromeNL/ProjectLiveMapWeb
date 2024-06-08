@@ -1,47 +1,44 @@
 ﻿using DataAccess;
 using DataAccess.Models;
 using DataAccess.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.Base;
 
 namespace WebPortal.Controllers;
 
-public class FacilityReportController : Controller
+[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}, {nameof(Role.SuperAdmin)}")]
+public class FacilityReportController(LiveMapDbContext context) : LivemapController
 {
-    private readonly LiveMapDbContext _context;
-
-    public FacilityReportController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<IActionResult> Index()
     {
-        var pendingReports = await _context.FacilityReports
+        var pendingReports = await context.FacilityReports
+            .Where(f => f.HolidayResortId == ResortId)
             .Where(report => report.Status == ReportStatus.Pending)
             .Include(report => report.ProposedFacility.Facility)
             .Include(report => report.ProposedFacility)
             .Include(report => report.ProposedFacility.Category)
             .Include(report => report.ProposedFacility.Facility.Category)
             .OrderBy(report => report.CreatedAt).ToListAsync();
-            
+
         return View(pendingReports);
     }
 
     public async Task<IActionResult> DenyReport(int id)
     {
-        var report = await _context.FacilityReports.FindAsync(id);
+        var report = await context.FacilityReports.FindAsync(id);
         if (report == null) return NotFound();
 
         report.Status = ReportStatus.Denied;
-        await _context.SaveChangesAsync();
-
+        await context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Melding " + report.Id + " is afgekeurd.";
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> ApproveReport(int id)
+    public async Task<IActionResult> ApproveReport(int id, int points)
     {
-        var report = await _context.FacilityReports
+        var report = await context.FacilityReports
             .Include(r => r.ProposedFacility)
             .Include(r => r.ProposedFacility.Facility)
             .FirstOrDefaultAsync(r => r.Id == id);
@@ -61,10 +58,10 @@ public class FacilityReportController : Controller
                 Longitude = report.ProposedFacility.Longitude,
                 Latitude = report.ProposedFacility.Latitude,
                 CategoryId = report.ProposedFacility.CategoryId,
+                HolidayResortId = report.HolidayResortId
             };
 
-            await _context.Facilities.AddAsync(newFacility);
-
+            await context.Facilities.AddAsync(newFacility);
         }
         else
         {
@@ -76,11 +73,26 @@ public class FacilityReportController : Controller
                 facility.CategoryId = proposedFacilityChange.CategoryId;
                 facility.Latitude = proposedFacilityChange.Latitude;
                 facility.Longitude = proposedFacilityChange.Longitude;
-                
             }
         }
+
         report.Status = ReportStatus.Accepted;
-        await _context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Melding " + report.Id + " is goedgekeurd.";
+
+        var transaction = new PointsTransaction()
+        {
+            Amount = points,
+            FacilityReportId = id,
+            FacilityReport = report,
+            UserId = report.UserId,
+            ApplicationUser = report.ApplicationUser,
+            HolidayResortId = report.HolidayResortId,
+            HolidayResort = report.HolidayResort,
+        };
+
+        await context.PointsTransactions.AddAsync(transaction);
+        await context.SaveChangesAsync();
+
         return RedirectToAction(nameof(Index));
     }
 }

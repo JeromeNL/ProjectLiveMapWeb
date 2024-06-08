@@ -12,32 +12,38 @@ public class ServiceReportCategorySeeder: ISeeder<ServiceReportCategory>
             new()
             {
                 Id = 1,
-                Name = "Onderhoud"
+                Name = "Onderhoud",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 2,
-                Name = "Beveiliging"
+                Name = "Beveiliging",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 3,
-                Name = "Schoonmaak"
+                Name = "Schoonmaak",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 4,
-                Name = "Apparatuurstoring"
+                Name = "Apparatuurstoring",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 5,
-                Name = "Inspectie"
+                Name = "Inspectie",
+                HolidayResortId = 1,
             },
             new()
             {
                 Id = 6,
-                Name = "Feedback"
+                Name = "Feedback",
+                HolidayResortId = 1,
             }
         };
         return list;

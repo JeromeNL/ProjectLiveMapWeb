@@ -1,0 +1,20 @@
+@model DataAccess.Models.ServiceReport
+
+<div id="confirmModal_@Model.Id" class="modal">
+    <form asp-action="Delete" asp-controller="ServiceReport" method="POST" asp-route-id="@Model.Id">
+        <div class="modal-box">
+            <div class="modal-top">
+                <h3 class="font-bold text-lg">Bevestig sluiten</h3>
+                <p class="py-4">Weet u zeker dat u de melding voor '@Model.Facility.Name' wilt sluiten?</p>
+            </div>
+            <div class="modal-middle flex flex-row">
+                <label for="points">Aantal punten toewijzen</label>
+                <input required class="input" id="points" name="points" type="number" value="0" min="0" max="10"/>
+            </div>
+            <div class="modal-bottom m-2 flex flex-row justify-between">
+                <button type="submit" class="btn btn-error">Sluiten</button>
+                <button type="button" onclick="document.getElementById('confirmModal_@Model.Id').classList.remove('modal-open')" class="btn">Annuleren</button>
+            </div>
+        </div>
+    </form>
+</div>

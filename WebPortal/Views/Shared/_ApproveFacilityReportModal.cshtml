@@ -1,0 +1,20 @@
+@model DataAccess.Models.FacilityReport
+
+<div id="approveModal_@Model.Id" class="modal">
+    <form asp-action="ApproveReport" asp-controller="FacilityReport" method="POST" asp-route-id="@Model.Id">
+        <div class="modal-box">
+            <div class="modal-top">
+                <h3 class="font-bold text-lg">Melding Goedkeuren</h3>
+                <p class="py-4">Weet u zeker dat u de melding voor '@Model.ProposedFacility.Name' wilt goedkeuren?</p>
+            </div>
+            <div class="flex flex-col">
+                <label for="points">Aantal punten toewijzen:</label>
+                <input required id="points" class="input input-bordered" name="points" type="number" value="0" min="0" max="50"/>
+            </div>
+            <div class="modal-bottom m-2 flex flex-row justify-between">
+                <button type="submit" class="btn btn-success">Goedkeuren</button>
+                <button type="button" onclick="document.getElementById('approveModal_@Model.Id').classList.remove('modal-open')" class="btn">Annuleren</button>
+            </div>
+        </div>
+    </form>
+</div>

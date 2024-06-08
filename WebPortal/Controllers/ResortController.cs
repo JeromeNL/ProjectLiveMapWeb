@@ -1,16 +1,20 @@
 using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace WebPortal.Controllers;
 
-public class ResortController(LiveMapDbContext context) : Controller
+[Authorize(Roles = $"{nameof(Role.SuperAdmin)},{nameof(Role.ResortAdmin)}")]
+public class ResortController(LiveMapDbContext context, UserManager<ApplicationUser> userManager) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        var user = await userManager.GetUserAsync(User);
+        ViewBag.UserResortId = user.HolidayResortId;
         var resorts = await context.HolidayResorts.ToListAsync();
         return View(resorts);
     }
@@ -19,11 +23,12 @@ public class ResortController(LiveMapDbContext context) : Controller
     public async Task<IActionResult> Delete(int resortId)
     {
         var resort = await context.HolidayResorts.FindAsync(resortId);
-        
-        if(resort != null)
+
+        if (resort != null)
             context.HolidayResorts.Remove(resort);
-        
+
         await context.SaveChangesAsync();
+        TempData["InfoMessage"] = "Park " + resort.Name + " is verwijderd.";
         return RedirectToAction("Index");
     }
 
@@ -34,26 +39,29 @@ public class ResortController(LiveMapDbContext context) : Controller
         {
             return View(holidayResort);
         }
-        
+
         await context.HolidayResorts.AddAsync(holidayResort);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Park " + holidayResort.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "SuperAdmin")]
     [HttpGet]
     public IActionResult Create()
     {
         return View();
     }
 
-   [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> Details(int resortId)
     {
-        var resort = await context.HolidayResorts.FindAsync(resortId);
-        
-        if(resort == null)
+        var resort = await context.HolidayResorts
+            .FirstOrDefaultAsync(r => r.Id == resortId);
+
+        if (resort == null)
             return RedirectToAction("Index");
-        
+
         return View(resort);
     }
 
@@ -64,9 +72,10 @@ public class ResortController(LiveMapDbContext context) : Controller
         {
             return View("Details", holidayResort);
         }
+
         context.Update(holidayResort);
         await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Park " + holidayResort.Name + " is bijgewerkt.";
         return RedirectToAction("Details", holidayResort.Id);
     }
 }
-

@@ -1,315 +1,146 @@
 ﻿using DataAccess.Models;
+using DataAccess.Models.Extensions;
 using DataAccess.Seeders.Abstract;
 
 namespace DataAccess.Seeders;
 
-public class ServiceReportSeeder: ISeeder<ServiceReport>
+public class ServiceReportSeeder(IEnumerable<ApplicationUser> users) : ISeeder<ServiceReport>
 {
+    private readonly Random _random = new();
+
     public List<ServiceReport> Seed()
     {
-        var list = new List<ServiceReport>
+        return new List<ServiceReport>
         {
             new()
             {
                 Id = 1,
-                Title = "report 1",
-                Description = "description1",
+                Title = "Ruit gebroken",
+                Description = "Er is hier een ruit gebroken ",
                 CreatedAt = DateTime.Now,
                 FacilityId = 1,
                 ServiceReportCategoryId = 1,
-                UserId = 1
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1
             },
             new()
             {
                 Id = 2,
-                Title = "report 2",
-                Description = "description2",
+                Title = "Verstopte WC",
+                Description = "De WC op de heren wc naast de lobby is verstopt.",
                 CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 1,
-                UserId = 1
+                FacilityId = 5,
+                ServiceReportCategoryId = 3,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1
             },
             new()
             {
                 Id = 3,
-                Title = "report 3",
-                Description = "description3",
+                Title = "Vloerbedekking kapot",
+                Description = "In de gang van kamer 203 is de vloerbedekking kapot en ligt los.",
                 CreatedAt = DateTime.Now,
-                FacilityId = 1,
+                FacilityId = 5,
                 ServiceReportCategoryId = 1,
-                UserId = 1
-            },
-            new ()
-            {
-                Id = 4,
-                Title = "report 4",
-                Description = "description4",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 1,
-                UserId = 1
-            },
-            new ()
-            {
-                Id = 5,
-                Title = "report 5",
-                Description = "description5",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 2,
-                UserId = 2
-            },
-            new ()
-            {
-                Id = 6,
-                Title = "report 6",
-                Description = "description6",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 3,
-                UserId = 3
-            },
-            new ()
-            {
-                Id = 7,
-                Title = "report 7",
-                Description = "description7",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 4,
-                UserId = 4
-            },
-            new ()
-            {
-                Id = 8,
-                Title = "report 8",
-                Description = "description8",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 5,
-                UserId = 5
-            },
-            new ()
-            {
-                Id = 9,
-                Title = "report 9",
-                Description = "description9",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 6,
-                UserId = 6
-            },
-            new ()
-            {
-                Id = 10,
-                Title = "report 10",
-                Description = "description10",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 1,
-                UserId = 1
-            },
-            new ()
-            {
-                Id = 11,
-                Title = "report 11",
-                Description = "description11",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 2,
-                UserId = 2
-            },
-            new ()
-            {
-                Id = 12,
-                Title = "report 12",
-                Description = "description12",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 3,
-                UserId = 3
-            },
-            new ()
-            {
-                Id = 13,
-                Title = "report 13",
-                Description = "description13",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 4,
-                UserId = 4
-            },
-            new ()
-            {
-                Id = 14,
-                Title = "report 14",
-                Description = "description14",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 5,
-                UserId = 5
-            },
-            new ()
-            {
-                Id = 15,
-                Title = "report 15",
-                Description = "description15",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 6,
-                UserId = 6
-            },
-            new ()
-            {
-                Id = 16,
-                Title = "report 16",
-                Description = "description16",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 1,
-                UserId = 2
-            },
-            new ()
-            {
-                Id = 17,
-                Title = "report 17",
-                Description = "description17",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 2,
-                UserId = 3
-            },
-            new ()
-            {
-                Id = 18,
-                Title = "report 18",
-                Description = "description18",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 3,
-                UserId = 4
-            },
-            new ()
-            {
-                Id = 19,
-                Title = "report 19",
-                Description = "description19",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 4,
-                UserId = 5
-            },
-            new ()
-            {
-                Id = 20,
-                Title = "report 20",
-                Description = "description20",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 5,
-                UserId = 6
-            },
-            new ()
-            {
-                Id = 21,
-                Title = "report 21",
-                Description = "description21",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 6,
-                UserId = 1
-            },
-            new ()
-            {
-                Id = 22,
-                Title = "report 22",
-                Description = "description22",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 1,
-                UserId = 2
-            },
-            new ()
-            {
-                Id = 23,
-                Title = "report 23",
-                Description = "description23",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 2,
-                UserId = 3
-            },
-            new ()
-            {
-                Id = 24,
-                Title = "report 24",
-                Description = "description24",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 3,
-                UserId = 4
-            },
-            new ()
-            {
-                Id = 25,
-                Title = "report 25",
-                Description = "description25",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 4,
-                UserId = 5
-            },
-            new ()
-            {
-                Id = 26,
-                Title = "report 26",
-                Description = "description26",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 5,
-                UserId = 6
-            },
-            new ()
-            {
-                Id = 27,
-                Title = "report 27",
-                Description = "description27",
-                CreatedAt = DateTime.Now,
-                FacilityId = 3,
-                ServiceReportCategoryId = 6,
-                UserId = 1
-            },
-            new ()
-            {
-                Id = 28,
-                Title = "report 28",
-                Description = "description28",
-                CreatedAt = DateTime.Now,
-                FacilityId = 1,
-                ServiceReportCategoryId = 1,
-                UserId = 2
-            },
-            new ()
-            {
-                Id = 29,
-                Title = "report 29",
-                Description = "description29",
-                CreatedAt = DateTime.Now,
-                FacilityId = 2,
-                ServiceReportCategoryId = 2,
-                UserId = 3
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1
             },
             new()
             {
-                Id = 30,
-                Title = "report 30",
-                Description = "description30",
+                Id = 4,
+                Title = "Overgegeven in de rij",
+                Description = "Iemand heeft overgegeven in de wachtrij, dus de wachtrij is niet helemaal fris",
                 CreatedAt = DateTime.Now,
-                FacilityId = 3,
+                FacilityId = 11,
                 ServiceReportCategoryId = 3,
-                UserId = 4
-            }
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1
+            },
+            new()
+            {
+                Id = 5,
+                Title = "Bord kapot",
+                Description = "Het eerste bord in de wachtrij toont geen wachttijd meer",
+                CreatedAt = DateTime.Now,
+                FacilityId = 11,
+                ServiceReportCategoryId = 1,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1
+            },
+            new()
+            {
+                Id = 6,
+                Title = "Stickers plakken",
+                Description = "Er zijn hier een paar kerels overal stickers aan het plakken op allerlei voorwerpen",
+                CreatedAt = DateTime.Now,
+                FacilityId = 11,
+                ServiceReportCategoryId = 2,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1
+            },
+
+            new()
+            {
+                Id = 7,
+                Title = "Prullenbak vol",
+                Description = "De prullenbak naast de receptie zit vol. Er ligt ook al afval naast",
+                CreatedAt = DateTime.Now,
+                FacilityId = 12,
+                ServiceReportCategoryId = 3,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 2
+            },
+            new()
+            {
+                Id = 8,
+                Title = "Stinkt naar Chloor",
+                Description = "Het stinkt enorm naar Chloor in de kleedkamer",
+                CreatedAt = DateTime.Now,
+                FacilityId = 13,
+                ServiceReportCategoryId = 3,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 2
+            },
+            new()
+            {
+                Id = 9,
+                Title = "Wasmachine kapot",
+                Description = "Wasmachine nummer 15 doet het niet meer. En ik krijg mijn kleren er niet meer uit..",
+                CreatedAt = DateTime.Now,
+                FacilityId = 15,
+                ServiceReportCategoryId = 4,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 2
+            },
+            new()
+            {
+                Id = 10,
+                Title = "Kabel is gebroken",
+                Description = "De kabel van de kabelbaan is gebroken",
+                CreatedAt = DateTime.Now,
+                FacilityId = 18,
+                ServiceReportCategoryId = 1,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 2
+            },
+            new()
+            {
+                Id = 11,
+                Title = "AED geeft foutmelding",
+                Description =
+                    "De AED geeft een storing aan. Hopelijk kan dit zsm opgelost worden, voordat 'ie nodig is.",
+                CreatedAt = DateTime.Now,
+                FacilityId = 20,
+                ServiceReportCategoryId = 6,
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 2
+            },
         };
-        return list;
+    }
+
+    // Helper method to generate a random integer within a specified range
+    private int GetRandomId(int min, int max)
+    {
+        return _random.Next(min, max + 1);
     }
 }

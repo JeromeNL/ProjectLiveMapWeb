@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using BusinessLogic;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataAccess.Validation;
 
@@ -14,10 +12,10 @@ public class PolygonValidation : ValidationAttribute
             var latitude = (double)value;
             var longitude = (double)validationContext.ObjectType.GetProperty("Longitude").GetValue(validationContext.ObjectInstance, null);
 
-            if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
-            {
-                return new ValidationResult(ErrorMessage);
-            }
+            // if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
+            // {
+            //     return new ValidationResult(ErrorMessage);
+            // }
         }
 
         return ValidationResult.Success;

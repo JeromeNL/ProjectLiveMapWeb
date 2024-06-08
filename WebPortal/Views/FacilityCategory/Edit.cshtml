@@ -1,8 +1,7 @@
-﻿@using DataAccess.Models
-@model DataAccess.Models.FacilityCategory
+﻿@model DataAccess.Models.FacilityCategory
 
 @{
-    ViewBag.Title = "Categorie bewerken";
+    ViewBag.Title = Model.Name;
     Layout = "_Layout";
 }
 
@@ -13,6 +12,10 @@
 
     <label>Omschrijving</label>
     <input type="text" class="input input-bordered" asp-for="Description" value="@Model.Description" required>
+    
+     <label>Kleur</label>
+    <input type="color" class="input input-bordered" asp-for="HexCode" value="@Model.HexCode" required>
+    <span asp-validation-for="HexCode" class="text-red-600"></span>
 
     <label>Naam icoontje</label>
     <p class="text-slate-400 text-sm">
@@ -20,6 +23,8 @@
         in. Deze wordt vervolgens weergegeven voor alle faciliteiten die gekoppeld zijn aan de categorie.
     </p>
     <input type="text" class="input input-bordered" asp-for="IconName" value="@Model.IconName" required>
+    
+    <input type="hidden" asp-for="HolidayResortId" value="@ViewBag.ResortId"/>
 
     <button type="submit" class="btn btn-primary mt-2">Bewerken</button>
 </form>

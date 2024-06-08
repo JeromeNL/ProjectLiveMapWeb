@@ -1,6 +1,11 @@
 ﻿@model List<DataAccess.Models.ServiceReportCategory>
+@{
+    ViewData["Title"] = "Servicemeldingscategorieën";
+    Layout = "_Layout";
+}
 <div>
-    <h1 class="text-2xl font-semibold">Overzicht van service melding categorieën</h1>
+    @Html.Partial("_MessagesToast")
+    <h1 class="text-2xl font-semibold">Overzicht van servicemeldingscategorieën</h1>
     <a class="btn btn-success mt-2" asp-controller="ServiceReportCategory" asp-action="Create">Nieuwe categorie toevoegen</a>
     @if (ViewBag.message != null)
     {
@@ -18,25 +23,28 @@
             <tbody>
             @foreach (var category in Model)
             {
+                var approveModalId = $"deleteModal_{category.Id}";
                 <tr>
                     <td>@category.Id</td>
                     <td>@category.Name</td>
-                    <td>
-                        <form asp-action="Edit" method="get">
-                            <input type="hidden" name="id" value="@category.Id" />
+                    <td class="flex flex-row">
+                        <form asp-action="Edit" method="get" class="mr-2">
+                            <input type="hidden" name="id" value="@category.Id"/>
                             <input class="btn btn-sm btn-warning" type="submit" value="Pas aan"/>
                         </form>
-                        <form asp-action="Delete" method="post">
-                            <input type="hidden" name="id" value="@category.Id" />
-                            <input class="btn btn-sm btn-error" type="submit" value="Verwijder"/>
-                        </form>
+                        <button class="btn btn-sm btn-error" type="submit" value="Verwijder"
+                                onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                            Verwijder
+                        </button>
                     </td>
                 </tr>
+                @Html.Partial("_DeleteServiceReportModal", category)
             }
             </tbody>
-        </table>   
+        </table>
     </div>
 </div>
+
 @section Scripts
 {
     <script>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DataAccess.Interfaces;
+using System.Text.Json.Serialization;
 using DataAccess.Models.Enums;
 
 namespace DataAccess.Models;
@@ -27,8 +27,15 @@ public class FacilityReport
     public DateTime CreatedAt { get; set; }
     
     [Required]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
+    public ApplicationUser ApplicationUser { get; set; }
+    
+    [Required]
+    public int HolidayResortId { get; set; }
+    
+    [ForeignKey(nameof(HolidayResortId))]
+    [JsonIgnore]
+    public HolidayResort? HolidayResort { get; set; }
 }

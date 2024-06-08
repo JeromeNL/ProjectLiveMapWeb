@@ -10,46 +10,56 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" />
-      <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+        <UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css"/>
+        <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css"/>
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1"/>
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.4"/>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0"/>
         <PackageReference Include="Selenium.WebDriver" Version="4.19.0"/>
         <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="124.0.6367.6000"/>
         <PackageReference Include="xunit" Version="2.7.1"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+        <ProjectReference Include="..\DataAccess\DataAccess.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Views\FacilityReport\Index.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Index.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Shared\_Layout.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\FacilityReport\Index.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Index.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Shared\_Layout.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\Shared\_Layout.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>_Layout.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Resources\Shared\_Layout.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Layout.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Shared\FacilityReportModals\_ApproveFacilityReportModal.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\FacilityReportModals\_RejectFacilityReportModal.cshtml" />
     </ItemGroup>
 
     <Target Name="Tailwind" BeforeTargets="Build">

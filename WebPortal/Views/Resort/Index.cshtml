@@ -1,17 +1,19 @@
-@using System.Globalization
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<DataAccess.Models.HolidayResort>
 @{
     ViewData["Title"] = "Parkenbeheer";
     Layout = "_Layout";
 }
+@Html.Partial("_MessagesToast")
 
-
-<div class="flex justify-between items-center mb-4">
+<div class="flex justify-between items-center mb-5">
     <h2 class="text-xl font-bold">Parkenbeheer</h2>
-    <form method="get" asp-action="Create">
-        <button type="submit" class="btn btn-primary">Nieuw park</button>
-    </form>
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <form method="get" asp-action="Create">
+            <button type="submit" class="btn btn-sm btn-primary">Nieuw park</button>
+        </form>
+    }
 </div>
 
 
@@ -20,8 +22,6 @@
     <tr>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parknaam</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coördinaat Rechtsboven</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coördinaat Linksonder</th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         </th>
     </tr>
@@ -29,27 +29,28 @@
     <tbody class="bg-white divide-y divide-gray-200">
     @foreach (var resort in Model)
     {
+        if (!User.IsInRole("SuperAdmin") && resort.Id != ViewBag.UserResortId)
+        {
+            continue;
+        }
+        var approveModalId = $"deleteModal_{resort.Id}";
         <tr>
             <td class="px-6 py-4 whitespace-nowrap">
                 @resort.Id
             </td>
-             <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4 whitespace-nowrap">
                 <a href="@Url.Action("Details", "Resort", new { resortId = resort.Id })" class="underline">
                     @resort.Name
                 </a>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-                @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.NorthEastLatitude) @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.NorthEastLongitude)
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.SouthWestLatitude) @string.Format(CultureInfo.InvariantCulture, "{0:F6}", resort.SouthWestLongitude)
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <form method="post" asp-action="Delete" asp-route-resortId="@resort.Id" >
-                    <button type="submit" class="text-red-500 hover:text-red-700">Verwijder</button>
-                </form>
+                <button type="submit" class="text-red-500 hover:text-red-700"
+                        onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                    Verwijder
+                </button>
             </td>
         </tr>
+        @Html.Partial("_DeleteHolidayResortModal", resort)
     }
     </tbody>
 </table>

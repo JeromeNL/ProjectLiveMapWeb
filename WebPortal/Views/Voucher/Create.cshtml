@@ -1,0 +1,51 @@
+@model List<DataAccess.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Voucher aanmaken";
+    Layout = "_Layout";
+}
+<div>
+    <h1 class="text-2xl font-bold">Toevoegen voucher</h1>
+    <a asp-action="Index" class="inline-block w-auto px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
+        <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
+        </svg>
+    </a>
+
+    <form asp-action="Add" method="post">
+        <div class="flex">
+            <div class="flex-1">
+                <div class="flex flex-col mr-5">
+                    <label for="user">Gebruiker</label>
+                    <button id="render_user_name" type="button" class="btn btn-info" onclick="document.querySelector('#select_user_modal').classList.add('modal-open')">Kies een gebruiker</button>
+                    <label for="description">Beschrijving</label>
+                    <input id="description" name="description" type="text" class="input input-bordered" required/>
+                    <label for="price">Prijs</label>
+                    <input id="price" name="price" class="input input-bordered" type="number" min="0" max="100" required/>
+                    <input class="btn btn-success mt-2" type="submit" value="Opslaan"/>
+                </div>
+            </div>
+            <div class="flex-1">
+            </div>
+        </div>
+        @Html.Partial("_selectUserModal", Model)
+        
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <script>
+    new DataTable('#datatable', {
+        searchable: true,
+        sortable: true,
+        perPage: 5,
+        order: [3, 'asc'],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
+        },
+    });
+</script>
+}
+
+@Html.Partial("_MessagesToast")

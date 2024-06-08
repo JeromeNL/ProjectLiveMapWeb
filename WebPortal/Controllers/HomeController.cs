@@ -1,19 +1,33 @@
 using System.Diagnostics;
 using DataAccess;
-using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.Base;
 using WebPortal.Models;
+using WebPortal.Services;
 
 namespace WebPortal.Controllers;
 
-public class HomeController(LiveMapDbContext context) : Controller
+public class HomeController(LiveMapDbContext context, IResortService resortService) : LivemapController
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var user = await context.Users.FirstOrDefaultAsync(user =>
+            user.UserName == User.Identity!.Name);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+        
+        return RedirectToAction("Index", "Facility", null);
     }
-    
+
+    public async Task<IActionResult> SaveCurrentResort(int resortId)
+    {
+        await resortService.SetCurrentResortId(resortId);
+        return Redirect(Request.Headers["Referer"].ToString());
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

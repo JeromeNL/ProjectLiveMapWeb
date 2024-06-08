@@ -2,10 +2,10 @@
 @using Index = WebPortal.Resources.Views.FacilityReport.Index
 
 @{
-    ViewBag.Title = Index.Title;
+    ViewBag.Title = "Faciliteitsmeldingen";
     Layout = "_Layout";
 }
-
+@Html.Partial("_MessagesToast")
 <h1 class="text-2xl font-semibold">@Index.Title</h1>
 
 <div class="overflow-x-auto mt-2">
@@ -20,70 +20,44 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var report in Model)
-        {
-            <tr>
-               
-                @{
-                    if (report.ProposedFacility.Facility != null)
-                    {
-                        <td>@report.ProposedFacility.Facility.Name</td>
-                        <td>@($"Naam: {report.ProposedFacility.Facility.Name}, Omschrijving: {report.ProposedFacility.Facility.Description}, Categorie: {report.ProposedFacility.Facility.Category.Name}, Latitude: {report.ProposedFacility.Facility.Latitude}, Longitude: {report.ProposedFacility.Facility.Longitude}")</td>
-                    }
-                    else
-                    {
-                        <td class="font-bold">Nieuwe faciliteit</td>
-                        <td></td>
-                    }
+            @foreach (var report in Model)
+                {
+                    var approveModalId = $"approveModal_{report.Id}";
+                    var rejectModalId = $"rejectModal_{report.Id}";
+                    <tr>
+                        @if (report.ProposedFacility.FacilityId == null)
+                        {
+                            <td class="h-20">Nieuwe faciliteit</td>
+                            <td class="h-16"></td>
+                        }
+                        else
+                        {
+                            <td class="h-20">@report.ProposedFacility.Facility?.Name</td>
+                            <td class="h-20">@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
+                        }
+            
+                        <td class="h-20">@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
+                        <td class="h-20">@report.CreatedAt</td>
+                        <td class="flex space-x-2 h-20">
+                            <button class="btn btn-sm btn-success"
+                                    onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                                @Index.Approve
+                            </button>
+                            <button class="btn btn-sm btn-error"
+                                    onclick="document.getElementById('@rejectModalId').classList.add('modal-open')">
+                                @Index.Reject
+                            </button>
+                            
+                        </td>
+                    </tr>
+                    @Html.Partial("_ApproveFacilityReportModal", report)
+                    @Html.Partial("_DenyFacilityReportModal", report)
                 }
-                
-                <td>@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
-
-                <td>@report.CreatedAt</td>
-                <td>
-                    <button class="btn btn-sm btn-success"
-                            onclick="document.getElementById('@Html.Raw(Index.Approve)_@report.Id').showModal()">
-                        @Index.Approve
-                    </button>
-                    <button class="btn btn-sm btn-error"
-                            onclick="document.getElementById('@Html.Raw(Index.Reject)_@report.Id').showModal()">
-                        @Index.Reject
-                    </button>
-                </td>
-            </tr>
-
-            @* Goedkeuren modal *@
-            <dialog id="@Html.Raw(Index.Approve)_@report.Id" class="modal">
-                <div class="modal-box">
-                    <form id="cancel" method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <h3 class="font-bold text-lg">@Index.ApproveReport</h3>
-                    <p class="py-4">@Index.ModalConfirmation <span class="text-green-700 font-bold">@Index.Approve</span>?</p>
-                    <p class="text-red-600 font-bold">@Index.AutomaticUpdate</p>
-                    <button form="approveform" class="btn btn-success inline-flex">@Index.Approve</button>
-                    <button form="cancel" class="btn inline-flex">@Index.Cancel</button>
-                    <form id="approveform" asp-action="ApproveReport" asp-route-id="@report.Id"></form>
-                </div>
-            </dialog>
-
-            @* Afkeuren modal *@
-            <dialog id="@Html.Raw(Index.Reject)_@report.Id" class="modal">
-                <div class="modal-box">
-                    <form id="cancel" method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <h3 class="font-bold text-lg">@Index.RejectReport</h3>
-                    <p class="py-4">@Index.ModalConfirmation <span class="text-red-600 font-bold">@Index.Reject</span>?</p>
-                    <button form="denyform" class="btn btn-primary inline-flex">@Index.Reject</button>
-                    <button form="cancel" class="btn inline-flex">@Index.Cancel</button>
-                    <form id="denyform" asp-action="DenyReport" asp-route-id="@report.Id"></form>
-                </div>
-            </dialog>
-        }
         </tbody>
+
     </table>
 </div>
+
 
 @section Scripts
 {
@@ -92,10 +66,10 @@
            searchable: true,
             sortable: true,
             perPage: 5,
-            order: [4, 'asc'],
+            order: [3, 'asc'],
             language: {
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/nl-NL.json',
             },
       });
-      </script>
+    </script>
 }

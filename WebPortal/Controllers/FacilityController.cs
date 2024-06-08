@@ -1,39 +1,54 @@
-﻿using BusinessLogic;
-using DataAccess;
+﻿using DataAccess;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPortal.Controllers.Base;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-public class FacilityController : Controller
+[Authorize(Roles = $"{nameof(Role.ResortEmployee)}, {nameof(Role.ResortAdmin)}, {nameof(Role.SuperAdmin)}")]
+public class FacilityController(LiveMapDbContext context) : LivemapController
 {
-    private readonly LiveMapDbContext _context;
-
-    public FacilityController(LiveMapDbContext context)
-    {
-        _context = context;
-    }
-
     // GET
     public IActionResult Index()
     {
-        var facilities = _context.Facilities.Include(f => f.Category).ToList();
-        return View(facilities);
+        var facilities = context.Facilities
+            .Where(f => f.HolidayResortId == ResortId)
+            .Include(f => f.Category)
+            .ToList();
+        var resort = context.HolidayResorts.Find(ResortId);
+
+        var viewModel = new FacilityIndexViewModel
+        {
+            Facilities = facilities,
+            Resort = resort
+        };
+
+        return View(viewModel);
     }
 
     [HttpGet]
     public async Task<IActionResult> Create(double latitude, double longitude)
     {
-        if (!ValidationLogic.IsPointInsidePolygon(latitude, longitude))
+        var resort = await context.HolidayResorts.FindAsync(ResortId);
+
+        if (resort == null)
         {
-            ViewBag.message = "het geklikte punt ligt niet binnen het park";
-            var facilities = _context.Facilities.ToList();
-            return View("Index", facilities);
+            return NotFound();
         }
 
-        var facilityCategories = await _context.FacilityCategories.ToListAsync();
+        if (!resort.IsPointInside(latitude, longitude))
+        {
+            TempData["ErrorMessage"] = "Klik binnen het park om een faciliteit toe te voegen.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var facilityCategories = await context.FacilityCategories
+            .Where(f => f.HolidayResortId == ResortId)
+            .ToListAsync();
+
         var viewModel = new FacilityCreateViewModel
         {
             Facility = new Facility(),
@@ -50,66 +65,90 @@ public class FacilityController : Controller
         ModelState.Remove("Facility.Category");
         if (!ModelState.IsValid)
         {
-            viewModel.FacilityCategories = await _context.FacilityCategories.ToListAsync();
+            viewModel.FacilityCategories = await context.FacilityCategories.ToListAsync();
             viewModel.Latitude = viewModel.Facility.Latitude;
             viewModel.Longitude = viewModel.Facility.Longitude;
         }
-        
+
         var openingHours = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
             .Select(day => new DefaultOpeningHours(day)
             {
                 Facility = viewModel.Facility,
-                OpenTime = new TimeOnly(0, 0), 
-                CloseTime = new TimeOnly(23, 59) 
+                OpenTime = new TimeOnly(0, 0),
+                CloseTime = new TimeOnly(23, 59)
             }).ToList();
-        
-        _context.Facilities.Add(viewModel.Facility);
-        
-        _context.AddRange(openingHours);
-        
-        await _context.SaveChangesAsync();
+
+        viewModel.Facility.HolidayResortId = ResortId;
+
+        context.Facilities.Add(viewModel.Facility);
+
+        context.AddRange(openingHours);
+
+        await context.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Faciliteit " + viewModel.Facility.Name + " is aangemaakt.";
         return RedirectToAction("Index");
     }
-    
+
     public async Task<IActionResult> Show(int id)
     {
-       
-        var facility = await _context.Facilities
-            .Include(f => f.DefaultOpeningHours) 
+        var facility = await context.Facilities
+            .Include(f => f.DefaultOpeningHours)
             .Include(f => f.Category)
             .FirstOrDefaultAsync(f => f.Id == id);
-        
+
         if (facility == null) return NotFound();
-      
+
         var viewModel = new FacilityViewModel
         {
             Facility = facility,
-            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList() 
+            OpeningHours = facility.DefaultOpeningHours.OrderBy(oh => oh.WeekDay).ToList(),
+            IsAlwaysOpen = facility.IsAlwaysOpen()
         };
-    
+
         return View(viewModel);
     }
 
-    [HttpGet]
-    public IActionResult GetFacilitiesJson()
+    public async Task<IActionResult> SwitchIsAlwaysOpen(int id)
     {
-        var facilities = _context.Facilities.ToList();
-        return Json(facilities);
+        var facility = await context.Facilities
+            .Include(f => f.DefaultOpeningHours)
+            .Include(f => f.Category)
+            .FirstOrDefaultAsync(f => f.Id == id);
+
+        if (facility == null)
+        {
+            RedirectToAction("Index");
+        }
+
+        if (facility.IsAlwaysOpen())
+        {
+            facility.SetToRegularOpeningHours();
+        }
+        else
+        {
+            facility.SetAlwaysOpen();
+        }
+
+        context.Facilities.Update(facility);
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Show", new { id = facility.Id });
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var facility = await _context.Facilities.FindAsync(id);
-    
+        var facility = await context.Facilities.FindAsync(id);
+
         if (facility == null)
         {
             return Json($"Geen faciliteit gevonden met ID {id}.");
         }
-        
-        _context.Facilities.Remove(facility);
-        await _context.SaveChangesAsync();
-        
+
+        TempData["InfoMessage"] = "Faciliteit " + facility.Name + " is verwijderd.";
+        context.Facilities.Remove(facility);
+        await context.SaveChangesAsync();
+
         return RedirectToAction("Index");
     }
 }

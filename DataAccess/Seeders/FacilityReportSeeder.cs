@@ -1,10 +1,11 @@
 using DataAccess.Models;
 using DataAccess.Models.Enums;
+using DataAccess.Models.Extensions;
 using DataAccess.Seeders.Abstract;
 
 namespace DataAccess.Seeders;
 
-public class FacilityReportSeeder(List<ProposedFacility> proposedFacilities): ISeeder<FacilityReport>
+public class FacilityReportSeeder(IEnumerable<ApplicationUser> users, List<ProposedFacility> proposedFacilities): ISeeder<FacilityReport>
 {
     public List<FacilityReport> Seed()
     {
@@ -19,7 +20,8 @@ public class FacilityReportSeeder(List<ProposedFacility> proposedFacilities): IS
                 Status = ReportStatus.Pending,
                 Description = "Seed",
                 CreatedAt = DateTime.Now,
-                UserId = 1
+                UserId = users.PickRandom().Id,
+                HolidayResortId = 1,
             };
             facilityReports.Add(facilityReport);   
         }

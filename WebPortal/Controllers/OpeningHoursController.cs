@@ -1,13 +1,13 @@
-using System.Diagnostics;
 using DataAccess;
 using DataAccess.Models;
-using DataAccess.Models.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
+[Authorize(Roles = $"{nameof(Role.ResortAdmin)},{nameof(Role.ResortEmployee)},{nameof(Role.SuperAdmin)}")]
 public class OpeningHoursController(LiveMapDbContext context) : Controller
 {
     [HttpPost]
@@ -21,9 +21,10 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             {
                 if (dayHours.CloseTime < dayHours.OpenTime)
                 {
-                    TempData["Error"] = $"Sluitingstijd moet later zijn dan openingstijd voor {@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(dayHours.Day)}.";
+                    TempData["Error"] =
+                        $"Sluitingstijd moet later zijn dan openingstijd voor {@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(dayHours.Day)}.";
                     isValid = false;
-                    break; 
+                    break;
                 }
 
                 var existingHours = context.DefaultOpeningHours
@@ -49,9 +50,11 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             if (isValid)
             {
                 await context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "De standaard openingstijden zijn bijgewerkt.";
                 return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
             }
         }
+
         return RedirectToAction("Show", "Facility", new { id = model.FacilityId });
     }
 
@@ -69,7 +72,7 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
         {
             return NotFound("Faciliteit niet gevonden.");
         }
-        
+
         var viewModel = new SpecialOpeningHoursViewModel
         {
             Facility = FacilityObject,
@@ -78,20 +81,20 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
 
         return View("SpecialOpeningHours", viewModel);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> SaveSpecialOpeningHours(int facilityId, SpecialOpeningHours newOpeningHour)
     {
         if (newOpeningHour != null)
         {
             newOpeningHour.FacilityId = facilityId;
-        
+
             if (newOpeningHour.CloseTime < newOpeningHour.OpenTime)
             {
                 TempData["Error"] = "De sluitingstijd moet later zijn dan de openingstijd.";
                 return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
             }
-        
+
             bool exists = await context.SpecialOpeningHours
                 .AnyAsync(oh => oh.FacilityId == facilityId && oh.Date == newOpeningHour.Date);
 
@@ -105,11 +108,10 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
             await context.SaveChangesAsync();
         }
 
+        TempData["SuccessMessage"] = "Speciale openingstijden voor " + newOpeningHour.Date + " zijn toegevoegd.";
         return RedirectToAction("SpecialOpeningHours", new { facilityId = facilityId });
     }
 
-
-    
     [HttpPost]
     public async Task<IActionResult> DeleteSpecialOpeningHour(int facilityId, DateOnly date)
     {
@@ -118,10 +120,10 @@ public class OpeningHoursController(LiveMapDbContext context) : Controller
         {
             context.SpecialOpeningHours.Remove(specialHour);
             await context.SaveChangesAsync();
+            TempData["InfoMessage"] = "Speciale openingstijd voor " + specialHour.Date + " is verwijderd.";
             return RedirectToAction("SpecialOpeningHours", new { facilityId = specialHour.FacilityId });
         }
+
         return NotFound();
     }
-
-
 }

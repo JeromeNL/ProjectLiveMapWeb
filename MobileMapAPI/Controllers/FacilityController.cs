@@ -3,44 +3,43 @@ using DataAccess.Models;
 using DataAccess.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using MobileMapAPI.Models;
 
 namespace MobileMapAPI.Controllers;
 
 [ApiController]
-[Route("facilities")]
+[Route("resorts/{resortId:int}/facilities")]
 public class FacilityController(LiveMapDbContext context) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllFacilities()
+    public async Task<IActionResult> GetAllFacilities(int resortId)
     {
         var today = DateTime.Today;
         var monday = DateOnly.FromDateTime(today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday));
         var sunday = monday.AddDays(6);
 
         var facilities = await context.Facilities
+            .Where(f => f.HolidayResortId == resortId)
             .Include(f => f.Category)
+            .Include(f => f.ServiceReports)
             .Include(x => x.DefaultOpeningHours)
             .Include(x => x.SpecialOpeningHours.Where(s => s.Date >= monday && s.Date <= sunday))
             .ToListAsync();
-        if (facilities.IsNullOrEmpty())
-        {
-            return NotFound("No facilities were found");
-        }
-
+        
         return Ok(facilities);
     }
 
     [HttpGet("categories")]
-    public async Task<IActionResult> GetAllCategories()
+    public async Task<IActionResult> GetAllCategories(int resortId)
     {
-        var categories = await context.FacilityCategories.ToListAsync();
+        var categories = await context.FacilityCategories
+            .Where(f => f.HolidayResortId == resortId)
+            .ToListAsync();
         return Ok(categories);
     }
 
     [HttpPost("upsert")]
-    public async Task<IActionResult> RequestFacilityChange(ProposedFacilityDto data)
+    public async Task<IActionResult> RequestFacilityChange(ProposedFacilityDto data, int resortId)
     {
         int? existingFacilityId = null;
         if (data.FacilityId != null)
@@ -62,7 +61,8 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
             Description = data.Description,
             CategoryId = data.CategoryId,
             Latitude = data.Latitude,
-            Longitude = data.Longitude
+            Longitude = data.Longitude,
+            HolidayResortId = resortId,
         };
 
         var facilityReport = new FacilityReport
@@ -72,11 +72,12 @@ public class FacilityController(LiveMapDbContext context) : ControllerBase
             CreatedAt = DateTime.Now,
             Status = ReportStatus.Pending,
             ProposedFacility = proposedFacilityChange,
+            HolidayResortId = resortId,
         };
 
         await context.FacilityReports.AddAsync(facilityReport);
         await context.SaveChangesAsync();
 
-        return Ok($"Your report has been saved in the database.");
+        return Ok("Your report has been saved in the database.");
     }
 }
