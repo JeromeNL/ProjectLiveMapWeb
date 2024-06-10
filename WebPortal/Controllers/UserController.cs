@@ -63,30 +63,37 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
         return View("Index", await getUsersWithRole());
     }
 
-    private async Task<Dictionary<ApplicationUser, string?>> getUsersWithRole()
+    private async Task<List<UsersViewModel>> getUsersWithRole()
     {
-        var userRoles = new Dictionary<ApplicationUser, string?>();
+        var viewModels = new List<UsersViewModel>();
         var u = await userManager.GetUserAsync(User);
         var roles = await userManager.GetRolesAsync(u);
         List<ApplicationUser> users;
         if (roles.FirstOrDefault() == nameof(Role.SuperAdmin))
         {
             users = await userManager.Users
+                .Include(u => u.HolidayResort)
                 .ToListAsync();
         }
         else
         {
             users = await userManager.Users
                 .Where(user => user.HolidayResortId == ResortId)
+                .Include(u => u.HolidayResort)
                 .ToListAsync();
         }
 
         foreach (var user in users)
         {
+            var viewModel = new UsersViewModel();
             var role = await userManager.GetRolesAsync(user);
-            userRoles.Add(user, role.FirstOrDefault());
+            var parkname = user.HolidayResort?.Name;
+            viewModel.User = user;
+            viewModel.Role = role.FirstOrDefault();
+            viewModel.Resort = parkname;
+            viewModels.Add(viewModel);
         }
 
-        return userRoles;
+        return viewModels;
     }
 }
