@@ -4,11 +4,11 @@
 <div>
     @if (User.IsInRole(nameof(Role.SuperAdmin)))
     {
-        <h1 class="font-semibold text-2xl">Resort admin aanmaken</h1>
+        <h1 class="font-semibold text-2xl">Resortadministrator aanmaken</h1>
     }
     else if (User.IsInRole(nameof(Role.ResortAdmin)))
     {
-        <h1 class="font-semibold text-2xl">Resort medewerker aanmaken</h1>
+        <h1 class="font-semibold text-2xl">Resortmedewerker aanmaken</h1>
     }
     <form asp-action="Add" method="post">
         <label class="input input-bordered flex items-center gap-2 mt-3 max-w-md">
