@@ -34,7 +34,7 @@ public class FacilityTests : WebPortalTest
     }
 
     [Fact]
-    public void MarkerShowsPopup()
+    public void MarkerShowsPopupOnClick()
     {
         // Arrange
         LoginAsSuperAdmin();
@@ -48,6 +48,44 @@ public class FacilityTests : WebPortalTest
         // Assert
         Assert.NotNull(popup);
         Assert.Contains("Baron 1898", popup.Text);
+    }
+
+    [Fact]
+    public void MapClickInsideParkReturnsFacilityCreate()
+    {
+        // Arrange
+        LoginAsSuperAdmin();
+        WaitForMarkers();
+        
+        // Act
+        var marker = Driver.FindElement(By.CssSelector(".leaflet-marker-icon[title='Baron 1898']"));
+        var markerSize = marker.Size;
+        var actions = new OpenQA.Selenium.Interactions.Actions(Driver);
+        
+        actions.MoveToElement(marker, markerSize.Width + 10, markerSize.Height / 2).Click().Perform();
+        
+        // Assert
+        Assert.Contains("Facility/create", Driver.Url);
+        
+    }
+
+    [Fact]
+    public void MapClickOutsideParkReturnsError()
+    {
+        // Arrange
+        LoginAsSuperAdmin();
+        WaitForMarkers();
+
+        // Act
+        var map = Driver.FindElement(By.ClassName("leaflet-map-pane"));
+        var actions = new OpenQA.Selenium.Interactions.Actions(Driver);
+        actions.MoveToElement(map, 50, 50).Click().Perform();
+        
+        var error = Driver.FindElement(By.CssSelector(".alert-error span"));
+
+        // Assert
+        Assert.Contains("Facility", Driver.Url);
+        Assert.Contains("Klik binnen het park om een faciliteit toe te voegen.", error.Text);
     }
 
     private void WaitForMarkers()
