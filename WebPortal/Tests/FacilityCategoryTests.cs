@@ -9,6 +9,7 @@ public class FacilityCategoryTests : WebPortalTest
     public void CanViewFacilityCategories()
     {
         // Arrange
+        LoginAsSuperAdmin();
         Driver.Navigate().GoToUrl("http://localhost:5008/FacilityCategory");
 
         // Act
