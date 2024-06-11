@@ -18,4 +18,12 @@ public abstract class WebPortalTest : IDisposable
         Factory.Dispose();
         GC.SuppressFinalize(this);
     }
+
+    protected void LoginAsSuperAdmin()
+    {
+        Driver.Navigate().GoToUrl("http://localhost:5008");
+        Driver.FindElement(By.Id("UserName")).SendKeys("SuperAdmin");
+        Driver.FindElement(By.Id("Password")).SendKeys("livemap");
+        Driver.FindElement(By.CssSelector("button[type=submit]")).Click();
+    }
 }
