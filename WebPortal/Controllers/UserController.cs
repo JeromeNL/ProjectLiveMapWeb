@@ -15,7 +15,7 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        return View(await getUsersWithRole());
+        return View(await GetUsersWithRole());
     }
 
     [HttpGet]
@@ -60,15 +60,17 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
             await userManager.AddToRoleAsync(user, nameof(Role.ResortEmployee));
         }
 
-        return View("Index", await getUsersWithRole());
+        return View("Index", await GetUsersWithRole());
     }
 
-    private async Task<List<UsersViewModel>> getUsersWithRole()
+
+    private async Task<List<UsersViewModel>> GetUsersWithRole()
     {
         var viewModels = new List<UsersViewModel>();
         var u = await userManager.GetUserAsync(User);
         var roles = await userManager.GetRolesAsync(u);
-        List<ApplicationUser> users;
+        List<ApplicationUser> users = new List<ApplicationUser>();
+        
         if (roles.FirstOrDefault() == nameof(Role.SuperAdmin))
         {
             users = await userManager.Users
@@ -77,10 +79,20 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
         }
         else
         {
-            users = await userManager.Users
+            var usersWithResortId = await userManager.Users
                 .Where(user => user.HolidayResortId == ResortId)
                 .Include(u => u.HolidayResort)
                 .ToListAsync();
+            
+
+            foreach (var user in usersWithResortId)
+            {
+                roles = await userManager.GetRolesAsync(user);
+                if (!roles.Contains(nameof(Role.SuperAdmin)))
+                {
+                    users.Add(user);
+                }
+            }
         }
 
         foreach (var user in users)

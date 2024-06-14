@@ -9,7 +9,7 @@ public class LivemapController : Controller
         get
         {
             var resortId = HttpContext.Session.GetInt32("resortId") ?? 1;
-            return resortId == 0 ? 1 : resortId;
+            return resortId;
         }
     }
 }
