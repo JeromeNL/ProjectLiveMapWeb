@@ -64,7 +64,7 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
     }
 
 
-    private async Task<List<UsersViewModel>> getUsersWithRole()
+    private async Task<List<UsersViewModel>> GetUsersWithRole()
     {
         var viewModels = new List<UsersViewModel>();
         var u = await userManager.GetUserAsync(User);
