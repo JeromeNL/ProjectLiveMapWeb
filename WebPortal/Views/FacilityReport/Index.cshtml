@@ -142,4 +142,29 @@
             },
       });
     </script>
+
+    @* Script for IntroJS (onboarding) *@
+    <script>
+    introJs().setOptions({
+        steps: [{
+            title: 'Faciliteitsmeldingen',
+            intro: 'Op deze pagina kun je wijzigingsmeldingen van bezoekers bekijken en behandelen.'
+        },
+            {
+                title: 'Wijzigingsmelding',
+                element: document.querySelector('tbody tr'),
+                intro: 'Dit is een voorbeeld van een faciliteitsmelding. Hier zie je de aanpassingen en nieuwe gegevens.'
+            },
+            {
+                title: 'Behandelen',
+                element: document.querySelector('tbody tr'),
+                intro: 'Je kunt de melding ook behandelen. Bepaal of er sprake is van een fout en keur de melding goed of af. Als je hem goedkeurt kun je ook punten toewijzen aan de gebruiker.'
+            },
+            {
+                title: 'Veel succes!',
+                intro: "Dat was 'm weer. Veel succes!"
+            }],
+        dontShowAgain: true
+    }).start();
+</script>
 }
