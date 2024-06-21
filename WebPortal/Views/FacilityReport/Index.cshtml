@@ -1,4 +1,5 @@
 @model List<DataAccess.Models.FacilityReport>
+@using System.Globalization
 @using Index = WebPortal.Resources.Views.FacilityReport.Index
 
 @{
@@ -13,46 +14,115 @@
         <thead>
         <tr>
             <th>@Index.FacilityName</th>
-            <th>@Index.OldData</th>
+            <th>@Index.Changes</th>
             <th>@Index.NewData</th>
             <th>@Index.Date</th>
             <th>@Index.AcceptDeny</th>
         </tr>
         </thead>
         <tbody>
-            @foreach (var report in Model)
+        @foreach (var report in Model)
+        {
+            var approveModalId = $"approveModal_{report.Id}";
+            var rejectModalId = $"rejectModal_{report.Id}";
+
+            <tr>
+                @if (report.ProposedFacility.FacilityId == null)
                 {
-                    var approveModalId = $"approveModal_{report.Id}";
-                    var rejectModalId = $"rejectModal_{report.Id}";
-                    <tr>
-                        @if (report.ProposedFacility.FacilityId == null)
-                        {
-                            <td class="h-20">Nieuwe faciliteit</td>
-                            <td class="h-16"></td>
-                        }
-                        else
-                        {
-                            <td class="h-20">@report.ProposedFacility.Facility?.Name</td>
-                            <td class="h-20">@($"Naam: {report.ProposedFacility.Facility?.Name}, Omschrijving: {report.ProposedFacility.Facility?.Description}, Categorie: {report.ProposedFacility.Facility?.Category.Name}, Latitude: {report.ProposedFacility.Facility?.Latitude}, Longitude: {report.ProposedFacility.Facility?.Longitude}")</td>
-                        }
-            
-                        <td class="h-20">@($"Naam: {report.ProposedFacility.Name}, Omschrijving: {report.ProposedFacility.Description}, Categorie: {report.ProposedFacility.Category.Name}, Latitude: {report.ProposedFacility.Latitude}, Longitude: {report.ProposedFacility.Longitude}")</td>
-                        <td class="h-20">@report.CreatedAt</td>
-                        <td class="flex space-x-2 h-20">
-                            <button class="btn btn-sm btn-success"
-                                    onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
-                                @Index.Approve
-                            </button>
-                            <button class="btn btn-sm btn-error"
-                                    onclick="document.getElementById('@rejectModalId').classList.add('modal-open')">
-                                @Index.Reject
-                            </button>
-                            
-                        </td>
-                    </tr>
-                    @Html.Partial("_ApproveFacilityReportModal", report)
-                    @Html.Partial("_DenyFacilityReportModal", report)
+                    <td class="h-20">Nieuwe faciliteit</td>
+                    <td class="h-16"></td>
                 }
+                else
+                {
+                    var proposedFacility = report.ProposedFacility;
+                    var existingFacility = report.ProposedFacility.Facility;
+
+                    var facilityProperties = new Dictionary<string, string>
+                    {
+                        { nameof(existingFacility.Name), existingFacility!.Name },
+                        { nameof(existingFacility.Description), existingFacility.Description },
+                        { nameof(existingFacility.Category), existingFacility.Category.Name },
+                        { nameof(existingFacility.Latitude), existingFacility.Latitude.ToString(CultureInfo.CurrentCulture) },
+                        { nameof(existingFacility.Longitude), existingFacility.Longitude.ToString(CultureInfo.CurrentCulture) }
+                    };
+
+                    <td class="h-20">@report.ProposedFacility.Facility?.Name</td>
+                    <td class="h-20">
+                        @{ facilityProperties.TryGetValue(nameof(proposedFacility.Name), out var oldName); }
+                        @if (oldName != report.ProposedFacility.Name)
+                        {
+                            <p>
+                                Naam veranderd van <strong>@oldName</strong> naar <strong>@report.ProposedFacility.Name</strong>
+                            </p>
+                        }
+
+                        @{ facilityProperties.TryGetValue(nameof(proposedFacility.Description), out var oldDescription); }
+                        @if (oldDescription != report.ProposedFacility.Description)
+                        {
+                            <p>
+                                Omschrijving veranderd van <strong>@oldDescription</strong> naar <strong>@report.ProposedFacility.Description</strong>
+                            </p>
+                        }
+
+                        @{ facilityProperties.TryGetValue(nameof(proposedFacility.Category), out var oldCategory); }
+                        @if (oldCategory != report.ProposedFacility.Category.Name)
+                        {
+                            <p>
+                                Categorie veranderd van <strong>@oldCategory</strong> naar <strong>@report.ProposedFacility.Category.Name</strong>
+                            </p>
+                        }
+
+                        @{ facilityProperties.TryGetValue(nameof(proposedFacility.Latitude), out var oldLatitude); }
+                        @if (oldLatitude != report.ProposedFacility.Latitude.ToString(CultureInfo.CurrentCulture))
+                        {
+                            <p>
+                                Latitude veranderd van <strong>@oldLatitude</strong> naar <strong>@report.ProposedFacility.Latitude</strong>
+                            </p>
+                        }
+                        @{ facilityProperties.TryGetValue(nameof(proposedFacility.Longitude), out var oldLongitude); }
+                        @if (oldLongitude != report.ProposedFacility.Longitude.ToString(CultureInfo.CurrentCulture))
+                        {
+                            <p>
+                                Longitude veranderd van <strong>@oldLongitude</strong> naar <strong>@report.ProposedFacility.Longitude</strong>
+                            </p>
+                        }
+                    </td>
+                }
+
+                <td class="h-20">
+                    <p>
+                        Naam: @report.ProposedFacility.Name
+                    </p>
+                    <p>
+                        Omschrijving: @report.ProposedFacility.Description
+                    </p>
+                    <p>
+                        Categorie: @report.ProposedFacility.Category.Name
+                    </p>
+                    <p>
+                        Latitude: @report.ProposedFacility.Latitude
+                    </p>
+                    <p>
+                        Longitude: @report.ProposedFacility.Longitude
+                    </p>
+                </td>
+
+                <td class="h-20">@report.CreatedAt</td>
+                <td class="flex space-x-2 h-20">
+                    <button class="btn btn-sm btn-success"
+                            onclick="document.getElementById('@approveModalId').classList.add('modal-open')">
+                        @Index.Approve
+                    </button>
+                    <button class="btn btn-sm btn-error"
+                            onclick="document.getElementById('@rejectModalId').classList.add('modal-open')">
+                        @Index.Reject
+                    </button>
+
+                </td>
+            </tr>
+            @Html.Partial("_ApproveFacilityReportModal", report)
+            @Html.Partial("_DenyFacilityReportModal", report)
+        }
         </tbody>
 
     </table>

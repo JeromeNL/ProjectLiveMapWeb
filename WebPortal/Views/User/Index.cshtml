@@ -1,4 +1,4 @@
-﻿@model Dictionary<DataAccess.Models.ApplicationUser, string?>
+﻿@model List<UsersViewModel>
 
 <div>
     <div class="flex flex-row justify-between mb-5">
@@ -9,16 +9,18 @@
         <thead>
         <tr>
             <th>Naam</th>
+            <th>Resort</th>
             <th>Rol</th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var user in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@user.Key</td>
+                <td>@item.User.UserName</td>
+                <td>@(item.Resort ?? "Onbekend")</td>
                 <td>
-                    @(user.Value ?? "Onbekend")
+                    @(item.Role ?? "Onbekend")
                 </td>
             </tr>
         }

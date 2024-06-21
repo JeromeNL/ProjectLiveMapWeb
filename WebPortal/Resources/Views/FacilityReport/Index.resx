@@ -54,8 +54,8 @@
     <data name="Cancel" xml:space="preserve">
         <value>Annuleren</value>
     </data>
-    <data name="OldData" xml:space="preserve">
-        <value>Oude gegevens</value>
+    <data name="Changes" xml:space="preserve">
+        <value>Aanpassingen</value>
     </data>
     <data name="NewData" xml:space="preserve">
         <value>Nieuwe gegevens</value>
