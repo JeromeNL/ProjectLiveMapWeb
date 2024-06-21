@@ -57,7 +57,7 @@ public class UserController(LiveMapDbContext context) : ControllerBase
     }
 
     [HttpGet("{userId:guid}/points/transactions")]
-    public async Task<IActionResult> GetPointsTransactionsOverview(int userId, int resortId)
+    public async Task<IActionResult> GetPointsTransactionsOverview(string userId, int resortId)
     {
         var user = await context.Users.FindAsync(userId);
 
@@ -69,7 +69,6 @@ public class UserController(LiveMapDbContext context) : ControllerBase
         var transactions = await context.PointsTransactions
             .Where(transaction => transaction.UserId == userId)
             .Where(transaction => transaction.HolidayResortId == resortId)
-            .Where(transaction =>  transaction.Amount > 0)
             .Include(transaction => transaction.FacilityReport)
             .Include(transaction => transaction.ServiceReport)
             .ToListAsync();
