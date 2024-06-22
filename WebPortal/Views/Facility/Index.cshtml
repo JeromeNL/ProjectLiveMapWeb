@@ -60,6 +60,36 @@
             window.location.href = '/Facility/create?latitude=' + encodeURIComponent(e.latlng.lat) + '&longitude=' + encodeURIComponent(e.latlng.lng);
         }
     </script>
+
+    @* Script for IntroJS (onboarding) *@
+    <script>
+        introJs().setOptions({
+            steps: [{
+                title: 'Welkom!',
+                intro: 'Welkom bij het webportaal van Livemap! In deze onboarding krijg je een uitleg van de functionaliteiten van de website.'
+            },
+                {
+                    title: 'Interactieve kaart',
+                    element: document.querySelector('#map'),
+                    intro: 'Dit is de interactieve kaart met daarop alle faciliteiten van het park. Je kunt inzoomen en de kaart bewegen. Probeer het maar eens!'
+                },
+                {
+                    title: 'Faciliteiten',
+                    element: document.querySelector('.leaflet-marker-icon'),
+                    intro: 'Op de kaart zie je verschillende iconen. Dit zijn de faciliteiten van het park. Klik op een icoon voor meer informatie.'
+                },
+                {
+                    title: 'Faciliteit toevoegen',
+                    element: document.querySelector('#map'),
+                    intro: 'Wil je een nieuwe faciliteit toevoegen? Klik dan op de kaart, op de plek waar de faciliteit toegevoegd moet worden!'
+                },
+                {
+                    title: 'Veel succes!',
+                    intro: "Dit is de laatste stap van de onboarding voor deze pagina. Op sommige pagina's zul je nog een korte uitleg vinden. Voor nu veel succes met het gebruik van het webportaal!"
+                }],
+                dontShowAgain: true
+        }).start();
+    </script>
 }
 
 @Html.Partial("_MessagesToast")

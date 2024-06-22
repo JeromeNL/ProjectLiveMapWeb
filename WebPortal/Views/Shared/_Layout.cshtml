@@ -29,6 +29,7 @@
         href="https://unpkg.com/@Html.Raw("@geoman")-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css"/>
     <script src="https://unpkg.com/@Html.Raw("@geoman")-io/leaflet-geoman-free@latest/dist/leaflet-geoman.js"></script>
     <link rel="stylesheet" href="@Html.Raw("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css")"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"/>
 </head>
 <body class="bg-gray-100 z-50">
 @if (User.Identity != null & RoleExtension.getRolesWithWebPortalAccess().Any(role => User.IsInRole(role)))
@@ -161,6 +162,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 }
 @await RenderSectionAsync("Scripts", required: false)
 </body>

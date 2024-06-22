@@ -68,4 +68,29 @@
             },
       });
       </script>
+
+@* Script for IntroJS (onboarding) *@
+<script>
+    introJs().setOptions({
+        steps: [{
+            title: 'Servicemeldingen',
+            intro: 'Op deze pagina kun je servicemeldingen van bezoekers bekijken en behandelen.'
+        },
+            {
+                title: 'Servicemelding',
+                element: document.querySelector('tbody tr'),
+                intro: 'Dit is een voorbeeld van een servicemelding. Hier zie je de beschrijving, categorie en bij welke faciliteit de melding hoort.'
+            },
+            {
+                title: 'Behandelen',
+                element: document.querySelector('tbody tr'),
+                intro: 'Nadat je met de melding aan de slag bent gegaan, kun je hem sluiten. Klik op de knop om de melding te sluiten. Je kunt dan ook punten toekennen.'
+            },
+            {
+                title: 'Veel succes!',
+                intro: "Dat was 'm weer. Veel succes!"
+            }],
+        dontShowAgain: true
+    }).start();
+</script>
 }
