@@ -25,5 +25,7 @@ public abstract class WebPortalTest : IDisposable
         Driver.FindElement(By.Id("UserName")).SendKeys("SuperAdmin");
         Driver.FindElement(By.Id("Password")).SendKeys("livemap");
         Driver.FindElement(By.CssSelector("button[type=submit]")).Click();
+        Driver.FindElement(By.Id("introjs-dontShowAgain")).Click();
+        Driver.FindElement(By.ClassName("introjs-skipbutton")).Click();
     }
 }
