@@ -15,7 +15,7 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        return View(await getUsersWithRole());
+        return View(await GetUsersWithRole());
     }
 
     [HttpGet]
@@ -60,33 +60,52 @@ public class UserController(LiveMapDbContext context, UserManager<ApplicationUse
             await userManager.AddToRoleAsync(user, nameof(Role.ResortEmployee));
         }
 
-        return View("Index", await getUsersWithRole());
+        return View("Index", await GetUsersWithRole());
     }
 
-    private async Task<Dictionary<ApplicationUser, string?>> getUsersWithRole()
+
+    private async Task<List<UsersViewModel>> GetUsersWithRole()
     {
-        var userRoles = new Dictionary<ApplicationUser, string?>();
+        var viewModels = new List<UsersViewModel>();
         var u = await userManager.GetUserAsync(User);
         var roles = await userManager.GetRolesAsync(u);
-        List<ApplicationUser> users;
+        List<ApplicationUser> users = new List<ApplicationUser>();
+        
         if (roles.FirstOrDefault() == nameof(Role.SuperAdmin))
         {
             users = await userManager.Users
+                .Include(u => u.HolidayResort)
                 .ToListAsync();
         }
         else
         {
-            users = await userManager.Users
+            var usersWithResortId = await userManager.Users
                 .Where(user => user.HolidayResortId == ResortId)
+                .Include(u => u.HolidayResort)
                 .ToListAsync();
+            
+
+            foreach (var user in usersWithResortId)
+            {
+                roles = await userManager.GetRolesAsync(user);
+                if (!roles.Contains(nameof(Role.SuperAdmin)))
+                {
+                    users.Add(user);
+                }
+            }
         }
 
         foreach (var user in users)
         {
+            var viewModel = new UsersViewModel();
             var role = await userManager.GetRolesAsync(user);
-            userRoles.Add(user, role.FirstOrDefault());
+            var parkname = user.HolidayResort?.Name;
+            viewModel.User = user;
+            viewModel.Role = role.FirstOrDefault();
+            viewModel.Resort = parkname;
+            viewModels.Add(viewModel);
         }
 
-        return userRoles;
+        return viewModels;
     }
 }

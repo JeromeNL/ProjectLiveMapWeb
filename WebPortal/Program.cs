@@ -68,11 +68,15 @@ public class Program
         {
             // Cookie settings
             options.Cookie.HttpOnly = true;
-            options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            options.Cookie.IsEssential = true; // Make sure the cookie is always created
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Always use secure cookies
+            options.Cookie.SameSite = SameSiteMode.Strict; // Enforce strict same site rules
 
             options.LoginPath = "/auth/login";
             options.AccessDeniedPath = "/auth/accessdenied";
-            options.SlidingExpiration = true;
+            options.SlidingExpiration = false; // No sliding expiration, session-based cookies
+
+            // Do not set options.ExpireTimeSpan here to use session cookies
         });
 
         builder.Services.AddHttpContextAccessor();

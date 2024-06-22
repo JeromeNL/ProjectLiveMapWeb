@@ -43,7 +43,8 @@ public class UserSeeder : ISeeder<ApplicationUser>
             },
             new()
             {
-                UserName = "iODigital"
+                UserName = "iODigital",
+                HolidayResortId = 2
             },
             new()
             {
@@ -57,7 +58,8 @@ public class UserSeeder : ISeeder<ApplicationUser>
             },
             new()
             {
-                UserName = "Visitor"
+                UserName = "Visitor",
+                HolidayResortId = 2
             }
         };
 

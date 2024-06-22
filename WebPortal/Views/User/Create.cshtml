@@ -2,7 +2,14 @@
 @model RegisterViewModel
 
 <div>
-    <h1 class="font-semibold text-2xl">Gebruiker aanmaken</h1>
+    @if (User.IsInRole(nameof(Role.SuperAdmin)))
+    {
+        <h1 class="font-semibold text-2xl">Resortadministrator aanmaken</h1>
+    }
+    else if (User.IsInRole(nameof(Role.ResortAdmin)))
+    {
+        <h1 class="font-semibold text-2xl">Resortmedewerker aanmaken</h1>
+    }
     <form asp-action="Add" method="post">
         <label class="input input-bordered flex items-center gap-2 mt-3 max-w-md">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">

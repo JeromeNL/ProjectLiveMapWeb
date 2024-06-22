@@ -1,13 +1,15 @@
-﻿using DataAccess.Models;
+﻿using DataAccess;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.Controllers.Base;
 using WebPortal.Models;
 
 namespace WebPortal.Controllers;
 
-public class AuthController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+public class AuthController(SignInManager<ApplicationUser> signInManager, LiveMapDbContext context, UserManager<ApplicationUser> userManager)
     : LivemapController
 {
     [AllowAnonymous]
@@ -28,6 +30,11 @@ public class AuthController(SignInManager<ApplicationUser> signInManager, UserMa
 
         var result = await signInManager.PasswordSignInAsync(model.UserName.ToUpper(), model.Password,
             model.RememberMe, lockoutOnFailure: false);
+
+        var user = await context.Users.FirstOrDefaultAsync(e => e.UserName == model.UserName);
+        var ResortId = user.HolidayResortId ?? 1;
+        
+        HttpContext.Session.SetInt32("resortId", ResortId);
 
         if (result.Succeeded) return RedirectToAction("Index", "Home");
 
