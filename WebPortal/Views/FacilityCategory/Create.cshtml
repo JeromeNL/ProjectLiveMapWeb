@@ -14,7 +14,7 @@
     <label>Omschrijving</label>
     <input type="text" class="input input-bordered" asp-for="Description" required>
     <span asp-validation-for="Description" class="text-red-600"></span>
-    
+
     <label>Kleur</label>
     <input type="color" class="input input-bordered" asp-for="HexCode" required>
     <span asp-validation-for="HexCode" class="text-red-600"></span>
@@ -26,8 +26,36 @@
     </p>
     <input type="text" class="input input-bordered" asp-for="IconName" required>
     <span asp-validation-for="IconName" class="text-red-600"></span>
-    
+
     <input type="hidden" asp-for="HolidayResortId" value="@ViewBag.ResortId"/>
 
     <button type="submit" class="btn btn-primary mt-2">Aanmaken</button>
 </form>
+
+@section Scripts
+{
+    @* Script for IntroJS (onboarding) *@
+    <script>
+    introJs().setOptions({
+        steps: [{
+            title: 'Categorie voor faciliteit aanmaken',
+            intro: 'Op deze pagina kun je de categorieën van faciliteiten aanmaken.'
+        },
+            {
+                title: 'Kleur',
+                element: document.querySelector('#HexCode'),
+                intro: 'Hier kun je een kleur opgeven. Deze zal op de kaart weergegeven worden bij de faciliteit aan de hand van de categorie als achtergrondkleur van het icoontje.'
+            },
+            {
+                title: 'Icoontje',
+                element: document.querySelector('#IconName'),
+                intro: 'Vul hier de naam in van een valide tabler icoontje. Het is belangrijk dat je op de link bij de hulptekst klikt en via daar een icoontje uitzoekt. Verzin dus niet zelf een naam!'
+            },
+            {
+                title: 'Veel succes!',
+                intro: "Dat was 'm weer. Veel succes!"
+            }],
+        dontShowAgain: true
+    }).start();
+</script>
+}
