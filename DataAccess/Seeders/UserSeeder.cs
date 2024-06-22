@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess.Seeders;
 
-public class UserSeeder: ISeeder<ApplicationUser>
+public class UserSeeder : ISeeder<ApplicationUser>
 {
     private const string DefaultPassword = "livemap";
-    
+
     public List<ApplicationUser> Seed()
     {
         var users = new List<ApplicationUser>
@@ -38,6 +38,7 @@ public class UserSeeder: ISeeder<ApplicationUser>
             },
             new()
             {
+                Id = "56de71e8-894f-4377-ac90-cdfad7e2d267",
                 UserName = "SuperAdmin"
             },
             new()

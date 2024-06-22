@@ -10,7 +10,7 @@ public class FacilitiesControllerTests(WebApplicationFactory<Program> factory) :
     public async Task GetAllFacilities_ReturnsSuccessAndFacilities()
     {
         // Act
-        var response = await Client.GetAsync("/facilities");
+        var response = await Client.GetAsync("/resorts/1/facilities");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -23,7 +23,7 @@ public class FacilitiesControllerTests(WebApplicationFactory<Program> factory) :
     public async Task GetAllCategories_ReturnsSuccessAndCategories()
     {
         // Act
-        var response = await Client.GetAsync("/facilities/categories");
+        var response = await Client.GetAsync("resorts/1/facilities/categories");
 
         // Assert
         response.EnsureSuccessStatusCode();
