@@ -2,31 +2,40 @@ using System.Text.Json.Serialization;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+namespace MobileMapAPI;
 
-// Add services to the container.
-builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB"))
-        .AddInterceptors(new SoftDeleteInterceptor()));
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+        // Add services to the container.
+        builder.Services.AddDbContextPool<LiveMapDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("LivemapDB"))
+                .AddInterceptors(new SoftDeleteInterceptor()));
 
-//json circular dependency
-builder.Services.AddControllers().AddJsonOptions(options =>
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-app.UseSwagger();
+        // JSON circular dependency resolution
+        builder.Services.AddControllers().AddJsonOptions(options =>
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
-    app.UseSwaggerUI();
+        var app = builder.Build();
+        app.UseSwagger();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+        app.MapControllers();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-app.MapControllers();
-
-app.Run();
